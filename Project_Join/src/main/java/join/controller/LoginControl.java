@@ -25,7 +25,7 @@ public class LoginControl{
 		userService.getTotal();
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/list");//뷰 지정
+		mv.setViewName("jsp/index");//뷰 지정
 		return mv;
 	}
 
