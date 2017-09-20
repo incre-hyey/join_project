@@ -5,14 +5,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="./resources/css/style.css">
-<link rel="stylesheet" href="./resources/css/basic.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/basic.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="js/jquery.zaccordion.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <title>함께 만드는 JOIN</title>
 </head>
 <body>
@@ -25,38 +34,27 @@
 		</a> <img src="/w3images/avatar_g2.jpg" style="width: 45%;"
 			class="w3-round"><br> <br>
 		<h1>
-			<a href="jsp/index.jsp">JOIN</a>
+			<a href="index.jsp">JOIN</a>
 		</h1>
-		<p class="w3-text-grey">함께 만드는 JOIN</p>
 	</div>
 	<div class="w3-bar-block">
+		<div id="login">
+			<form action="/action_page.php">
+				<input type="text" placeholder="ID" name="uname">
+				<input type="password" placeholder="PASSWORD" name="psw">
+				<button type="submit" class="login_btn">Login</button><button type="submit" class="join_btn">Join</button>
+				<button class="naver_login">네이버 아이디로 로그인</button>
+			</form>
+		</div>
 		<ul id="nav">
 			<li><a href="plan.jsp" onclick="w3_close()"	class="w3-bar-item w3-button w3-padding w3-text-teal">
-				<i class="fa fa-th-large fa-fw w3-margin-right"></i>JOIN PLAN</a>
-				<ul>
-					<li><a href="plan.jsp">플랜보기</a></li>
-				</ul>
+				JOIN.PLAN</a>
 			</li>
 				
 			<li><a href="profile.jsp" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"> 
-				<i class="fa fa-user fa-fw w3-margin-right"></i>JOIN US</a>
-				<ul>
-					<li><a href="profile.jsp">친구 보기</a></li>
+				JOIN.US</a></li>
 				</ul>
 			</li>
-			<li><a href="login.jsp" onclick="w3_close()" class="w3-bar-item w3-button w3-padding">
-				<i class="fa fa-envelope fa-fw w3-margin-right"></i>마이페이지</a>
-				<ul>
-					<li><a href="http://localhost:3000/login">로그인</a></li>
-					<li><a href="http://www.google.com/search?q=web+design+tutorials">Tutorials</a></li>
-					<li><a href="http://www.google.com/search?q=web+design+user+interface">User
-							Interfaces</a></li>
-					<li><a href="http://www.google.com/search?q=web+design">Website
-							Layouts</a></li>
-				</ul></li>	
-			<li><a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"> 
-				<i class="fa fa-envelope fa-fw w3-margin-right"></i>공지사항</a></li>
-	
 		</ul>
 	</div>
 	<div class="w3-panel w3-large">

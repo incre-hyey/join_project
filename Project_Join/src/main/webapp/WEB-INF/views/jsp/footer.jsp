@@ -16,7 +16,7 @@
 
 		<div class="w3-third">
 			<p>서울특별시 관악구 시흥대로 552 석천빌딩 7F</p>
-			<p>&copy; 2017 bbangjj & ningen & yuni & anh & jh ALL RIGHTS
+			<p>&copy; 2017 bbangjj & jjung & anh & jh & yuni ALL RIGHTS
 				RESERVED.</p>
 		</div>
 		<div class="w3-third footer_right">
@@ -41,67 +41,46 @@
 		document.getElementById("mySidebar").style.display = "none";
 		document.getElementById("myOverlay").style.display = "none";
 	}
-</script>
-<script type="text/javascript">
-	var acc = document.getElementsByClassName("accordion");
-	var i;
-
-	for (i = 0; i < acc.length; i++) {
-		acc[i].onclick = function() {
-			this.classList.toggle("active");
-			var panel = this.nextElementSibling;
-			if (panel.style.maxHeight) {
-				panel.style.maxHeight = null;
-			} else {
-				panel.style.maxHeight = panel.scrollHeight + "px";
-			}
-		}
+	
+	// 파일 업로드
+	function myFunction() {
+	    var x = document.getElementById("myFile").type;
+	    document.getElementById("demo").innerHTML = x;
 	}
 </script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#nav > li > a").on("click", function(e) {
-			if ($(this).parent().has("ul")) {
-				e.preventDefault();
+	//nav submenu
+	$(document).ready(
+		function() {
+			if ($('#nav li').hasClass("current_page_parent")) {
+				$('#nav .current_page_parent ul').addClass("display-list");
 			}
-
-			if (!$(this).hasClass("open")) {
-				// hide any open menus and remove all other classes
-				$("#nav li ul").slideUp(350);
-				$("#nav li a").removeClass("open");
-
-				// open our new menu and add the open class
-				$(this).next("ul").slideDown(350);
-				$(this).addClass("open");
-			}
-
-			else if ($(this).hasClass("open")) {
-				$(this).removeClass("open");
-				$(this).next("ul").slideUp(350);
-			}
+	
+			$('#nav li ul').hide();
+			$("#nav li:has(ul)").addClass("nav-parent");
+			$("#nav li ul").addClass("nav-child");
+			$('#nav li.nav-parent').mouseover(
+				function() {
+					$(this).children('.nav-child').slideDown(1000)
+							.removeClass("display-list");
+				}).mouseout(function() {
+			});
+	
 		});
+	
+	//달력
+	$( function() {
+	    $( "#datepicker" ).datepicker();
+	  } );
+</script>
+<script type="text/javascript">
+	//summernote
+	$(document).ready(function() {
+	  $('#summernote').summernote({
+	    lang: 'ko-KR', // default: 'en-US'
+	    height : 300
+	  });
 	});
 </script>
-<script type="text/javascript">
-	function openCity(cityName, elmnt, color) {
-		var i, tabcontent, tablinks;
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablink");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].style.backgroundColor = "";
-		}
-		document.getElementById(cityName).style.display = "block";
-		elmnt.style.backgroundColor = color;
-
-	}
-	// Get the element with id="defaultOpen" and click on it
-	document.getElementById("defaultOpen").click();
-</script>
-
-</script>
-
 </body>
 </html>

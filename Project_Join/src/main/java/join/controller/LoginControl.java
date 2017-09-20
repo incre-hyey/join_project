@@ -26,6 +26,7 @@ public class LoginControl{
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("jsp/index");//뷰 지정
+		//바꿈 테스트sdfjsdkfjsdlkfj
 		return mv;
 	}
 
