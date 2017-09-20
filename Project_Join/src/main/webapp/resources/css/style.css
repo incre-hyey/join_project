@@ -1,9 +1,9 @@
 @CHARSET "UTF-8";
 
 /*bbangjj*/
-/* .w3-container {
-	margin-left: 300px;
-} */
+header .w3-button {
+	width: 100px;	
+}
 
 #footer_list {
 	height: 50px;
@@ -35,6 +35,22 @@ footer .w3-row-padding .w3-third {
 	padding-left: 0;
 }
 
+#plan_write label {
+	float: left;
+	width: 100px;
+}
+
+#plan_write input {
+	width: 500px;
+    height: 20px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+#plan_write .plan_btn button, #plan_write .plan_btn .button {
+	width: 150px;
+}
+
 #plan_m .thumb img {
 	width: 185px;
 	height : 185px;
@@ -52,12 +68,9 @@ footer .w3-row-padding .w3-third {
 	
 }
 
-html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
+#plan_m .button {
+	width: 100px;
+    margin: 0;
 }
 
 .column {
@@ -78,7 +91,11 @@ html {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.container {
+.card button {
+	width: auto;
+}
+
+.card_con {
   padding: 0 16px;
 }
 
@@ -93,66 +110,19 @@ html {
 }
 
 .button {
-  border: none;
   outline: 0;
   display: inline-block;
   padding: 8px;
-  color: white;
   background-color: #000;
   text-align: center;
-  cursor: pointer;
-  width: 100%;
 }
 
 .button:hover {
   background-color: #555;
+  opacity: 0.8;
 }
 
-
-/* nav menu styles */
-#nav { 
-  display: block; 
-  width: 280px; 
-  margin: 0 auto; 
-}
-
-#nav li { }
-
-#nav > li > a { 
-  display: block; 
-  padding: 16px 18px;
-  text-decoration: none;
-}
-#nav > li > a:hover, #nav > li > a.open { 
-}
-
-#nav li ul { display: none;}
-
-#nav li ul li a { 
-  display: block; 
-  background: none;
-  padding: 10px 0px;
-  padding-left: 30px;
-  text-decoration: none;
-}
-#nav li ul li a:hover {
-}
-
-/* login */
-form {
-    border: 3px solid #f1f1f1;
-}
-
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-button {
+button, .button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -162,8 +132,37 @@ button {
     width: 100%;
 }
 
-button:hover {
-    opacity: 0.8;
+.note-editor button {
+	width: auto;
+}
+
+
+/* nav menu styles */
+#sub_nav li a {
+	font-size: 13px;
+	padding-left: 30px!important;
+}
+
+.my_icon {
+	margin-bottom: 10px;
+}
+
+.my_icon a {
+	display: inline-block;
+}
+
+.my_icon i {
+	font-size: 22px;
+}
+
+/* login */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 .cancelbtn {
@@ -182,18 +181,9 @@ img.avatar {
     border-radius: 50%;
 }
 
-.container {
-    padding: 16px;
-}
-
 span.psw {
     float: right;
     padding-top: 16px;
-}
-
-#login {
-	width: 50%;
-	margin: 0 auto;
 }
 
 @media screen and (max-width: 300px) {
@@ -204,6 +194,36 @@ span.psw {
     .cancelbtn {
        width: 100%;
     }
+}
+
+/* login */
+
+#login form {
+    padding: 16px;
+}
+
+.logined, .login_nav {
+	padding-left: 40px;
+}
+
+.login_btn {
+	width : 125px;
+	margin-right: 18px;
+}
+
+.join_btn {
+	width : 125px;
+}
+
+.naver_login {
+	clear: both;
+	margin-top: 10px;
+}
+
+nav button.logout {
+    width: 100px!important;
+    margin-top: 20px;
+    margin-left: 40px;
 }
 
 /* tab*/
@@ -227,7 +247,7 @@ span.psw {
 .tabcontent {
     color: white;
     display: none;
-    padding: 50px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -235,6 +255,124 @@ span.psw {
 #Paris {background-color:green;}
 #Tokyo {background-color:blue;}
 #Oslo {background-color:orange;}
+
+#plan_view {
+	clear: both;
+	he
+}
+
+.plan_img {
+	height: 300px;
+	margin-bottom: 30px;
+}
+
+.plan_img img {
+	width: 400px;
+	float: left;
+	height: 300px;
+	margin-right: 20px;
+}
+
+.plan_img .map {
+	width: 350px;
+	background-color: #ccc;
+    height: 300px;
+    float: left;
+}
+
+.plan_list {
+	margin-bottom: 30px;
+	clear: both;
+}
+
+.plan_list form {
+	margin-top: 30px;
+}
+
+.plan_list input {
+	width: 30%;
+	
+}
+
+#con_header {
+	height: 150px;
+	margin-bottom: 10px;
+}
+
+.pagination {
+	clear: both;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+.plan_list .thumb {
+	float: left;
+	margin-right: 20px;
+}
+
+.list_view {
+	width: 300px;
+	float: left;
+	margin-right: 20px;
+}
+
+.list_join {
+	width: 200px;
+	float: left;
+}
+
+.list_join button {
+	width: 100px;
+	padding: 5px;
+    margin-bottom: 10px;
+}
+
+.list_join .like {
+	display: block;
+}
+
+.list_join .like img {
+	width: 30px;
+	height: 30px;
+	
+}
+
+.search input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background: url('https://www.w3schools.com/howto/searchicon.png') no-repeat 10px 10px;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    float: left;
+    margin-right: 10px;
+    margin-top: 0;
+}
+
+.search input[type=text]:focus {
+    width: 60%;
+}
+
+.search button {
+	width: 100px;
+	
+}
+
 
 /* W3.CSS 4.04 Apr 2017 by Jan Egil and Borge Refsnes */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
@@ -302,7 +440,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-bar .w3-bar-item{padding:8px 16px;float:left;width:auto;border:none;outline:none;display:block}
 .w3-bar .w3-dropdown-hover,.w3-bar .w3-dropdown-click{position:static;float:left}
 .w3-bar .w3-button{white-space:normal}
-.w3-bar-block .w3-bar-item{width:100%;display:block;padding:8px 16px;text-align:left;border:none;outline:none;white-space:normal;float:none}
+.w3-bar-block .w3-bar-item{width:43%;display:block;padding:8px 16px;text-align:left;border:none;outline:none;white-space:normal;float:none}
 .w3-bar-block.w3-center .w3-bar-item{text-align:center}.w3-block{display:block;width:100%}
 .w3-responsive{overflow-x:auto}
 .w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,

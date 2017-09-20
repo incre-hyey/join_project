@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="nav.jsp"%>
+<%@include file="../login/nav.jsp"%>
 <div class="w3-main" style="margin-left: 300px">
-<%@include file="header.jsp"%>
+<%@include file="../header.jsp"%>
 	<div class="w3-container w3-padding-large w3-grey">
 		<h2>PLAN</h2>
 		<div id="plan_m">
@@ -117,7 +117,7 @@
 				</div>
 				<div class="list_view">
 					<ul>
-						<li><a href="plan_view.jsp"> <img src="chrome.png">
+						<li><a href="plan_view.jsp">
 								<ul>
 									<li><strong>제목:</strong>직장인 소모임 싱글 커피 스피드데이트</li>
 									<li><strong>일정:</strong>2017-09-16 16:00 (토)</li>
@@ -167,5 +167,5 @@
 			</div>
 		</div>
 	</div>
-	<%@include file="footer.jsp"%>
+	<%@include file="../footer.jsp"%>
 </div>

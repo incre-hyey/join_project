@@ -30,10 +30,11 @@ a:focus {
 
 a {
 	outline-style: none;
+	color: #000!important;
 }
 
 a:link, a:visited, a:active {
-	text-decoration: none;
+	text-decoration: none!important;
 }
 
 .marjin0 {
@@ -93,5 +94,4 @@ textarea {
 	background-color: rgba(63, 63, 63, 1.00);
 	padding-bottom: 10px;
 	padding-top: 10px;
-}
 }

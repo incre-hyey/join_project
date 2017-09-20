@@ -13,11 +13,11 @@ import join.service.UserService;
 
 
 @Controller
-public class LoginControl{
+public class PlanController{
 	@Resource(name="userService")
 	UserService userService;
 	
-	@RequestMapping("/login")
+	@RequestMapping("/plan")
 	public ModelAndView list(){
 		
 		//DAO 로직
@@ -25,7 +25,7 @@ public class LoginControl{
 		userService.getTotal();
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("login/nav_login");//뷰 지정
+		mv.setViewName("plan/plan");//뷰 지정
 		//바꿈 테스트sdfjsdkfjsdlkfj
 		return mv;
 	}

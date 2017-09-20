@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/basic.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basic.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet"
@@ -15,7 +15,7 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-<script src="js/jquery.zaccordion.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.zaccordion.min.js"></script>
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -50,13 +50,13 @@
 			<h4 class="nick">Nickname</h4>
 		</div>
 		<ul id="nav" class="login_nav">
-			<li><a href="plan.jsp" onclick="w3_close()"
+			<li><a href="${pageContext.request.contextPath}/plan" onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding w3-text-teal"> JOIN.PLAN</a>
 			</li>
 
-			<li><a href="profile.jsp" onclick="w3_close()"
+			<li><a href="#" onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding"> JOIN.US</a></li>
-			<li><a href="profile.jsp" onclick="w3_close()"
+			<li><a href="#" onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding"> JOIN.LOG</a>
 				<ul id="sub_nav">
 					<li><a href="#" onclick="w3_close()"

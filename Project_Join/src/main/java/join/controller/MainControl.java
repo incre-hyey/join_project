@@ -8,17 +8,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.mvc.Controller;
 
 import join.service.UserService;
 
 
-@Controller
-public class MainControl{
+public class MainControl implements Controller{
 
 	public MainControl() {
 		System.out.println("****MainControl****");
 	}
+
+	/**
+	 *    index로 들어올 때
+	 */
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
+		// TODO Auto-generated method stub
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("index");
+		return mv;
+	}
+	
 
 }
 
