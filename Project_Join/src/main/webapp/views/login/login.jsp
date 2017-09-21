@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="nav.jsp"%>
+<%@include file="../login/nav.jsp"%>
 
 <div class="w3-main" style="margin-left: 300px">
 	<div class="w3-container w3-padding-large w3-grey">
@@ -29,5 +29,5 @@
 			</form>
 		</div>
 
-		<%@include file="footer.jsp"%>
+		<%@include file="../footer.jsp"%>
 	</div>
