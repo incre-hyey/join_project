@@ -13,7 +13,7 @@ import join.service.UserService;
 
 
 @Controller
-public class PlanController{
+public class PlanControl{
 	@Resource(name="userService")
 	UserService userService;
 	
