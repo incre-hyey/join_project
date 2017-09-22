@@ -35,50 +35,14 @@
 		<a href="#" onclick="w3_close()"
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
-		</a> <img src="/w3images/avatar_g2.jpg" style="width: 45%;"
-			class="w3-round"><br> <br>
+		</a> <br> <br>
 		<h1>
 			<a href="index.jsp">JOIN</a>
 		</h1>
 	</div>
-
 	<div class="w3-bar-block">
 		<div class="logined">
 			<p class="my_icon"><a href="#"><i class="fa fa-bell"></i></a> <a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a></p>
-			<img src="https://www.w3schools.com/w3images/avatar_g2.jpg"
-				style="width: 45%;" class="w3-round">
 			<h4 class="nick">Nickname</h4>
 		</div>
-		<ul id="nav" class="login_nav">
-			<li><a href="${pageContext.request.contextPath}/plan" onclick="w3_close()"
-				class="w3-bar-item w3-button w3-padding w3-text-teal"> JOIN.PLAN</a>
-			</li>
-
-			<li><a href="#" onclick="w3_close()"
-				class="w3-bar-item w3-button w3-padding"> JOIN.US</a></li>
-			<li><a href="#" onclick="w3_close()"
-				class="w3-bar-item w3-button w3-padding"> JOIN.LOG</a>
-				<ul id="sub_nav">
-					<li><a href="#" onclick="w3_close()"
-						class="w3-bar-item w3-button w3-padding"> MY PLAN</a></li>
-					<li><a href="#" onclick="w3_close()"
-						class="w3-bar-item w3-button w3-padding"> MY TALK</a></li>
-				</ul></li>
-		</ul>
-		</li>
-		</ul>
-		<button type="submit" class="logout">Log out</button>
-	</div>
-	<div class="w3-panel w3-large">
-		<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
-			class="fa fa-instagram w3-hover-opacity"></i> <i
-			class="fa fa-snapchat w3-hover-opacity"></i> <i
-			class="fa fa-pinterest-p w3-hover-opacity"></i> <i
-			class="fa fa-twitter w3-hover-opacity"></i> <i
-			class="fa fa-linkedin w3-hover-opacity"></i>
-	</div>
-	</nav>
-	<!-- Overlay effect when opening sidebar on small screens -->
-	<div class="w3-overlay w3-hide-large w3-animate-opacity"
-		onclick="w3_close()" style="cursor: pointer" title="close side menu"
-		id="myOverlay"></div>
+		

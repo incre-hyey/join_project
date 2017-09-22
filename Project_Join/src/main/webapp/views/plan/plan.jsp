@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="../login/nav.jsp"%>
+<%@include file="/views/common.jsp"%>
 <div class="w3-main" style="margin-left: 300px">
 <%@include file="../header.jsp"%>
 	<div class="w3-container w3-padding-large w3-grey">
@@ -17,7 +17,7 @@
 				</div>
 				<div class="list_view">
 					<ul>
-						<li><a href="plan_view.jsp"> <img src="chrome.png">
+						<li><a href="plan_view.jsp">
 								<ul>
 									<li><strong>제목:</strong>직장인 소모임 싱글 커피 스피드데이트</li>
 									<li><strong>일정:</strong>2017-09-16 16:00 (토)</li>
@@ -42,7 +42,7 @@
 				</div>
 				<div class="list_view">
 					<ul>
-						<li><a href="plan_view.jsp"> <img src="chrome.png">
+						<li><a href="plan_view.jsp"> 
 								<ul>
 									<li><strong>제목:</strong>직장인 소모임 싱글 커피 스피드데이트</li>
 									<li><strong>일정:</strong>2017-09-16 16:00 (토)</li>
@@ -67,7 +67,7 @@
 				</div>
 				<div class="list_view">
 					<ul>
-						<li><a href="plan_view.jsp"> <img src="chrome.png">
+						<li><a href="plan_view.jsp"> 
 								<ul>
 									<li><strong>제목:</strong>직장인 소모임 싱글 커피 스피드데이트</li>
 									<li><strong>일정:</strong>2017-09-16 16:00 (토)</li>
@@ -92,7 +92,7 @@
 				</div>
 				<div class="list_view">
 					<ul>
-						<li><a href="plan_view.jsp"> <img src="chrome.png">
+						<li><a href="plan_view.jsp"> 
 								<ul>
 									<li><strong>제목:</strong>직장인 소모임 싱글 커피 스피드데이트</li>
 									<li><strong>일정:</strong>2017-09-16 16:00 (토)</li>
@@ -142,7 +142,7 @@
 				</div>
 				<div class="list_view">
 					<ul>
-						<li><a href="plan_view.jsp"> <img src="chrome.png">
+						<li><a href="plan_view.jsp"> 
 								<ul>
 									<li><strong>제목:</strong>직장인 소모임 싱글 커피 스피드데이트</li>
 									<li><strong>일정:</strong>2017-09-16 16:00 (토)</li>

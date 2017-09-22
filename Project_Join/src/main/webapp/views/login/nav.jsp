@@ -31,8 +31,7 @@
 		<a href="#" onclick="w3_close()"
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
-		</a> <img src="/w3images/avatar_g2.jpg" style="width: 45%;"
-			class="w3-round"><br> <br>
+		</a> <br> <br>
 		<h1>
 			<a href="index.jsp">JOIN</a>
 		</h1>
@@ -46,27 +45,4 @@
 				<button class="naver_login">네이버 아이디로 로그인</button>
 			</form>
 		</div>
-		<ul id="nav">
-			<li><a href="plan.jsp" onclick="w3_close()"	class="w3-bar-item w3-button w3-padding w3-text-teal">
-				JOIN.PLAN</a>
-			</li>
-				
-			<li><a href="profile.jsp" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"> 
-				JOIN.US</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-	<div class="w3-panel w3-large">
-		<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
-			class="fa fa-instagram w3-hover-opacity"></i> <i
-			class="fa fa-snapchat w3-hover-opacity"></i> <i
-			class="fa fa-pinterest-p w3-hover-opacity"></i> <i
-			class="fa fa-twitter w3-hover-opacity"></i> <i
-			class="fa fa-linkedin w3-hover-opacity"></i>
-	</div>
-	</nav>
-	<!-- Overlay effect when opening sidebar on small screens -->
-	<div class="w3-overlay w3-hide-large w3-animate-opacity"
-		onclick="w3_close()" style="cursor: pointer" title="close side menu"
-		id="myOverlay"></div>
+		
