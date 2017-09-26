@@ -1,5 +1,7 @@
 package join.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,24 +11,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import join.dao.PlanDAO;
+import join.dao.UserDAO;
+import join.service.PlanService;
 import join.service.UserService;
+import join.vo.PlanVO;
 
 
 @Controller
-public class PlanController{
-	@Resource(name="userService")
-	UserService userService;
+public class PlanControl{
+
+	@Resource(name="planService")
+	PlanService planservice;
 	
 	@RequestMapping("/plan")
-	public ModelAndView list(){
+	public ModelAndView list(HttpServletRequest request, HttpServletResponse response){	
 		
 		//DAO 로직
-		System.out.println("####"+userService.toString());
-		userService.getTotal();
-		
+		PlanVO[] ar = planservice.getList();
 		ModelAndView mv = new ModelAndView();
+		//request.setAttribute("list", ar);
+		mv.addObject("list", ar);
 		mv.setViewName("plan/plan");//뷰 지정
 		//바꿈 테스트sdfjsdkfjsdlkfj
+		
 		return mv;
 	}
 

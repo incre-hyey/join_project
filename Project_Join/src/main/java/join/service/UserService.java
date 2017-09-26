@@ -14,11 +14,8 @@ public class UserService {
 
 	@Autowired
 	UserDAO userDAO;
-	
 	public void getTotal(){
 		userDAO.getList();
-		
-		
 		System.out.println("**********************");
 	}
 }

@@ -22,8 +22,9 @@ public class LoginControl{
 		
 		//DAO 로직
 		System.out.println("####"+userService.toString());
-		userService.getTotal();
-		
+		////tran start
+		//userService.getTotal();
+		///tran end
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login/nav_login");//뷰 지정
 		//바꿈 테스트sdfjsdkfjsdlkfj

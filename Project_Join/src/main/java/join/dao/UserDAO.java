@@ -8,6 +8,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import join.vo.PlanVO;
+
 
 public class UserDAO {
 	@Autowired
@@ -20,8 +22,10 @@ public class UserDAO {
 			
 		}
 		
-		System.out.println(list.size());
-		
+		System.out.println(list.size());		
+	}
+	public void getPlan(){
+		// List<PlanVO> list = 
 	}
 	
 	
