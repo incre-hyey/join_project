@@ -8,6 +8,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config/>
+
 	
 	<context:property-placeholder location="classpath:props/jdbc.properties"/>
 	<bean id="ds" 
@@ -33,4 +34,6 @@
 	
 	
 	<bean id="userDAO" class="join.dao.UserDAO"/>
+	<bean id="planDAO" class="join.dao.PlanDAO"/>
+	
 </beans>
