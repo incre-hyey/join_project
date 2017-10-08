@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/views/common.jsp"%>
+<%@include file="/views/common.js"%>
 <div class="w3-main" style="margin-left: 300px">
-<%@include file="header.jsp"%>
+<%@include file="../header.jsp"%>
 	<div class="w3-container w3-padding-16 w3-grey">
 		<h2>PLAN 보기</h2>
 		<div id="plan_view">
@@ -28,7 +28,7 @@
 
 		</div>
 	</div>
-	<%@include file="footer.jsp"%>
+	<%@include file="../footer.jsp"%>
 </div>
 
 </div>
