@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/views/common.jsp"%>
+<%@include file="../common.jsp"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basic.css">
 <script>
 /**
  * 주소 API 팝업
@@ -56,7 +58,7 @@ function register(){
 	<div class="w3-container w3-padding-large w3-grey">
 		<h2>Register</h2>
 		<div id="plan_m">
-			<div class="">
+			<div class="register">
 			<form name="regForm" action="${pageContext.request.contextPath}/register" method="post" enctype="multipart/form-data">
 				<table class="table">
 					<tr>
@@ -122,18 +124,18 @@ function register(){
 					
 					<tr>
 						<th>Gender</th>
-						<td colspan="2"><input type="radio" name="gender" value="1" selected >남 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="radio" name="gender" value="2">여
+						<td colspan="2"><input type="radio" name="gender" value="1" selected>남
+							<input type="radio" name="gender" value="2" class="female">여
 						</td>
 					</tr>
 					
 					<tr>
 						<th>Address</th>
-						<td colspan="2"><button class="w3-button w3-black" onclick="goPopup('${pageContext.request.contextPath}');">검색</button>
+						<td colspan="2"><button class="w3-button w3-black search" onclick="goPopup('${pageContext.request.contextPath}');">검색</button>
 							<input type="hidden" name="addr1"/>
 							<input type="hidden" name="addr2"/>
-							<input type="text" style="width: 55%;" placeholder="도로명주소" name="roadAddrPart1"> 
-							<input type="text" style="width: 40%;" placeholder="상세주소" name="addrDetail"></td>
+							<input type="text" style="width: 40%;" placeholder="도로명주소" name="roadAddrPart1"> 
+							<input type="text" style="width: 52%;" placeholder="상세주소" name="addrDetail"></td>
 						</td>
 					</tr>
 					<tr>
