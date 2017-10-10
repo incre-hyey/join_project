@@ -47,7 +47,6 @@ function imgChange(obj){
 }
 
 function register(){
-	alert(1);
 	var f = document.regForm;
 	f.phone.value = f.phone1.value + f.phone2.value + f.phone3.value;
 	f.email.value = f.email1.value + f.email2.value;

@@ -6,8 +6,27 @@
 //////////////////공통 포함할 부분=모든 jsp에서 포함할 값/jsp페이지 작성 ///////////////////////////
 	//로그인되면 세션에 loginyn 값 Y 주셈 일단 Y로 가져가는걸 가정하에 Y세팅해놈
 // 	String loginyn = "N";
-	
 	String loginyn = (String)request.getSession().getAttribute("loginyn");
+
 %>
+<html>
+<head></head>
+<body>
 
 <%@include file="/views/login/login_main.jsp"%>
+<script>
+var ctx = '<%=request.getContextPath()%>'; // joinapp
+var webHost = location.protocol + "//" + location.host; // Ex) http://localhost:8088/
+var webContext = webHost + ctx;
+var viewMsg = '<%=(String)request.getAttribute("viewMsg")%>';
+
+	$(document).ready(function() {
+		if(viewMsg != null && viewMsg != "null")
+		{
+			alert(viewMsg);
+		}
+	});
+</script>
+
+</body>
+</html>

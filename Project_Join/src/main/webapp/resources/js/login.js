@@ -4,22 +4,45 @@
  */
 function formSubmit(f){
 	
+};
+
+var loginFunc = function(){
+	event.preventDefault();
+	var obj = new Object();
+	obj.id = $("#id").val();
+	obj.pwd = $("#pwd").val();
+	var flag = false;
+	$.ajax({
+        type : "POST",
+        url : ctx+"/loginAjax",
+        dataType : "text",
+        data : obj,
+        async: false,
+        error : function(request,status,error){
+        	alert(status + "로그인 실패 : " + error);
+        },
+        success : function(data){
+//        	alert(typeof data);
+        	if(data != ""){
+        		alert(data);
+        	}
+        	flag = true;
+        }
+    });
+	//ajax success시 이동
+	if(flag)
+		window.location.href=webContext+"/index";
 }
 
 function chatBtnClick(){
-	window.location.href="http://localhost:8088/joinapp/views/chat/chatList.jsp";
+	window.location.href = webContext + "/chatList";
+}
+function chatHisBtnClick(){
+	window.location.href = webContext + "/chatHistory";
 }
 
-function joinFunc(f){
+function joinFunc(){
 	event.preventDefault();
-//	var form = jQuery(f)[0];
-//	form.action = "/views/login/register.jsp";
-//	form.submit();
-	window.location.href="http://localhost:8088/joinapp/views/login/register.jsp";
+	
+	window.location.href = webContext + "/views/login/register.jsp";
 }
-function regBtnFunc(f){
-	alert(2);
-	$(f).attr("action", "/register");
-	$(f).submit();
-}
-
