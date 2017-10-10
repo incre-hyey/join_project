@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="/views/common.jsp"%>
-
-<%@include file="/views/common.js"%>
->>>>>>> refs/remotes/origin/jungeun
 <div class="w3-main" style="margin-left: 300px">
 <%@include file="../header.jsp"%>
 	<div class="w3-container w3-padding-16 w3-grey">

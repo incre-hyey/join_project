@@ -47,11 +47,12 @@ public class PlanControl{
 	
 	@RequestMapping(value="/plan_write",method=RequestMethod.GET)
 	public ModelAndView write(HttpServletRequest request, HttpServletResponse response) {	
+		//String userid = request.getParameter("userid");
 		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
 		//DAO 로직		
 		//String idx = request.getAttribute("idx");
 		ModelAndView mv = new ModelAndView();		
-		mv.setViewName("plan/plan_write");//뷰 지정	
+		mv.setViewName("plan/plan_write");//뷰 지정
 		return mv;
 		
 		//mv.addObject("w_idx", idx);
