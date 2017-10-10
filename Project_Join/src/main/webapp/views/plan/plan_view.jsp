@@ -3,7 +3,7 @@
 <<<<<<< HEAD
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="/views/common.jsp"%>
-=======
+
 <%@include file="/views/common.js"%>
 >>>>>>> refs/remotes/origin/jungeun
 <div class="w3-main" style="margin-left: 300px">
@@ -60,4 +60,12 @@
     // 영역의 북동쪽 좌표를 얻어옵니다 
     //var neLatLng = bounds.getNorthEast();     
 	//}
+	
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new daum.maps.LatLng(33.450701, 126.570667); 
+	var marker = new daum.maps.Marker({
+	    position: markerPosition
+	});
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
 </script>
