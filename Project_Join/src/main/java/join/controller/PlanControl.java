@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import join.dao.PlanDAO;
 import join.dao.UserDAO;
+import join.service.FileService;
 import join.service.PlanService;
 import join.service.UserService;
 import join.vo.PlanVO;
@@ -25,43 +26,45 @@ public class PlanControl{
 	@Resource(name="planService")
 	PlanService planservice;
 	
+	@Resource(name="fileService")
+	FileService fileService;
+	
+	//'join.plan'버튼을 눌렀을 때 게시판에 나열 될 것들
 	@RequestMapping("/plan")
-	public ModelAndView list(HttpServletRequest request, HttpServletResponse response){	
+	public ModelAndView list(HttpServletRequest request, HttpServletResponse response){		
 		
 		//DAO 로직
 		PlanVO[] ar = planservice.getList();
+		System.out.println(ar.length);
 		ModelAndView mv = new ModelAndView();
 		//request.setAttribute("list", ar);
 		mv.addObject("list", ar);
-		mv.setViewName("plan/plan");//뷰 지정
-		//바꿈 테스트sdfjsdkfjsdlkfj
+		
+		mv.setViewName("plan/plan");//뷰 지정		
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/plan_write",method=RequestMethod.GET)
-	public ModelAndView write(HttpServletRequest request, HttpServletResponse response){	
+	public ModelAndView write(HttpServletRequest request, HttpServletResponse response) {	
 		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
-		//DAO 로직
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("plan/plan_write");//뷰 지정
-		
-		
+		//DAO 로직		
+		//String idx = request.getAttribute("idx");
+		ModelAndView mv = new ModelAndView();		
+		mv.setViewName("plan/plan_write");//뷰 지정	
 		return mv;
-	}
-	
+		
+		//mv.addObject("w_idx", idx);
+				
+	}	
 	@RequestMapping(value="/plan_write",method=RequestMethod.POST)
 	public ModelAndView write_ok(PlanVO pvo){	
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면
 		
 		//DAO 로직
-		
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("redirect:/plan");//뷰 지정
-	
+		planservice.setPlan(pvo);		
+		ModelAndView mv = new ModelAndView();		
+		mv.setViewName("redirect:/plan");//뷰 지정	
 		
 		return mv;
 	}
@@ -72,11 +75,8 @@ public class PlanControl{
 		//DAO 로직
 		
 		
-		ModelAndView mv = new ModelAndView();	
-	
-		mv.setViewName("plan/plan_view");//뷰 지정
-		
-		
+		ModelAndView mv = new ModelAndView();		
+		mv.setViewName("plan/plan_view");//뷰 지정			
 		return mv;
 	}
 }

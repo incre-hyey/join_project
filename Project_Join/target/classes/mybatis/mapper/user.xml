@@ -6,8 +6,17 @@
 <mapper namespace="user">
 	<select id="totalUser" resultType="map">
 	  select * from EMPLOYEES	
-	</select>	
-
+	</select>
+	
+	<insert id="insert" parameterType="join.vo.UserVO">
+		insert into t_user (idx, id,	pwd,	name,	nickname,	phone, email,
+							age,	gender,	addr1,	addr2,	blood,	file_name,
+							ori_name,	intro_content,	ip,	status,	reg_date)
+		values(#{idx}, #{id},	#{pwd},	#{name},	#{nickname},	#{phone} , #{email},
+							#{age},	#{gender},	#{addr1},	#{addr2},	#{blood},	#{file_name},
+							#{ori_name},	#{intro_content},	#{ip},	#{status},	#{reg_date})
+	</insert>
+		
 </mapper>  
 
 

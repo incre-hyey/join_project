@@ -18,21 +18,15 @@ public class MainControl implements Controller{
 	public MainControl() {
 		System.out.println("****MainControl****");
 	}
-
-	/**
-	 *    index로 들어올 때
-	 */
 	
-	
+	// /index로 들어올때
 	public ModelAndView handleRequest(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-		// TODO Auto-generated method stub
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index");
+		
 		return mv;
 	}
-
-
-
+	
 }
 
 

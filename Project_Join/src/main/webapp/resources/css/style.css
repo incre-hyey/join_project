@@ -80,13 +80,6 @@ footer .w3-row-padding .w3-third {
   padding: 0 8px;
 }
 
-@media (max-width: 650px) {
-  .column {
-    width: 100%;
-    display: block;
-  }
-}
-
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
@@ -97,6 +90,10 @@ footer .w3-row-padding .w3-third {
 
 .card_con {
   padding: 0 16px;
+}
+
+.row {
+	clear: both;
 }
 
 .container::after, .row::after {
@@ -163,6 +160,17 @@ input[type=text], input[type=password] {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+}
+
+/* sign_up */
+#sign_up label {
+	width: 100px;
+}
+
+#sign_up input {
+	width: 300px;
+    margin: 0 10px 10px;
+    padding: 0;
 }
 
 .cancelbtn {
@@ -373,6 +381,110 @@ nav button.logout {
 	
 }
 
+.w3-table th, .w3-table td {
+	border-right: 1px solid #ddd;
+}
+
+#container {
+	position: relative;
+	height: 350px;
+}
+
+.inner {
+	margin: 0 auto;
+	width: 850px;
+}
+
+.main_left {
+	width: 45%;
+	height: 300px;
+	float: left;
+	margin-right: 30px;
+}
+
+.main_right {
+	width: 45%;
+	height: 300px;
+	float: left;
+}
+
+.date_section {
+    display: inline-block;
+    position: relative;
+    width: 65px;
+    height: 65px;
+    background-color: #313131;
+    text-align: center;
+    color: #fff;
+    border-radius: 500px;
+    float: left;
+    margin-right: 15px;
+}
+
+.day {
+    font: bold 30px/30px 'Times New Roman',Arial,sans-serif;
+    display: block;
+}
+
+.month {
+    font: bold 18px/18px 'Times New Roman',Arial,sans-serif;
+    margin-top: 8px;
+    display: block;
+}
+
+.grid_2 {
+	border-bottom: 1px solid #ccc;
+    height: 80px;
+}
+
+.grid_2 h4 {
+	margin-top: 20px;
+	line-height: 30px;
+    font-weight: bold;
+}
+
+@media (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+  
+  .main_left, .main_right {
+  	float: none;
+  	width: 100%;
+  }
+  
+}
+
+.product-item {
+    padding: 20px 20px 26px;
+    background-color: #fefefe;
+    width: 190px;
+    height: 200px;
+    float: left;
+}
+
+.thumb {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.thumb img {
+	width: 100%;
+}
+
+.well {
+	width: 310px;
+	float: right;
+	overflow: hidden;
+}
+
+.well .img-thumbnail {
+	border: none;
+    background-color: #f5f5f5;
+}
+
 
 /* W3.CSS 4.04 Apr 2017 by Jan Egil and Borge Refsnes */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
@@ -449,7 +561,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-col.s1{width:8.33333%}.w3-col.s2{width:16.66666%}.w3-col.s3{width:24.99999%}.w3-col.s4{width:33.33333%}
 .w3-col.s5{width:41.66666%}.w3-col.s6{width:49.99999%}.w3-col.s7{width:58.33333%}.w3-col.s8{width:66.66666%}
 .w3-col.s9{width:74.99999%}.w3-col.s10{width:83.33333%}.w3-col.s11{width:91.66666%}.w3-col.s12{width:99.99999%}
-@media (min-width:601px){.w3-col.m1{width:8.33333%}.w3-col.m2{width:16.66666%}.w3-col.m3,.w3-quarter{width:24.99999%}.w3-col.m4,.w3-third{width:50%}
+@media (min-width:601px){.w3-col.m1{width:8.33333%}.w3-col.m2{width:16.66666%}.w3-col.m3,.w3-quarter{width:24.99999%}.w3-col.m4,.w3-third{width:52%}
 .w3-col.m5{width:41.66666%}.w3-col.m6,.w3-half{width:49.99999%}.w3-col.m7{width:58.33333%}.w3-col.m8,.w3-twothird{width:66.66666%}
 .w3-col.m9,.w3-threequarter{width:74.99999%}.w3-col.m10{width:83.33333%}.w3-col.m11{width:91.66666%}.w3-col.m12{width:99.99999%}}
 @media (min-width:993px){.w3-col.l1{width:8.33333%}.w3-col.l2{width:16.66666%}.w3-col.l3{width:24.99999%}.w3-col.l4{width:33.33333%}
@@ -546,7 +658,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-black,.w3-hover-black:hover{color:#fff!important;background-color:#000!important}
 .w3-grey,.w3-hover-grey:hover,.w3-gray,.w3-hover-gray:hover{color:#000!important;}
 .w3-light-grey,.w3-hover-light-grey:hover,.w3-light-gray,.w3-hover-light-gray:hover{color:#000!important;background-color:#f1f1f1!important}
-.w3-dark-grey,.w3-hover-dark-grey:hover,.w3-dark-gray,.w3-hover-dark-gray:hover{color:#fff!important;background-color:#616161!important}
+.w3-dark-grey,.w3-hover-dark-grey:hover,.w3-dark-gray,.w3-hover-dark-gray:hover{color:#928084!important;}
 .w3-pale-red,.w3-hover-pale-red:hover{color:#000!important;background-color:#ffdddd!important}
 .w3-pale-green,.w3-hover-pale-green:hover{color:#000!important;background-color:#ddffdd!important}
 .w3-pale-yellow,.w3-hover-pale-yellow:hover{color:#000!important;background-color:#ffffcc!important}

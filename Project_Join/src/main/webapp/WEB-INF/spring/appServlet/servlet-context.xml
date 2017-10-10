@@ -10,14 +10,11 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+	<annotation-driven />	
 	<context:annotation-config/>
-	
-	
+
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/WEB-INF/views/**" location="/views/" />
-<!-- 	<resources mapping="/js/**" location="/WEB-INF/views/js/" /> -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -28,10 +25,8 @@
 	<context:component-scan base-package="com.company3.joinapp" />
 	<context:component-scan base-package="join.controller" />
 	<context:component-scan base-package="join.service"/>
+	
 	<beans:bean name="/index" class="join.controller.MainControl"/>
 	
-
 	
-
-
-</beans:beans>
+	</beans:beans>

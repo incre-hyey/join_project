@@ -7,11 +7,14 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 
-import join.vo.PlanVO;
+import join.service.FileService;
+import join.service.UtilService;
+import join.vo.UserVO;
 
 
-public class UserDAO {
+public class UserDAO{
 	@Autowired
 	SqlSession sqlSession;
 	
@@ -22,10 +25,13 @@ public class UserDAO {
 			
 		}
 		
-		System.out.println(list.size());		
+		System.out.println(list.size());
+		
 	}
-	public void getPlan(){
-		// List<PlanVO> list = 
+	
+	public void insertUser(UserVO userVO){
+		
+		sqlSession.insert("user.insert", userVO);
 	}
 	
 	

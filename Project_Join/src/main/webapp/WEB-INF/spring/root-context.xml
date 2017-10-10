@@ -8,9 +8,17 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config/>
-
+	
 	
 	<context:property-placeholder location="classpath:props/jdbc.properties"/>
+<!-- 	<context:property-placeholder location="classpath:props/config.properties"/> -->
+	
+	<bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="defaultEncoding" value="utf-8"/>
+    	<property name="maxUploadSize" value="-1"/>
+    </bean>
+    
 	<bean id="ds" 
 	class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName"
@@ -35,5 +43,6 @@
 	
 	<bean id="userDAO" class="join.dao.UserDAO"/>
 	<bean id="planDAO" class="join.dao.PlanDAO"/>
+	
 	
 </beans>

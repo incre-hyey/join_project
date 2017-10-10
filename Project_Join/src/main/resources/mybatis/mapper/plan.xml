@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="plan">
+	<!-- join.plan을 눌렀을때 게시판 리스트 나열(t_plan_req테이블 status에 1값주기) -->
+	<select id="planList" resultType="join.vo.PlanVO">
+		select * from t_plan
+		order by idx DESC 
+	</select>
+
+
+	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
+	<insert id="write_ok" parameterType="join.vo.PlanVO">
+	insert into t_plan(idx, title, content, status, writer, reg_date, mod_date)
+	values(4, #{title}, #{content}, 1, #{writer}, sysdate, sysdate)
+	</insert>
+	
+	
+
+
+
+</mapper>
+
