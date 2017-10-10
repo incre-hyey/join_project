@@ -1,9 +1,13 @@
 package join.service;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,5 +108,41 @@ public class FileService {
 		}// while문의 끝
 		
 		return fileName;
+	}
+	
+	
+	public void viewFile(HttpServletResponse response, String Filestr){
+		FileInputStream fis = null;
+		BufferedOutputStream bos = null;
+		byte[] buf = new byte[1024];
+		
+		
+		try {
+			File file = new File(Filestr);
+			fis = new FileInputStream(file);
+			bos = new BufferedOutputStream(response.getOutputStream());
+			response.flushBuffer();
+			
+			int readLength = 0;
+			while((readLength = fis.read(buf)) != -1){
+				bos.write(buf,0,readLength);
+			}
+			bos.flush();
+			
+			
+			
+			
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(fis !=null) fis.close();
+				if(bos != null) bos.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			// TODO: handle finally clause
+		}
 	}
 }
