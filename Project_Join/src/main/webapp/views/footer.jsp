@@ -67,20 +67,6 @@
 			});
 	
 		});
-	
-	//달력
-	$( function() {
-	    $( "#datepicker" ).datepicker();
-	  } );
-</script>
-<script type="text/javascript">
-	//summernote
-	$(document).ready(function() {
-	  $('#summernote').summernote({
-	    lang: 'ko-KR', // default: 'en-US'
-	    height : 300
-	  });
-	});
 </script>
 </body>
 </html>

@@ -7,19 +7,31 @@
 	<!-- join.plan을 눌렀을때 게시판 리스트 나열(t_plan_req테이블 status에 1값주기) -->
 	<select id="planList" resultType="join.vo.PlanVO">
 		select * from t_plan
-		order by idx DESC 
+		where status = 1
+		order by idx DESC 		
 	</select>
-
+	
+	<!-- join.view(상세보기)를 클릭했을때 -->
+	<select id="getView" resultType="join.vo.PlanVO" parameterType="String">
+		select * from t_plan
+		where idx = #{idx} and status = 1
+	</select>
 
 	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
 	<insert id="write_ok" parameterType="join.vo.PlanVO">
-	insert into t_plan(idx, title, content, status, writer, reg_date, mod_date)
-	values(4, #{title}, #{content}, 1, #{writer}, sysdate, sysdate)
+		insert into t_plan(idx, title, location1, content, status, writer, reg_date, latitude, longitude)
+		values(#{idx}, #{title}, #{location1}, #{content}, #{status}, #{writer}, #{reg_date}, #{latitude}, #{longitude})
 	</insert>
 	
+	<!-- plan게시물을 수정하는 update -->
+	<update id="edit_plan" parameterType="join.vo.PlanVO">
+		update t_plan
+		set title = #{title}, location1 =#{location1}, content =#{content}, mod_date=sysdate, 
+					latitude = #{latitude}, longtude=#{longtude}, tnop =#{tnop}
+			
+	</update>
 	
-
-
+	<!-- plan 게시물의 삭제 -->
 
 </mapper>
 

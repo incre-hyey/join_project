@@ -22,11 +22,17 @@ public class PlanService {
 		return planDao.getList();		
 	}
 	
-	public boolean setPlan(PlanVO pvo){
+	public void addPlan(PlanVO pvo){
 		// '저장'을 눌렀을때
-		System.out.println(pvo.getContent());
-		return planDao.savePlan(pvo);			
+		//System.out.println(pvo.getTitle());
+		planDao.savePlan(pvo);			
 	}	
 	
+	public PlanVO viewPlan(String idx){		
+		//String idx = pvo.getIdx();
+		return planDao.getPlan(idx);
+		//System.out.println("planservice");
+		
 	
+	}
 }

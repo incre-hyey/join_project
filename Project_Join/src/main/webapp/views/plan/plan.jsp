@@ -22,14 +22,13 @@
 					<img src="https://www.w3schools.com/w3images/avatar_g2.jpg"
 						class="w3-round">
 				</div>
-				
-				
 				<div class="list_view">
 					<ul>
-						<li><a href="${pageContext.request.contextPath}/plan_view" onclick="">
+						<li><a href="${pageContext.request.contextPath}/plan_view?idx=${vo.idx}" >
 								<ul>
+									
 									<li><strong>제목:</strong>${vo.title }</li>
-									<li><strong>일정:</strong>${vo.reg_date }</li>
+									<li><strong>일정:</strong>${vo.getDateStr(vo.reg_date) }</li>
 									<li><strong>장소:</strong>${vo.location1 }</li>
 									<li><strong>참여인원:</strong>${vo.tnop }</li>
 								</ul>
