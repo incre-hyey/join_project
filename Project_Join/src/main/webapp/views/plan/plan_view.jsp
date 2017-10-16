@@ -25,6 +25,7 @@
 					<input type="button" name="profile" value="프로필보기" class="button">
 					<input type="button" name="talk" value="대화신청" class="button">
 					<input type="button" name="msg" value="쪽지" class="button">
+					<input type="button" name="" value="신청하기" class="button">
 				</form>
 			</div>
 

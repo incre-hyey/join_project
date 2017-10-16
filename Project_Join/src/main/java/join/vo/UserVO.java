@@ -25,7 +25,25 @@ public class UserVO {
 	Date reg_date,login_date;
 	MultipartFile upload;
 	
-	
+//	String jsonObj;
+//	public void setJsonObj(String jsonObj) {
+//		this.jsonObj = jsonObj;
+//	}
+	public String getJsonStr() {
+		String parseFilename= this.file_name.replace("\\", "\\\\");
+		StringBuffer sb = new StringBuffer();
+		sb.append("{\"id\":\"").append(id).append("\", "); 
+		sb.append("\"name\":\"").append(name).append("\", ");
+		sb.append("\"nickname\":\"").append(nickname).append("\", ");
+		sb.append("\"phone\":\"").append(phone).append("\", ");
+		sb.append("\"email\":\"").append(email).append("\", ");
+		sb.append("\"age\":\"").append(age).append("\", ");
+		sb.append("\"file_name\":\"").append(parseFilename).append("\"} ");
+		
+				// 문자열 추가시
+				//"key : '"+ value + "', "+
+		return sb.toString();
+	}
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}

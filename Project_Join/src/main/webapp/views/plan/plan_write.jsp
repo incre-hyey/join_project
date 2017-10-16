@@ -13,14 +13,18 @@
 		<div id="plan_write">
 			<form action="${pageContext.request.contextPath}/plan_write" enctype="multipart/form-data" method="post">
 				<input type="hidden" name="useIdx" id="idx"/>
-				<label>작성자 :</label><input type="text" name="writer" value="정은" readonly><br/>
+				<label>작성자 :</label><input type="text" name="userId" value="${userid }" readonly><br/>
 				<label>비밀번호 :</label><input type="password" name="pwd" id="pwd"><br/>
 				<label>제목 :</label><input type="text" name="title" id="title" value="test"><br/>
-				<label>일정 :</label><input type="datetime" name="date" id="datepicker"><br/>
+				<label>일정 :</label><input type="datetime" name="date" id="datepicker">
+									<input type="time" name="time" id="timepicker"/>
+				<br/>
 				<label>장소 :</label><input type="text" name="loc" id="loc"><br/>
 				<label>메인이미지 :</label><input type="file" id="myFile" name="myFile"><br/>
-				<textarea name="content" id="summernote" name="content" value=""></textarea>
-			
+				
+				<form name="writeForm" action="./summernote_insert.jsp" method="post">
+					<textarea name="content" id="summernote" name="content" value=""></textarea>
+				</form>
 				<div class="plan_btn">
 					<button type="button" onclick="sendData(this.form)">저장</button>
 					<button type="button" onckick="">취소</button>
@@ -46,6 +50,7 @@
 			alert("장소를 입력하세요");
 			ff.date.focus(); //커서 놓기
 		}
+		alert("저장");
 		ff.submit();
 	}
 </script>
@@ -55,35 +60,46 @@
 	  $('#summernote').summernote({
 	    lang: 'ko-KR', // default: 'en-US'
 	    height : 300,
-/* 	    onImageUpload:function(files,editor,welEditable){
-	    	sendFile(files[0], editor,welEditable);
-	    } */
+	    focus:true,
+	    callbaxks: { //이미지를 업로드할 경우 이벤트를 발생
+ 	    onImageUpload:function(files,editor,welEditable){
+ 	    	arter("summernote Fileupload");
+	    	sendFile(files[0], this);
+	    } 
+	  }
 	  });
+	  $('#content').summernote('lineheight',.5);
 	});
-/* 	function sendFile(file,editor,welEditable){
+ 	function sendFile(file,editor){
+ 		// 파일전송을 위해 폼객체를 생성한다
 		data = new FormData();
-		data.append("file", file);
+		data.append("imageupload", file);
+		
 		$.ajax({
 			data:data,
 		type:"POST",
-			url:"uploadImage",
+			url:"/imageUpload",
 			cache:false,
 			contenType:false,
+			enctype: 'multipart/form-data',
 			processData:false,
-			success:function(url){
-				editor.insertImage(welEditable, url),
-				consol.log(data);
+			success:function(data){
+				$(editor).sumernote('insertImage', data.url);
+				//consol.log(data);
+				//$(editor).summernote('editor.insertImage', data.url);
 			}
-		})
-	} */
+		});
+	} 
 </script>
 
 <<script type="text/javascript">
 
 //달력
 	$( function() {
-	    $( "#datepicker" ).datepicker();
+	    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' }).val();
 	  } );
+//시간
+
 </script>
 
 

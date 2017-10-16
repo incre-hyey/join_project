@@ -12,7 +12,7 @@
 			<form class="search">
 				<input type="text" name="search" placeholder="검색">
 				<a href="" class="button">검색</a>
-				<a href="${pageContext.request.contextPath}/plan_write" class="button">글쓰기</a>
+				<a href="${pageContext.request.contextPath}/plan_write?idx=${vo.idx}" class="button">글쓰기</a>
 			</form>  
 			<!--('글쓰기'버튼을 눌렀을때 함께 보낼 값) idx=${idx}&nickname=${niackname} -->
 			

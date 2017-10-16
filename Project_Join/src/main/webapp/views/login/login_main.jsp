@@ -12,7 +12,7 @@
 		<%	
 	}
 %>
-
+<script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 <ul id="nav" class="login_nav">
 			<li><a href="${pageContext.request.contextPath}/plan" onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding w3-text-teal"> JOIN.PLAN</a>
@@ -31,10 +31,13 @@
 					<li><a href="#" onclick="w3_close()"
 						class="w3-bar-item w3-button w3-padding"> MY TALK</a></li>
 				</ul></li>
+			
+			<li><a href="#" onclick="chatBtnClick();"
+				class="w3-bar-item w3-button w3-padding"> 대 화</a></li>
 		</ul>
 		</li>
 		</ul>
-		<button type="submit" class="logout">Log out</button>
+		<button class="logout" onclick="window.location='${pageContext.request.contextPath}/logout'">Log out</button>
 <%} %>
 	</div>
 	<div class="w3-panel w3-large">

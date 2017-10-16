@@ -4,9 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="user">
-	<select id="totalUser" resultType="map">
-	  select * from EMPLOYEES	
+	<select id="getUser" resultType="join.vo.UserVO" parameterType="hashmap">
+	  select * from t_user	
+	  <where> 
+	 	 AND 1=1
+	    <if test="id != null">
+	         AND id = #{id}
+	    </if> 
+	    <if test="pwd != null">
+	         AND pwd = #{pwd}
+	    </if>
+	   </where>
 	</select>
+	
 	
 	<insert id="insert" parameterType="join.vo.UserVO">
 		insert into t_user (idx, id,	pwd,	name,	nickname,	phone, email,
@@ -16,6 +26,11 @@
 							#{age},	#{gender},	#{addr1},	#{addr2},	#{blood},	#{file_name},
 							#{ori_name},	#{intro_content},	#{ip},	#{status},	#{reg_date})
 	</insert>
+	
+	<update id="loginyn" parameterType="join.vo.UserVO">
+		update t_user set loginyn=#{loginyn} , login_date = #{login_date}, ip = #{ip}
+		where id = #{id}
+	</update>
 		
 </mapper>  
 

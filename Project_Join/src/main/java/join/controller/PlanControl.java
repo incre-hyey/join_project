@@ -53,8 +53,12 @@ public class PlanControl{
 	@RequestMapping(value="/plan_write",method=RequestMethod.GET)
 	public ModelAndView write(HttpServletRequest request, HttpServletResponse response) {	
 		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
+		
 		//DAO 로직		
-		ModelAndView mv = new ModelAndView();		
+		String userid = "aaaa";
+		//String userid = request.getParameter("idx");
+		ModelAndView mv = new ModelAndView();	
+		mv.addObject("userid", userid);
 		mv.setViewName("plan/plan_write");//뷰 지정
 		return mv;
 		
@@ -65,12 +69,13 @@ public class PlanControl{
 	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO){	
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면
 		
-		UserVO userVO = (UserVO) request.getSession().getAttribute("userVO");
+		//UserVO userVO = (UserVO) request.getSession().getAttribute("userVO");
+		
 		String uploadFile = fileService.uploadFile(planVO.getUpload(),planVO.getWriter());
 		
 		planVO.setOri_name(planVO.getUpload().getOriginalFilename());
 		planVO.setFile_name(uploadFile);
-		planVO.setIdx(UtilService.makeUID(userVO.getId()));
+		//planVO.setIdx(UtilService.makeUID(userVO.getId()));
 		planVO.setLocation1(request.getRemoteAddr());
 		planVO.setStatus("1");
 		//planVO.setReg_date(new Date());
@@ -86,7 +91,9 @@ public class PlanControl{
 	@RequestMapping("/plan_view")
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response){	
 		
-		//DAO 로직	
+		//DAO 로직
+		//String content = request.getParameter("content");
+		//System.out.println(content.toString());
 		String idx = request.getParameter("idx");
 		PlanVO pvo = planservice.viewPlan(idx);		
 		ModelAndView mv = new ModelAndView();		
