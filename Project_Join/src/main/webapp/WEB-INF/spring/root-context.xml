@@ -40,6 +40,7 @@
 	  <constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	
-	
 	<bean id="userDAO" class="join.dao.UserDAO"/>
+	<bean id="profileDAO" class="join.dao.ProfileDAO"/>
+	<bean id="fileDAO" class="join.dao.FileDAO"/>
 </beans>

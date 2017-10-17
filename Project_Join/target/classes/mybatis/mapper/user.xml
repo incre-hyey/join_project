@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="user">
-	<select id="getUser" resultType="join.vo.UserVO" parameterType="hashmap">
+	<select id="getUserList" resultType="join.vo.UserVO" parameterType="hashmap">
 	  select * from t_user	
 	  <where> 
 	 	 AND 1=1
@@ -16,21 +16,32 @@
 	    </if>
 	   </where>
 	</select>
+	<select id="getUser" resultType="join.vo.UserVO" parameterType="String">
+	  select * from t_user	
+	 </select>
 	
 	
 	<insert id="insert" parameterType="join.vo.UserVO">
 		insert into t_user (idx, id,	pwd,	name,	nickname,	phone, email,
-							age,	gender,	addr1,	addr2,	blood,	file_name,
-							ori_name,	intro_content,	ip,	status,	reg_date)
+							age,	gender,	addr1,	addr2,	blood,	file_id,	intro_content,	ip,	status,	reg_date, us_viewyn, addr3)
 		values(#{idx}, #{id},	#{pwd},	#{name},	#{nickname},	#{phone} , #{email},
-							#{age},	#{gender},	#{addr1},	#{addr2},	#{blood},	#{file_name},
-							#{ori_name},	#{intro_content},	#{ip},	#{status},	#{reg_date})
+							#{age},	#{gender},	#{addr1},	#{addr2},	#{blood},	#{file_id}
+							,	#{intro_content},	#{ip},	#{status},	#{reg_date}, #{us_viewyn}, #{addr3})
 	</insert>
 	
 	<update id="loginyn" parameterType="join.vo.UserVO">
 		update t_user set loginyn=#{loginyn} , login_date = #{login_date}, ip = #{ip}
 		where id = #{id}
 	</update>
+	
+	
+	
+	
+	<select id="getProfile" resultType="join.vo.UserVO" parameterType="hashmap">
+		select id, nickname, age, blood, gender, intro_content, file_id, email
+		from t_user
+		where us_viewyn = 'Y'
+	</select>
 		
 </mapper>  
 

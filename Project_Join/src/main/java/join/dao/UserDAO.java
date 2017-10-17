@@ -35,8 +35,11 @@ public class UserDAO{
 	}
 	
 
+	public UserVO getUser(String id){
+		return sqlSession.selectOne("user.getUser", id);
+	}
 	public List<UserVO> getUserList(Map<String, String> map){
-		return sqlSession.selectList("user.getUser", map);
+		return sqlSession.selectList("user.getUserList", map);
 	}
 	
 	public void updateLoginYn(UserVO userVO) {

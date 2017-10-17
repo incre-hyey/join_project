@@ -27,7 +27,7 @@ public class MainControl implements Controller{
 		//System.out.println(((UserVO)request.getSession().getAttribute("userVO")).getJsonStr());
 		//페이지 유효성을 위해 TOKEN 생성 추가
 		
-		String Token = UtilService.makeKey(UtilService.getFormatDate("YYYYMMDDHHmmss",new Date()));
+		String Token = UtilService.makeKey();
 		request.getSession().setAttribute("TokenKey", Token);
 		
 		ModelAndView mv = new ModelAndView();

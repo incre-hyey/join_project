@@ -44,5 +44,5 @@ function chatHisBtnClick(){
 function joinFunc(){
 	event.preventDefault();
 	
-	window.location.href = webContext + "/views/login/register.jsp";
+	window.location.href = webContext + "/views/user/register.jsp";
 }
