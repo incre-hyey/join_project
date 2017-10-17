@@ -35,6 +35,7 @@ var loginFunc = function(){
 }
 
 function chatBtnClick(){
+	
 	window.location.href = webContext + "/chatList";
 }
 function chatHisBtnClick(){

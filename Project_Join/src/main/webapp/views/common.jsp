@@ -17,7 +17,7 @@
 <script>
 var ctx = '<%=request.getContextPath()%>'; // joinapp
 var webHost = location.protocol + "//" + location.host; // Ex) http://localhost:8088/
-var webContext = webHost + ctx;
+var webContext = webHost + ctx;//http://localhost:8088/joinapp
 var viewMsg = '<%=(String)request.getAttribute("viewMsg")%>';
 
 	$(document).ready(function() {

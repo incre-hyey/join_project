@@ -55,8 +55,12 @@ public class PlanControl{
 		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
 		
 		//DAO 로직		
-		String userid = "aaaa";
-		//String userid = request.getParameter("idx");
+		//String userid = "aaaa";
+		String userid = request.getParameter("useridx");
+		System.out.println(userid);
+		
+		/*UserVO userVO = (UserVO)request.getSession().getAttribute("");
+		userVO.getIdx();*/
 		ModelAndView mv = new ModelAndView();	
 		mv.addObject("userid", userid);
 		mv.setViewName("plan/plan_write");//뷰 지정
