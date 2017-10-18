@@ -43,6 +43,6 @@
 	
 	<bean id="userDAO" class="join.dao.UserDAO"/>
 	<bean id="planDAO" class="join.dao.PlanDAO"/>
-	
-	
+	<bean id="profileDAO" class="join.dao.ProfileDAO"/>
+	<bean id="fileDAO" class="join.dao.FileDAO"/>
 </beans>

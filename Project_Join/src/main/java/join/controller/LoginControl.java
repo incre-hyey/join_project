@@ -71,32 +71,7 @@ public class LoginControl{
 		
 		return "index";
 	}
-	
-	/**
-	 * 회원가입
-	 * @param request
-	 * @param response
-	 * @param userVO
-	 * @return
-	 */
-	@RequestMapping("/register")
-	public String userRegister(HttpServletRequest request, HttpServletResponse response,
-						@ModelAttribute UserVO userVO){
-		//userVO 세팅
-		String uploadFile = fileService.uploadFile(userVO.getUpload(), userVO.getId());
-		
-		userVO.setOri_name(userVO.getUpload().getOriginalFilename());
-		userVO.setFile_name(uploadFile);
-		userVO.setIdx(UtilService.makeUID(userVO.getId()));		
-		userVO.setIp(request.getRemoteAddr());
-		userVO.setStatus("1");
-		userVO.setReg_date(new Date());
-		//DAO 로직
-		userService.addUser(userVO);
-		
-		
-		return "redirect:index";
-	}
+
 
 }
 

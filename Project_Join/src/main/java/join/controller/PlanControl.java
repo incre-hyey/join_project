@@ -20,6 +20,7 @@ import join.service.FileService;
 import join.service.PlanService;
 import join.service.UserService;
 import join.service.UtilService;
+import join.vo.FileVO;
 import join.vo.PlanVO;
 import join.vo.UserVO;
 
@@ -56,14 +57,19 @@ public class PlanControl{
 		
 		//DAO 로직		
 		//String userid = "aaaa";
-		String userid = request.getParameter("useridx");
-		System.out.println(userid);
+		//String userid = request.getParameter("useridx");
 		
-		/*UserVO userVO = (UserVO)request.getSession().getAttribute("");
-		userVO.getIdx();*/
+		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
+		//String nickName = userVO.getNickname();
+		
+		System.out.println(userVO);
+		
+		userVO.getIdx();
 		ModelAndView mv = new ModelAndView();	
-		mv.addObject("userid", userid);
+		mv.addObject("userVO", userVO);
 		mv.setViewName("plan/plan_write");//뷰 지정
+		
 		return mv;
 		
 		//mv.addObject("w_idx", idx);
@@ -75,14 +81,14 @@ public class PlanControl{
 		
 		//UserVO userVO = (UserVO) request.getSession().getAttribute("userVO");
 		
-		String uploadFile = fileService.uploadFile(planVO.getUpload(),planVO.getWriter());
+		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
 		
-		planVO.setOri_name(planVO.getUpload().getOriginalFilename());
-		planVO.setFile_name(uploadFile);
-		//planVO.setIdx(UtilService.makeUID(userVO.getId()));
+		planVO.setFile_id(fileVO.getIdx());
+		planVO.setIdx(UtilService.makeKey());
 		planVO.setLocation1(request.getRemoteAddr());
 		planVO.setStatus("1");
 		//planVO.setReg_date(new Date());
+		//planVO.setStart_date(); //플랜 일정
 		
 		//DAO 로직
 		planservice.addPlan(planVO);		
@@ -97,7 +103,7 @@ public class PlanControl{
 		
 		//DAO 로직
 		//String content = request.getParameter("content");
-		//System.out.println(content.toString());
+		//System.out.println(content.toString());		
 		String idx = request.getParameter("idx");
 		PlanVO pvo = planservice.viewPlan(idx);		
 		ModelAndView mv = new ModelAndView();		

@@ -34,6 +34,8 @@
 	<%@include file="../footer.jsp"%>
 </div>
 
+<%-- <input type="hidden" value="${sessionScope.svo.name }" id="sname"/> --%>
+
 </div>
 
 <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=33584be1b96f778e02be89d98ebc6620"></script>

@@ -32,6 +32,11 @@ public class UserService {
 	public void addUser(UserVO userVO){
 		userDAO.insertUser(userVO);
 	}
+	
+	public UserVO getUser(String id){
+		UserVO userVO = userDAO.getUser(id);
+		return userVO;
+	}
 	public UserVO loginUser(String id, String pwd, String ip) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("id", id);

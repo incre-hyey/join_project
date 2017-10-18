@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="/views/common.jsp"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="w3-main" style="margin-left: 300px">
 <%@include file="../header.jsp"%>
 	<div class="w3-container w3-padding-large w3-grey">
@@ -12,7 +13,7 @@
 			<form class="search">
 				<input type="text" name="search" placeholder="검색">
 				<a href="" class="button">검색</a>
-				<a href="${pageContext.request.contextPath}/plan_write" class="button">글쓰기</a>
+				<a href="${pageContext.request.contextPath}/plan_write" action="sendData(this.form)" class="button">글쓰기</a>
 			</form>  
 			<!--('글쓰기'버튼을 눌렀을때 함께 보낼 값) idx=${idx}&nickname=${niackname} -->
 			
@@ -24,13 +25,13 @@
 				</div>
 				<div class="list_view">
 					<ul>
-						<li><a href="${pageContext.request.contextPath}/plan_view?useridx=${vo.idx}" >
+						<li><a href="${pageContext.request.contextPath}/plan_view?idx=${vo.idx}" >
 								<ul>
 									
 									<li><strong>제목:</strong>${vo.title }</li>
 									<li><strong>일정:</strong>${vo.getDateStr(vo.reg_date) }</li>
 									<li><strong>장소:</strong>${vo.location1 }</li>
-									<li><strong>참여인원:</strong>${vo.tnop }</li>
+									<li><strong>참여인원:</strong>${fn:length(vo.u_list)}/${vo.tnop }</li>
 								</ul>
 						</a></li>
 					</ul>
@@ -54,3 +55,15 @@
 	</div>
 	<%@include file="../footer.jsp"%>
 </div>
+<script type="text/javascript">
+
+	function sendDate(ff){
+	<!--/ 로그인이 되더있는지의 상태를 체크한다. /-->
+		console.log(ff.document.sessionScop.userVO.idx);
+			if(ff.userVO.idx == null){
+				alert("로그인을 먼저 하시기 바랍니다");
+			}else{
+				ff.submit();
+			}
+		}
+</script>

@@ -3,6 +3,7 @@ package join.vo;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,8 +17,9 @@ public class PlanVO {
 					status , //플랜상태
 					tnop, //모집인원수
 					writer, //작성자
-					file_name, //이미지파일
-					ori_name;
+					file_id, //이미지파일id
+					date_status,
+					p_sttus;
 			Date reg_date, //작성일자
 				mod_date,  //수정일자
 				start_date,// 플랜일정시작
@@ -27,6 +29,16 @@ public class PlanVO {
 	
 	private int nowPage; //현재페이지
 	private String latitude, longitude; //지도api 위도,경도
+	
+	private List<UserVO> u_list;//참여 인원
+	
+	
+	public List<UserVO> getU_list() {
+		return u_list;
+	}
+	public void setU_list(List<UserVO> u_list) {
+		this.u_list = u_list;
+	}
 	public String getIdx() {
 		return idx;
 	}
@@ -75,18 +87,7 @@ public class PlanVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getFile_name() {
-		return file_name;
-	}
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
-	}
-	public String getOri_name() {
-		return ori_name;
-	}
-	public void setOri_name(String ori_name) {
-		this.ori_name = ori_name;
-	}
+
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
@@ -134,8 +135,26 @@ public class PlanVO {
 	}
 	public Date getEnd_date() {
 		return end_date;
-	}
+	}	
 	
+	public String getFile_id() {
+		return file_id;
+	}
+	public void setFile_id(String file_id) {
+		this.file_id = file_id;
+	}
+	public String getDate_status() {
+		return date_status;
+	}
+	public void setDate_status(String date_status) {
+		this.date_status = date_status;
+	}
+	public String getP_sttus() {
+		return p_sttus;
+	}
+	public void setP_sttus(String p_sttus) {
+		this.p_sttus = p_sttus;
+	}
 	public String getDateStr(Date date){
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm");
 		

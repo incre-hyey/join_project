@@ -47,6 +47,18 @@ footer .w3-row-padding .w3-third {
     margin-bottom: 10px;
 }
 
+
+#plan_write input#datepicker, #plan_write input#timepicker {
+	width: 247px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 15px;
+    line-height: 16px;
+    height: 26px;
+    text-align: center;
+}
+
 #plan_write .plan_btn button, #plan_write .plan_btn .button {
 	width: 150px;
 }
@@ -297,6 +309,7 @@ nav button.logout {
 	width: 30%;
 	
 }
+
 
 #con_header {
 	height: 150px;

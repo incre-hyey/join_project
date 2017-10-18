@@ -13,10 +13,10 @@
 		<div id="plan_write">
 			<form action="${pageContext.request.contextPath}/plan_write" enctype="multipart/form-data" method="post">
 				<input type="hidden" name="useIdx" id="idx"/>
-				<label>작성자 :</label><input type="text" name="userId" value="${userid }" readonly><br/>
+				<label>작성자 :</label><input type="text" name="userId" value="${userVO.getNickname() }" readonly><br/>
 				<label>비밀번호 :</label><input type="password" name="pwd" id="pwd"><br/>
 				<label>제목 :</label><input type="text" name="title" id="title" value="test"><br/>
-				<label>일정 :</label><input type="datetime" name="date" id="datepicker">
+				<label>일정 :</label><input type="text" name="date" id="testDatepicker">
 									<input type="time" name="time" id="timepicker"/>
 				<br/>
 				<label>장소 :</label><input type="text" name="loc" id="loc"><br/>
@@ -39,17 +39,19 @@
 	function sendData(ff){
 		//유효성 검사
 		
-		if(ff.title.value == ""){
+/*  		if(ff.title.value == ""){
 			alert("제목을 입력하세요");
 			ff.title.focus();//커서 놓기
 			return;
-		}else if(ff.datepicker.vlue == ""){
+		}  */
+		if(ff.date == ""){
 			alert("일정을 입력하세요");
 			ff.date.focus(); //커서 놓기
-		}else if(ff.loc.vlue == ""){
+		} 
+		if(ff.loc.vlue == ""){
 			alert("장소를 입력하세요");
 			ff.date.focus(); //커서 놓기
-		}
+		} 
 		alert("저장");
 		ff.submit();
 	}
@@ -95,9 +97,28 @@
 <<script type="text/javascript">
 
 //달력
-	$( function() {
+/* 	$( function() {
 	    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' }).val();
-	  } );
+	   
+	    $( ".selector" ).datepicker({
+	        altField: ".selecter"
+	        	
+	    });	   
+	    alert("date");		
+	  }); */
+	$(function() {
+	    $( "#testDatepicker" ).datepicker({
+	         showButtonPanel: true, 
+	         currentText: '오늘 날짜', 
+	         closeText: '닫기', 
+	         dateFormat: "yy년 mm월 dd일",
+	         dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+	         dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+	         monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+	         monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+	  });
+	});
+	
 //시간
 
 </script>

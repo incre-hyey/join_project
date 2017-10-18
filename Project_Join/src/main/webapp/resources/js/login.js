@@ -35,7 +35,6 @@ var loginFunc = function(){
 }
 
 function chatBtnClick(){
-	
 	window.location.href = webContext + "/chatList";
 }
 function chatHisBtnClick(){
@@ -45,5 +44,5 @@ function chatHisBtnClick(){
 function joinFunc(){
 	event.preventDefault();
 	
-	window.location.href = webContext + "/views/login/register.jsp";
+	window.location.href = webContext + "/views/user/register.jsp";
 }
