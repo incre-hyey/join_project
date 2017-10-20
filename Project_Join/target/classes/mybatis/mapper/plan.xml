@@ -6,8 +6,7 @@
 <mapper namespace="plan">
 	
 	<resultMap type="join.vo.PlanVO" id="planListMap">
-		<id property="idx" column="idx"/>
-		
+		<id property="idx" column="idx"/>		
 		<!-- PlanVo안에 있는 u_list에 값을 넣어주는 select가 바로 getPeople이며, 그것을
 		 수행하기 위해서는 idx의 값을 전달해야 한다. 이때 받는 자료가 join.vo.UserVO다. -->
 		<collection property="u_list" column="idx" ofType="join.vo.UserVO" select="getPeople"/>
@@ -28,16 +27,15 @@
 
 	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
 	<insert id="write_ok" parameterType="join.vo.PlanVO">
-		insert into t_plan(idx, title, location1, content, status, writer, reg_date, latitude, longitude)
-		values(#{idx}, #{title}, #{location1}, #{content}, #{status}, #{writer}, #{reg_date}, #{latitude}, #{longitude})
+		insert into t_plan(idx, title, location1, content, status, writer, reg_date, latitude, longitude, file_id)
+		values(#{idx}, #{title}, #{location1}, #{content}, #{status}, #{writer}, sysdate, #{latitude} , #{longitude},#{file_id})
 	</insert>
 	
 	<!-- my.plan에서 내가 올린 게시물을 수정하는 update -->
 	<update id="edit_plan" parameterType="join.vo.PlanVO">
 		update t_plan
 		set title = #{title}, location1 =#{location1}, content =#{content}, mod_date=sysdate, 
-					latitude = #{latitude}, longtude=#{longtude}, tnop =#{tnop}
-			
+					latitude = #{latitude}, longtude=#{longtude}, tnop = #{tnop}			
 	</update>
 	
 	<!-- plan 게시물의 삭제 -->

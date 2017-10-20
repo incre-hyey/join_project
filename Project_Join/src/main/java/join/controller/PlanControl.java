@@ -1,6 +1,7 @@
 package join.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import join.dao.PlanDAO;
@@ -36,7 +40,9 @@ public class PlanControl{
 	
 	//'join.plan'버튼을 눌렀을 때 게시판에 나열 될 것들
 	@RequestMapping("/plan")
-	public ModelAndView list(HttpServletRequest request, HttpServletResponse response){		
+	public ModelAndView list(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){		
+		
+		//FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
 		
 		//DAO 로직
 		PlanVO[] ar = planservice.getList();
@@ -57,13 +63,12 @@ public class PlanControl{
 		
 		//DAO 로직		
 		//String userid = "aaaa";
-		//String userid = request.getParameter("useridx");
-		
+		//String userid = request.getParameter("useridx");		
 		
 		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
 		//String nickName = userVO.getNickname();
 		
-		System.out.println(userVO);
+		System.out.println(userVO.getId());
 		
 		userVO.getIdx();
 		ModelAndView mv = new ModelAndView();	
@@ -79,19 +84,31 @@ public class PlanControl{
 	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO){	
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면
 		
-		//UserVO userVO = (UserVO) request.getSession().getAttribute("userVO");
+		//UserVO userVO = (UserVO) request.getSession().getAttribute("userVO");		
+		//String fileId = (String)request.getSession().getAttribute("planFile");
+			
 		
 		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
+			System.out.println(fileVO.getFile_name());		
 		
-		planVO.setFile_id(fileVO.getIdx());
-		planVO.setIdx(UtilService.makeKey());
+		planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴			
+		planVO.setContent(planVO.getContent());
+		planVO.setTitle(planVO.getTitle());
+		System.out.println(planVO.getTitle());
+		planVO.setLocation1(planVO.getLocation1());
+		planVO.setWriter(planVO.getWriter());
+		planVO.setIdx(UtilService.makeKey()); //plan_idx키 발생
 		planVO.setLocation1(request.getRemoteAddr());
 		planVO.setStatus("1");
+		
+		planVO.setLatitude("33333");
+		planVO.setLongitude("333333");
+		
 		//planVO.setReg_date(new Date());
 		//planVO.setStart_date(); //플랜 일정
 		
 		//DAO 로직
-		planservice.addPlan(planVO);		
+		planservice.addPlan(planVO);	
 		ModelAndView mv = new ModelAndView();		
 		mv.setViewName("redirect:/plan");//뷰 지정	
 		 
@@ -111,6 +128,8 @@ public class PlanControl{
 		mv.setViewName("plan/plan_view");//뷰 지정			
 		return mv;
 	}
+
+	
 }
 
 

@@ -9,9 +9,6 @@
 	String loginyn = (String)request.getSession().getAttribute("loginyn");
 
 %>
-<html>
-<head></head>
-<body>
 
 <%@include file="/views/login/login_main.jsp"%>
 <script>
@@ -27,6 +24,3 @@ var viewMsg = '<%=(String)request.getAttribute("viewMsg")%>';
 		}
 	});
 </script>
-
-</body>
-</html>

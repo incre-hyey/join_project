@@ -101,24 +101,4 @@ public class UserControl {
 		return "redirect:index";
 	}
 	
-	@RequestMapping("/summerFileUpload")
-	@ResponseBody
-	public HashMap<String, Object> summerFileUpload(HttpServletRequest request, HttpServletResponse response,
-			@RequestParam("upload") MultipartFile upload) {
-		FileVO fileVO = fileService.uploadFile(upload, "SUMMER");
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("url", fileVO.getUrl());
-		map.put("fileid", fileVO.getIdx());
-		map.put("src", request.getContextPath()+"/userImg?fileid="+fileVO.getIdx());
-
-		return map;
-	}
-	
-	@RequestMapping("/userImg")
-	public void chatUserImg(HttpServletRequest request, HttpServletResponse response){
-		String fileid = (String)request.getParameter("fileid");
-		//fileStr = fileStr.replaceAll("\\\\", "\\");
-		fileService.viewFile(response, fileid, "USER");
-		
-	}
 }

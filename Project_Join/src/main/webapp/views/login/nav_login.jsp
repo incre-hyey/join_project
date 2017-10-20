@@ -13,8 +13,6 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.zaccordion.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/js-image-slider.js"></script>
@@ -25,10 +23,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/lang/summernote-ko-KR.min.js"></script>
 
 	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
 		style="z-index:3;width:300px;" id="mySidebar"> <br>

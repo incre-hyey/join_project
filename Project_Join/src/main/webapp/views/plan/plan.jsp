@@ -1,21 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="/views/common.jsp"%>
+<%@include file="/views/common.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="w3-main" style="margin-left: 300px">
 <%@include file="../header.jsp"%>
+
 	<div class="w3-container w3-padding-large w3-grey">
 		<h2>PLAN</h2>
 		
 <div id="plan_m">
 
-			<form class="search">
+			<form class="search">				
 				<input type="text" name="search" placeholder="검색">
+				<input type="hidden" name="useIdx" id="userIdx" value="${userVO.getIdx()}"/>
 				<a href="" class="button">검색</a>
-				<a href="${pageContext.request.contextPath}/plan_write" action="sendData(this.form)" class="button">글쓰기</a>
-			</form>  
-			<!--('글쓰기'버튼을 눌렀을때 함께 보낼 값) idx=${idx}&nickname=${niackname} -->
+				<!-- 글쓰기버튼 -->
+				
+				<a href="${pageContext.request.contextPath}/plan_write"
+				action="sendData(this.form)" class="button">글쓰기</a>
+			</form>  		
 			
 			<c:forEach var="vo" items="${list }">
 			<div class="plan_list">
@@ -40,12 +44,13 @@
 					<form action="">
 						<button>참여하기</button>
 						<a href="#" class="like">찜하기&nbsp;<i class="fa fa-gratipay" style="font-size:20px;color:red"></i></a>
+					
 					</form>
 				</div>
 			</div>				
 	</c:forEach>
 					
-
+			<!-- 페이징 -->
 			<div class="pagination">
 				<a href="#">&laquo;</a> <a href="#">1</a> <a class="active" href="#">2</a>
 				<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a>
@@ -58,12 +63,11 @@
 <script type="text/javascript">
 
 	function sendDate(ff){
-	<!--/ 로그인이 되더있는지의 상태를 체크한다. /-->
-		console.log(ff.document.sessionScop.userVO.idx);
-			if(ff.userVO.idx == null){
-				alert("로그인을 먼저 하시기 바랍니다");
+		//console.log(ff.userVO.idx);
+			if(ff.userIdx == null){
+				alert("로그인을 필수 사항 입니다.");
 			}else{
 				ff.submit();
 			}
-		}
+	}
 </script>
