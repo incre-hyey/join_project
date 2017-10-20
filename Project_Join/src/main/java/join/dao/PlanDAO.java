@@ -12,7 +12,7 @@ public class PlanDAO {
 
 	@Autowired
 	private SqlSessionTemplate template;
-
+	
 	public void setTemplate(SqlSessionTemplate template) {
 		this.template = template;
 	}
