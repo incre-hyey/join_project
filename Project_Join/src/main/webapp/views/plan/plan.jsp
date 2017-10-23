@@ -19,7 +19,8 @@
 				
 				<a href="${pageContext.request.contextPath}/plan_write"
 				action="sendData(this.form)" class="button">글쓰기</a>
-			</form>  		
+			</form>  
+			<!--('글쓰기'버튼을 눌렀을때 함께 보낼 값) idx=${idx}&nickname=${niackname} -->
 			
 			<c:forEach var="vo" items="${list }">
 			<div class="plan_list">
