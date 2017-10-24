@@ -30,8 +30,9 @@ public class PlanService {
 	
 	public PlanVO viewPlan(String idx){		
 		//String idx = pvo.getIdx();
-		return planDao.getPlan(idx);
 		//System.out.println("planservice");
+		return planDao.getPlan(idx);
+		
 		
 	
 	}

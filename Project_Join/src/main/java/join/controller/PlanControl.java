@@ -43,7 +43,7 @@ public class PlanControl{
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){		
 		
 		//FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
-		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
 		//DAO 로직
 		PlanVO[] ar = planservice.getList();
 		if(ar.length > 0)
@@ -51,6 +51,7 @@ public class PlanControl{
 		ModelAndView mv = new ModelAndView();
 		//request.setAttribute("list", ar);
 		mv.addObject("list", ar);
+		mv.addObject("userVO",userVO);
 		
 		mv.setViewName("plan/plan");//뷰 지정		
 		
@@ -61,70 +62,69 @@ public class PlanControl{
 	public ModelAndView write(HttpServletRequest request, HttpServletResponse response) {	
 		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
 		
-		//DAO 로직		
-		//String userid = "aaaa";
-		//String userid = request.getParameter("useridx");		
-		
+		//DAO 로직				
 		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
-		//String nickName = userVO.getNickname();
-		
-		System.out.println(userVO.getId());
-		
-		userVO.getIdx();
+		//String nickName = userVO.getNickname();	
+	
 		ModelAndView mv = new ModelAndView();	
 		mv.addObject("userVO", userVO);
 		mv.setViewName("plan/plan_write");//뷰 지정
 		
-		return mv;
-		
-		//mv.addObject("w_idx", idx);
-				
+		return mv;			
 	}	
+	
 	@RequestMapping(value="/plan_write",method=RequestMethod.POST)
 	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO){	
-		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면
+		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면		
 		
-		//UserVO userVO = (UserVO) request.getSession().getAttribute("userVO");		
-		//String fileId = (String)request.getSession().getAttribute("planFile");
-			
+/*		String longitude  = request.getParameter("longitude");
+		String latitude   = request.getParameter("latitude");
+		System.out.println("위도:"+latitude+"경도"+longitude);*/
 		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");			
 		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
-			System.out.println(fileVO.getFile_name());		
+		//System.out.println(fileVO.getFile_name());		
 		
 		planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴			
 		planVO.setContent(planVO.getContent());
 		planVO.setTitle(planVO.getTitle());
-		System.out.println(planVO.getTitle());
+		//System.out.println(planVO.getTitle());
 		planVO.setLocation1(planVO.getLocation1());
+		planVO.setLocation2(planVO.getLocation2());
 		planVO.setWriter(planVO.getWriter());
 		planVO.setIdx(UtilService.makeKey()); //plan_idx키 발생
-		planVO.setLocation1(request.getRemoteAddr());
+		//planVO.setLocation1(request.getRemoteAddr());
 		planVO.setStatus("1");
-		
-		planVO.setLatitude("33333");
-		planVO.setLongitude("333333");
-		
-		//planVO.setReg_date(new Date());
-		//planVO.setStart_date(); //플랜 일정
+		planVO.setLongitude(planVO.getLongitude());
+		planVO.setLatitude(planVO.getLatitude());
+		planVO.setTnop(planVO.getTnop());
+
 		
 		//DAO 로직
 		planservice.addPlan(planVO);	
-		ModelAndView mv = new ModelAndView();		
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("userVO", userVO);		
 		mv.setViewName("redirect:/plan");//뷰 지정	
 		 
 		return mv;
 	}
 
 	@RequestMapping("/plan_view")
-	public ModelAndView view(HttpServletRequest request, HttpServletResponse response){	
+	public ModelAndView view(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){	
+		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
+		//System.out.println(userVO.getNickname());
 		
 		//DAO 로직
-		//String content = request.getParameter("content");
-		//System.out.println(content.toString());		
+		
 		String idx = request.getParameter("idx");
-		PlanVO pvo = planservice.viewPlan(idx);		
-		ModelAndView mv = new ModelAndView();		
+		PlanVO pvo = planservice.viewPlan(idx);				
+		
+		ModelAndView mv = new ModelAndView();	
+		
 		mv.addObject("vo", pvo);
+		mv.addObject("userVO", userVO );		
 		mv.setViewName("plan/plan_view");//뷰 지정			
 		return mv;
 	}

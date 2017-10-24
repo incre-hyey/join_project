@@ -9,7 +9,6 @@
 	String loginyn = (String)request.getSession().getAttribute("loginyn");
 
 %>
-
 <%@include file="/views/login/login_main.jsp"%>
 <script>
 var ctx = '<%=request.getContextPath()%>'; // joinapp
@@ -17,7 +16,7 @@ var webHost = location.protocol + "//" + location.host; // Ex) http://localhost:
 var webContext = webHost + ctx;//http://localhost:8088/joinapp
 var viewMsg = '<%=(String)request.getAttribute("viewMsg")%>';
 
-	$(document).ready(function() {
+	$(function(){
 		if(viewMsg != null && viewMsg != "null")
 		{
 			alert(viewMsg);

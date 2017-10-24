@@ -16,7 +16,7 @@ public class PlanDAO {
 	public void setTemplate(SqlSessionTemplate template) {
 		this.template = template;
 	}
-	// join.plan을 클릭했을때 list
+	// join.plan을 클릭했을때, list
 	public PlanVO[] getList(){		
 		List<PlanVO> list = template.selectList("plan.planList");
 		PlanVO[] ar = null;

@@ -12,23 +12,24 @@ public class PlanVO {
 	private String idx, //기본키
 					title, 	// 플랜제목
 					location1, // 플랜주소
-					editor_code, // editor API
+					location2, // 상세주소
 					content, //내용-에이터
-					status , //플랜상태
+					status, //플랜상태
 					tnop, //모집인원수
 					writer, //작성자
-					file_id, //이미지파일id
-					date_status,
-					p_sttus;
+					file_id, //이미지파일id	
+					start_date,// 플랜일정시작
+					latitude, 
+					longitude,
+					p_pwd;
 			Date reg_date, //작성일자
-				mod_date,  //수정일자
-				start_date,// 플랜일정시작
+				mod_date,  //수정일자				
 				end_date; //플랜일정종료	 
 	
 	private MultipartFile upload; //파일첨부 저장할곳
 	
 	private int nowPage; //현재페이지
-	private String latitude, longitude; //지도api 위도,경도
+	
 	
 	private List<UserVO> u_list;//참여 인원
 	
@@ -57,11 +58,11 @@ public class PlanVO {
 	public void setLocation1(String location1) {
 		this.location1 = location1;
 	}
-	public String getEditor_code() {
-		return editor_code;
+	public String getLocation2() {
+		return location2;
 	}
-	public void setEditor_code(String editor_code) {
-		this.editor_code = editor_code;
+	public void setLocation2(String location2) {
+		this.location2 = location2;
 	}
 	public String getContent() {
 		return content;
@@ -87,15 +88,50 @@ public class PlanVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-
+	public String getFile_id() {
+		return file_id;
+	}
+	public void setFile_id(String file_id) {
+		this.file_id = file_id;
+	}
+	public String getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+	public String getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+	public String getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+	public String getP_pwd() {
+		return p_pwd;
+	}
+	public void setP_pwd(String p_pwd) {
+		this.p_pwd = p_pwd;
+	}
+	public Date getReg_date() {
+		return reg_date;
+	}
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
+	}
+	public Date getMod_date() {
+		return mod_date;
 	}
 	public void setMod_date(Date mod_date) {
 		this.mod_date = mod_date;
 	}
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public Date getEnd_date() {
+		return end_date;
 	}
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
@@ -112,54 +148,7 @@ public class PlanVO {
 	public void setNowPage(int nowPage) {
 		this.nowPage = nowPage;
 	}
-	public String getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-	public String getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-	public Date getReg_date() {
-		return reg_date;
-	}
-	public Date getMod_date() {
-		return mod_date;
-	}
-	public Date getStart_date() {
-		return start_date;
-	}
-	public Date getEnd_date() {
-		return end_date;
-	}	
-	
-	public String getFile_id() {
-		return file_id;
-	}
-	public void setFile_id(String file_id) {
-		this.file_id = file_id;
-	}
-	public String getDate_status() {
-		return date_status;
-	}
-	public void setDate_status(String date_status) {
-		this.date_status = date_status;
-	}
-	public String getP_sttus() {
-		return p_sttus;
-	}
-	public void setP_sttus(String p_sttus) {
-		this.p_sttus = p_sttus;
-	}
-	public String getDateStr(Date date){
-		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm");
-		
-		return sdf.format(date);
-	}
+
 	
 }
 	
