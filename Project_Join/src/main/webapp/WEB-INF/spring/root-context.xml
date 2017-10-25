@@ -44,4 +44,6 @@
 	<bean id="profileDAO" class="join.dao.ProfileDAO"/>
 	<bean id="fileDAO" class="join.dao.FileDAO"/>
 	<bean id="likeDAO" class="join.dao.LikeDAO"/>
+	<bean id="msgDAO" class="join.dao.MsgDAO"/>
+	<bean id="planDAO" class="join.dao.PlanDAO"/>
 </beans>
