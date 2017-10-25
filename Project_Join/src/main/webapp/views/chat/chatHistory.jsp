@@ -12,8 +12,8 @@
 
 			<c:import url="http://localhost:3000/chat/history" charEncoding="utf-8">
 <%-- 				<c:param name="useridx">${sessionScope.userVO.idx }</c:param> --%>
-				<c:param name="userVO">${sessionScope.userVO.getJsonStr() }</c:param>
-				<c:param name="userid">${sessionScope.userVO.id }</c:param>
+				<c:param name="userVO">${sessionScope.USER.getJsonStr() }</c:param>
+				<c:param name="userid">${sessionScope.USER.id }</c:param>
 				<c:param name="page">${page }</c:param>
 				<c:param name="in_start">${in_start }</c:param>
 				<c:param name="in_end">${in_end }</c:param>

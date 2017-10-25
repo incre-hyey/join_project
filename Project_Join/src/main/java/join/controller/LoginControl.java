@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,8 @@ public class LoginControl{
 	@Resource(name="fileService")
 	FileService fileService;
 	
+	@Autowired
+	HttpSession session;
 	
 	/**
 	 * 로그인
@@ -47,8 +50,8 @@ public class LoginControl{
 		UserVO userVO = userService.loginUser(id, pwd, ip);
 		String viewMsg = "";
 		if(userVO != null) {
-			request.getSession().setAttribute("userVO", userVO);
-			request.getSession().setAttribute("loginyn", "Y");	
+			session.setAttribute("USER", userVO);
+			session.setAttribute("LOGINYN", "Y");	
 		}else
 		{
 			viewMsg = "아이디와 비밀번호를 확인 바랍니다.";

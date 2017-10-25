@@ -17,22 +17,22 @@
 
 <script>
 $(function() {
-    $('#summernote').summernote({
-    	height: 300,
-    	maxHeight: 350,
-    	minHeight: 200,
-    	focus: true,
-    	lang: 'ko-KR', // default: 'en-US'
-    	callbacks:{
-    		// 콜백을 사용!
-    		// 이미지를 업로드할 경우 이벤트 발생
-    		onImageUpload: function(files, editor, welEditable){
-    			sendFile(files[0], this);
-    		}
-    	}
-    });
+//     $('#summernote').summernote({
+//     	height: 300,
+//     	maxHeight: 350,
+//     	minHeight: 200,
+//     	focus: true,
+//     	lang: 'ko-KR', // default: 'en-US'
+//     	callbacks:{
+//     		// 콜백을 사용!
+//     		// 이미지를 업로드할 경우 이벤트 발생
+//     		onImageUpload: function(files, editor, welEditable){
+//     			sendFile(files[0], this);
+//     		}
+//     	}
+//     });
     
-    $('#summernote').summernote('lineHeight',.5);
+//     $('#summernote').summernote('lineHeight',.5);
 });
 
 function sendFile(file, editor){
@@ -255,7 +255,7 @@ function register(){
 						<th>Introdution</th>
 						<td colspan="2">
 							<textarea class="form-control" rows="5" id="intro_content" name="intro_content"></textarea>
-							<div id="summernote"></div>
+						
 						</td>
 					</tr>
 					<tr>

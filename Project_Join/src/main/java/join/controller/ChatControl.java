@@ -29,7 +29,7 @@ public class ChatControl{
 	@RequestMapping("/chatList")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response){
 		
-		System.out.println(((UserVO)request.getSession().getAttribute("userVO")).getJsonStr());
+		System.out.println(((UserVO)request.getSession().getAttribute("USER")).getJsonStr());
 		//DAO 로직
 		int page=1;
 		String category = "0";
@@ -80,8 +80,7 @@ public class ChatControl{
 			out_start = defaultStartDate;
 			out_end = defaultEndDate;
 		}
-			
-			
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("page",page);
 		mv.addObject("category",category);

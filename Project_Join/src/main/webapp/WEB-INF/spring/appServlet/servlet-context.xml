@@ -27,6 +27,4 @@
 	
 	<context:component-scan base-package="com.company3.joinapp" />
 	<context:component-scan base-package="join.controller" />
-	
-	<beans:bean name="/index" class="join.controller.MainControl"/>
 </beans:beans>

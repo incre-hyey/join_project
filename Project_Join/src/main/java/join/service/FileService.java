@@ -22,7 +22,7 @@ import join.vo.FileVO;
 @Service("fileService")
 public class FileService {
 	
-	private String fileUploadPath = "C:/Users/3-18/git/join_project/Project_Join/src/main/webapp/WEB-INF/upload/";
+	private String fileUploadPath = "C:/Users/com/git/join_project/Project_Join/src/main/webapp/WEB-INF/upload/";
 	
 	@Autowired
 	private FileDAO fileDAO;

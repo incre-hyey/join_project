@@ -25,10 +25,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.7.3/lang/summernote-ko-KR.min.js"></script>
 
 	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
 		style="z-index:3;width:300px;" id="mySidebar"> <br>
@@ -45,6 +41,6 @@
 		<div class="logined">
 			<p class="my_icon"><a href="#"><i class="fa fa-bell"></i></a> 
 			<a href="${pageContext.request.contextPath}/views/user/userInfo.jsp"><i class="fa fa-cog" aria-hidden="true"></i></a></p>
-			<h4 class="nick">Nickname</h4>
+			<h4 class="nick">${sessionScope.USER.nickname } 님 환영합니다!</h4>
 		</div>
 		

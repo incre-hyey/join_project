@@ -24,19 +24,10 @@ public class ProfileDAO{
 		System.out.println(list.size());
 		return list;
 	}
-	
-	public void insertUser(UserVO userVO){
-		
-		sqlSession.insert("user.insert", userVO);
-	}
-	
 
 	public List<UserVO> getUserList(Map<String, String> map){
-		return sqlSession.selectList("user.getUser", map);
+		return sqlSession.selectList("user.getProfile", map);
 	}
 	
-	public void updateLoginYn(UserVO userVO) {
-		
-		sqlSession.update("user.loginyn" , userVO);
-	}
+	
 }

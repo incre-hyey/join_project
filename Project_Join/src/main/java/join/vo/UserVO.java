@@ -2,6 +2,7 @@ package join.vo;
 
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,10 +28,19 @@ public class UserVO {
 	// 우편번호, 프로필노출여부 컬럼 추가 - 10.16 hycho
 	String addr3, us_viewyn;
 	
-//	String jsonObj;
-//	public void setJsonObj(String jsonObj) {
-//		this.jsonObj = jsonObj;
-//	}
+	//찜 목록 추가 - 10.20 hycho
+	List<LikeVO> likeList;
+	String likeyn;
+	
+	
+	public String getLikeyn() {
+		return likeyn;
+	}
+
+	public void setLikeyn(String likeyn) {
+		this.likeyn = likeyn;
+	}
+
 	public String getJsonStr() {
 		String parseFileid= this.file_id.replace("\\", "\\\\");
 		StringBuffer sb = new StringBuffer();
@@ -47,6 +57,14 @@ public class UserVO {
 		return sb.toString();
 	}
 	
+	public List<LikeVO> getLikeList() {
+		return likeList;
+	}
+
+	public void setLikeList(List<LikeVO> likeList) {
+		this.likeList = likeList;
+	}
+
 	/*
 	 * 연령, 성별, 혈액형에 대한 파싱 제공
 	 */
