@@ -19,6 +19,13 @@ System.out.println(request.getSession().getAttribute("USER") + "!!!!!!!");
 	}
 
 %>
+<script>
+
+function msgBtnClick(){
+	var pop = window.open(webContext + "/messageMain?menu=RCV" , "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+}
+
+</script>
 <script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 <ul id="nav" class="login_nav">
 			<li><a href="${pageContext.request.contextPath}/plan" onclick="w3_close()"
@@ -37,7 +44,7 @@ System.out.println(request.getSession().getAttribute("USER") + "!!!!!!!");
 				<ul id="sub_nav">
 					<li><a href="#" onclick="w3_close()"
 						class="w3-bar-item w3-button w3-padding"> MY PLAN</a></li>
-					<li><a href="#" onclick="w3_close()"
+					<li><a onclick="msgBtnClick()"
 						class="w3-bar-item w3-button w3-padding"> MY MESSAGE</a></li>
 				</ul></li>
 		</ul>

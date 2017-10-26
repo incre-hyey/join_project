@@ -44,8 +44,8 @@ public class UserControl {
 						@ModelAttribute UserVO userVO){
 		//userVO 세팅
 		FileVO fileVO = fileService.uploadFile(userVO.getUpload(),"USER");
-		
-		userVO.setFile_id(fileVO.getIdx());
+		if( fileVO != null )
+			userVO.setFile_id(fileVO.getIdx());
 		userVO.setIdx(UtilService.makeKey());	
 		userVO.setIp(request.getRemoteAddr());
 		userVO.setStatus("1");

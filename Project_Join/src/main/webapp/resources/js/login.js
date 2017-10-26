@@ -46,3 +46,5 @@ function joinFunc(){
 	
 	window.location.href = webContext + "/views/user/register.jsp";
 }
+
+

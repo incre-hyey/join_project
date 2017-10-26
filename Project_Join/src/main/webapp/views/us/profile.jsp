@@ -106,9 +106,11 @@ a#MOVE_TOP_BTN {
 			<button class="w3-button w3-white <%if(type.equals("3")){ %>w3-black<%} %>" onclick="filter('3')">
 				Man
 			</button>
+			<c:if test="${sessionScope.LOGINYN eq 'Y' }">
 			<button class="w3-button w3-white <%if(type.equals("4")){ %>w3-black<%} %>" onclick="filter('4')">
 				Like
 			</button>
+			</c:if>
 		</div>
 	</div>
 	</header>
@@ -133,6 +135,7 @@ a#MOVE_TOP_BTN {
 									<p><c:out value="${userVO.email }"/></p>
 									<p style="text-align:right;">
 <!-- 										<button class="button">Contact</button> -->
+									<c:if test="${sessionScope.LOGINYN eq 'Y' }">	
 										<c:choose>
 										<c:when test="${userVO.likeyn eq '1' }">
 											<i class="fa fa-gratipay" style="font-size:50px;color:red" onclick="likeAjax('${userVO.idx}', this)"></i>
@@ -141,6 +144,7 @@ a#MOVE_TOP_BTN {
 											<i class="fa fa-gratipay" style="font-size:50px;color:lightgray" onclick="likeAjax('${userVO.idx}', this)"></i>
 										</c:otherwise>
 										</c:choose>
+									</c:if>
 									</p>
 								</div>
 							</div>
