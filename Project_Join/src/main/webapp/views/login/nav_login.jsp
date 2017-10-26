@@ -13,6 +13,8 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.zaccordion.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/js-image-slider.js"></script>
@@ -39,6 +41,6 @@
 		<div class="logined">
 			<p class="my_icon"><a href="#"><i class="fa fa-bell"></i></a> 
 			<a href="${pageContext.request.contextPath}/views/user/userInfo.jsp"><i class="fa fa-cog" aria-hidden="true"></i></a></p>
-			<h4 class="nick">Nickname</h4>
+			<h4 class="nick">${sessionScope.USER.nickname } 님 환영합니다!</h4>
 		</div>
 		

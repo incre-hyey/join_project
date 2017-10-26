@@ -11,7 +11,8 @@
 		
 <div id="plan_m">
 
-			<form class="search">				
+			<form name="planForm" class="search">
+				<input type="hidden" name="nowPage" value="${nowPage }" />				
 				<input type="text" name="search" placeholder="검색">
 				<input type="hidden" name="useIdx" id="userIdx" value="${userVO.getIdx()}"/>
 				<a href="" class="button">검색</a>
@@ -67,13 +68,17 @@
 			<!-- 페이징  부분-->
 			<div class="pagination">
 				<a href="#">&laquo;</a> <a href="#">1</a> <a class="active" href="#">2</a>
-				<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a>
+				<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="
+				
+				
+				#">6</a>
 				<a href="#">&raquo;</a>
 			</div>
 		</div>
 	</div>
 	<%@include file="../footer.jsp"%>
 </div>
+
 <script type="text/javascript">
 
 	function sendDate(ff){

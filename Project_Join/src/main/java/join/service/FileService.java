@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,14 @@ import join.vo.FileVO;
 @Service("fileService")
 public class FileService {
 	
-	private String fileUploadPath = "C:/Users/3-8/git/join_project/Project_Join/src/main/webapp/WEB-INF/upload/";
+//	private String fileUploadPath = "C:/Users/com/git/join_project/Project_Join/src/main/webapp/WEB-INF/upload/";
+	private String fileUploadPath = "WEB-INF/upload/";
 	
 	@Autowired
 	private FileDAO fileDAO;
+	
+	@Autowired
+	HttpServletRequest request;
 
 	/**
 	 * 서버에 파일 저장 / 리턴 : 저장된 파일 경로+이름
@@ -48,13 +53,13 @@ public class FileService {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+			String insertPath = fullPath.substring(request.getRealPath("").length(), fullPath.length());
 			//T_FILE 테이블 insert
 			//FileVO fileVO = new FileVO();
 			fileVO.setIdx(UtilService.makeKey());
 			fileVO.setModule(module);
 			fileVO.setOri_name(fileName);
-			fileVO.setUrl(fullPath);
+			fileVO.setUrl(insertPath);
 			fileVO.setFile_name(fullPath.substring(fullPath.lastIndexOf("/")+1,fullPath.length()));
 			fileDAO.insertFile(fileVO);
 		}
@@ -72,9 +77,12 @@ public class FileService {
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY/MM/dd/");
 		//SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss");
 		String str1 = sdf.format(date);
+		
+		String webCtx = request.getRealPath(fileUploadPath);
+		//request.get
 		//String str2 = sdf2.format(date);
 		StringBuffer sb = new StringBuffer();
-		sb.append(fileUploadPath).append(module).append("/").append(str1);
+		sb.append(webCtx).append(module).append("/").append(str1);
 		
 		File f = new File(sb.toString());
 		if(!f.exists())
@@ -131,7 +139,7 @@ public class FileService {
 	}
 	
 	/**
-	 * 저장된 파일 쓰기! 보여주기!
+	 * 저장된 파일 쓰기! 
 	 * @param response
 	 * @param fileid : T_FILE의 idx
 	 * @param module : T_FILE의 module
@@ -142,6 +150,7 @@ public class FileService {
 		byte[] buf = new byte[1024];
 		FileVO fileVO = fileDAO.getFile(fileid, module.toLowerCase());
 		String fileStr = fileVO.getUrl();
+		fileStr = request.getRealPath(fileStr);
 		try {
 			File file = new File(fileStr);
 			fis = new FileInputStream(file);

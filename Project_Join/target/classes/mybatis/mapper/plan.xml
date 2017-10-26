@@ -26,8 +26,8 @@
 
 	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
 	<insert id="write_ok" parameterType="join.vo.PlanVO">
-		insert into t_plan(idx, p_pwd, title, location1, location2, tnop, content, status, writer, reg_date, latitude, longitude, file_id)
-		values(#{idx}, #{title}, #{p_pwd}, #{location1}, #{location2}, #{tnop}, #{content}, #{status}, #{writer}, sysdate, #{latitude}, #{longitude},#{file_id})		
+		insert into t_plan(idx, p_pwd, title, location1, location2, tnop, content, status, writer, reg_date, start_date, end_date, latitude, longitude, file_id, plan_kind)
+		values(#{idx}, #{title}, #{p_pwd}, #{location1}, #{location2}, #{tnop}, #{content}, #{status}, #{writer}, sysdate, #{start_date}, to_date(#{end_date},'YYYY/MM/DD hh:mi:ss'), #{latitude}, #{longitude},#{file_id}, #{plan_kind})		
 	</insert>
 	<!-- select p t_plan, q t_plan_req from q inner join p on q.plan_idx = p.idx -->
 	

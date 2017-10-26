@@ -76,6 +76,7 @@ public class UtilService {
 	 */
 	public static String getFormatDate(String format, Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		
 		return sdf.format(date);
 	}
 	/**
@@ -99,6 +100,17 @@ public class UtilService {
 			}
 		}
 		return sb.toString();
+	}
+	/**
+	 * null 방지용
+	 * @param str
+	 * @param def
+	 * @return
+	 */
+	public static String getValue(String str, String def) {
+		if(str == null || str.equals(""))
+			str = def;
+		return str;
 	}
 
 }

@@ -33,7 +33,6 @@ public class LoginControl{
 	@Autowired
 	HttpSession session;
 	
-	
 	/**
 	 * 로그인
 	 * @param request
@@ -51,8 +50,8 @@ public class LoginControl{
 		UserVO userVO = userService.loginUser(id, pwd, ip);
 		String viewMsg = "";
 		if(userVO != null) {
-			session.setAttribute("userVO", userVO);
-			session.setAttribute("loginyn", "Y");	
+			session.setAttribute("USER", userVO);
+			session.setAttribute("LOGINYN", "Y");	
 		}else
 		{
 			viewMsg = "아이디와 비밀번호를 확인 바랍니다.";
@@ -69,7 +68,7 @@ public class LoginControl{
 	 */
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response){
-		session.invalidate();
+		request.getSession().invalidate();
 //		request.getSession().setAttribute("loginyn", "N");
 //		request.getSession().setAttribute("userVO", null);
 		

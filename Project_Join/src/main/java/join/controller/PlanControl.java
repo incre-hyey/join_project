@@ -1,8 +1,17 @@
 package join.controller;
 
+
+
+import java.util.Calendar;
 import java.util.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -63,8 +72,9 @@ public class PlanControl{
 		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
 		
 		//DAO 로직				
-		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
-		//String nickName = userVO.getNickname();	
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		String nickName = userVO.getNickname();	
+		System.out.println(nickName);
 	
 		ModelAndView mv = new ModelAndView();	
 		mv.addObject("userVO", userVO);
@@ -74,12 +84,8 @@ public class PlanControl{
 	}	
 	
 	@RequestMapping(value="/plan_write",method=RequestMethod.POST)
-	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO){	
+	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO) throws ParseException{	
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면		
-		
-/*		String longitude  = request.getParameter("longitude");
-		String latitude   = request.getParameter("latitude");
-		System.out.println("위도:"+latitude+"경도"+longitude);*/
 		
 		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");			
 		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
@@ -98,7 +104,27 @@ public class PlanControl{
 		planVO.setLongitude(planVO.getLongitude());
 		planVO.setLatitude(planVO.getLatitude());
 		planVO.setTnop(planVO.getTnop());
-
+		planVO.setPlan_kind(planVO.getPlan_kind());
+		planVO.setStart_date(planVO.getStart_date());
+		
+		// 일정 갑 구해서 던지기
+		String stringEnd  = request.getParameter("enddate");		
+		String finaldate = stringEnd+"00";
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-ddhhmmss");
+		SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		Date date = null;
+			try{
+			date = fmt.parse(finaldate);
+			System.out.println("========>"+date);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		String d_date = fmt1.format(date);
+		System.out.println(d_date+"d_date 두번째 String");
+		
+		planVO.setEnd_date(d_date);
+		//planVO.setEnd_date(enddate);
 		
 		//DAO 로직
 		planservice.addPlan(planVO);	
