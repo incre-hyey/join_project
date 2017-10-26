@@ -19,8 +19,7 @@
 
  
 	<div class="w3-container w3-padding-large w3-grey">
-	
-		<h2>PLAN 작성</h2>	
+	<h2>PLAN 작성</h2>	
 		 
 		<div id="plan_write">
 		
@@ -74,7 +73,6 @@
 	</form>			
 		<!-- '저장'을 눌렀을때 작성자의 t_user테이블의 idx함께 보내기 작성자 value값 넣기-->	
 		</div>
-
 
 </div>
 	<%@include file="../footer.jsp"%>

@@ -38,16 +38,16 @@
 				<!-- 일반사용자들의 상세보기 버튼 -->		
 				<div id="user">
 					<input type="hidden" id="">
-					<input type="button" name="profile" value="프로필보기" class="button">
-					<input type="button" name="talk" value="대화신청" class="button">
-					<input type="button" name="msg" value="쪽지" class="button">
-					<input type="button" name="" value="참가신청" class="button">	
+					<input type="button" name="list" value="목록보기" class="btn btn-primary">
+					<!-- <input type="button" name="profile" value="프로필보기" class="btn btn-primary"> -->
+					<input type="button" name="talk" value="대화신청" class="btn btn-success">
+					<input type="button" name="msg" value="쪽지" class="btn btn-warning">
+					<input type="button" name="" value="참가신청" class="btn btn-info">	
 				</div>				
 				<!-- 플랜작성자의 상세보기 버튼 -->
-				<div id="planer" style="display:none;">
-					<input type="button" name="edit_plan" value="수정하기" class="button"/>
-					<input type="button" name="delete" value="삭제하기" class="button"/>
-					<input type="button" name="sendCheck" value="신청함보기" class="button"/>
+				<div id="planer" style="display:block;">
+					<input type="button" name="edit_plan" value="수정하기" class="button btn btn-primary"/>
+					<input type="button" name="delete" value="삭제하기" class="button btn btn-default"/>
 				</div>
 			</form>
 		</div>
@@ -65,7 +65,7 @@
 	var latitude  = document.getElementById('latitude').value;
 	var longitude  = document.getElementById('longitude').value;
 	
-	alert(latitude+","+longitude);
+	//alert(latitude+","+longitude);
 
 	
 	console.log(latitude+longitude);

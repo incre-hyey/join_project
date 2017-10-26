@@ -55,11 +55,15 @@ public class PlanControl{
 		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
 		//DAO 로직
 		PlanVO[] ar = planservice.getList();
-		if(ar.length > 0)
-		System.out.println(ar.length);
+/*		PlanVO[] late = planservice.getList()
+		
+		if(late.length > 0)
+		System.out.println(late.length);*/
 		ModelAndView mv = new ModelAndView();
+		
 		//request.setAttribute("list", ar);
 		mv.addObject("list", ar);
+		//mv.addObject("late", late);
 		mv.addObject("userVO",userVO);
 		
 		mv.setViewName("plan/plan");//뷰 지정		

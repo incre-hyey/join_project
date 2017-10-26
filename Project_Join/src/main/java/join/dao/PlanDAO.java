@@ -18,7 +18,8 @@ public class PlanDAO {
 	}
 	// join.plan을 클릭했을때, list
 	public PlanVO[] getList(){		
-		List<PlanVO> list = template.selectList("plan.planList");
+		
+		List<PlanVO> list = template.selectList("plan.planList");		
 		PlanVO[] ar = null;
 		if(list != null && list.size() >0 ){
 			ar = new PlanVO[list.size()];
@@ -26,6 +27,17 @@ public class PlanDAO {
 		}
 		return ar;
 	}
+/*	// plan의 일정이 지난 list 불러오기
+	public PlanVO[] getLatePlan(){				
+	
+		List<PlanVO> list1 = template.selectList("plan.getLatePlan");
+		PlanVO[] ar = null;
+		if(list1 != null && list1.size() >0 ){
+			ar = new PlanVO[list1.size()];
+			list1.toArray(ar);		
+		}
+		return ar;
+	}*/
 	
 	// '글쓰기'창에서 '저장'을 눌렀을때
 	public boolean savePlan(PlanVO pvo){

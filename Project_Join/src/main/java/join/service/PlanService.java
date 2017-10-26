@@ -21,6 +21,11 @@ public class PlanService {
 		//System.out.println(planDao.getList());
 		return planDao.getList();		
 	}
+/*	
+	public PlanVO[] getLatePlan(){
+		// plan 일정이 지난 값들 가져오기
+		return planDao.getLatePlan();
+}*/
 	
 	public void addPlan(PlanVO pvo){
 		// '저장'을 눌렀을때

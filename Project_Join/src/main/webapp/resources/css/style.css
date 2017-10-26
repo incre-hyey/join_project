@@ -147,7 +147,7 @@ footer .w3-row-padding .w3-third {
 }
 
 #plan_write #sample5_address {
-	width: 60%;
+	width: 72%;
 }
 
 #plan_write .w3-button {
@@ -167,6 +167,10 @@ footer .w3-row-padding .w3-third {
     height: 26px;
     text-align: left;
     padding-left: 20px;
+}
+
+#plan_write #upload {
+	padding-left: 0px;
 }
 
 
@@ -226,6 +230,11 @@ footer .w3-row-padding .w3-third {
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+}
+
+.card img {
+	padding: 30px;
 }
 
 .card button {
@@ -609,12 +618,17 @@ nav button.logout {
 	
 }
 
-#user {
+#user{
 	width: 615px;
     margin: 0 auto;
 }
 
-#user .btn {
+#planer {
+	width: 500px;
+	margin: 0 auto;
+}
+
+#user .btn, #planer .btn {
 	width: 150px;
 }
 
@@ -623,7 +637,7 @@ nav button.logout {
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
-    background: url('https://www.w3schools.com/howto/searchicon.png') no-repeat 10px 10px;
+    background: #fff url('https://www.w3schools.com/howto/searchicon.png') no-repeat 10px 10px;
     padding: 8px 20px 8px 40px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
@@ -855,21 +869,42 @@ nav button.logout {
     padding-left: 20px;
 }
 
-.msg .content {
+.msg .title {
+	font-size: 17px;
+    color: #000;
+}
+
+.msg .title ,.msg .content {
 	text-overflow: ellipsis;
-	width: 300px;
+	width: 500px;
 	white-space: nowrap;
     overflow: hidden;
 }
 
 .msg li {
 	border-bottom: 1px solid #ccc;
+	padding: 10px 10px;
 }
 
 .msg .sender {
 	color: #bd9655;
     padding-right: 10px;
 }
+
+.search_btn input[type=text] {
+    width: 430px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 2px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url(https://www.w3schools.com/howto/searchicon.png);
+    background-position: 10px 7px;
+    background-repeat: no-repeat;
+    padding: 6px 20px 6px 40px;
+}
+
+
 
 #send_msg th {
 	padding-bottom: 0px!important;
@@ -878,6 +913,8 @@ nav button.logout {
 
 #send_msg input[type=text] {
     margin: 0;
+    height: 27px;
+    width: 438px;
 }
 
 #send_msg textarea {
@@ -891,6 +928,8 @@ nav button.logout {
 .send_btn {
 	width: fit-content;
     margin: 0 auto;
+    height: 30px;
+    margin-bottom: 10px;
 }
 
 .send_btn .btn {
