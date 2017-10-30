@@ -185,6 +185,18 @@
 			<artifactId>cglib</artifactId>
 			<version>2.2.2</version>
 		</dependency>
+		<dependency> 
+			<groupId>org.codehaus.jackson</groupId> 
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version> 
+		</dependency>
+		<dependency>
+		    <groupId>servlets.com</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>05Nov2002</version>
+		</dependency>
+				
+		
 				       
 	</dependencies>
     <build>
@@ -213,4 +225,13 @@
             </plugin>
         </plugins>
     </build>
+    <dependencyManagement>
+    	<dependencies>
+    		<dependency>
+    			<groupId>org.codehaus.jackson</groupId>
+    			<artifactId>jackson-core-asl</artifactId>
+    			<version>1.9.13</version>
+    		</dependency>
+    	</dependencies>
+    </dependencyManagement>
 </project>

@@ -15,8 +15,9 @@
 	padding: 0;
 }
 
-body, h1, h2, h3, h4, h5, h6 {
-	font-family: sans-serif;
+body, h1, h2, h3, h4, h5, h6, a, button, input {
+	font-family: "Raleway","HelveticaNeue","Helvetica Neue",nanumgothic,sans-serif!important;
+	letter-spacing: 0.05em;
 }
 /*익스용 onfocus=this.blur();  */
 a {

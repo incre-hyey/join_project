@@ -18,15 +18,15 @@ public class UserDAO{
 	@Autowired
 	SqlSession sqlSession;
 	
-	public void getList(){
+	public List getList(){
 //		Map<String,String> list = (Map<String, String>) sqlSession.selectList("user.totalUser");
-		List<HashMap> list = (ArrayList) sqlSession.selectList("user.totalUser");
-		for(HashMap<String,String> map : list){
-			
-		}
+		List<UserVO> list = (ArrayList) sqlSession.selectList("user.getUser");
+//		for(HashMap<String,String> map : list){
+//			
+//		}
 		
 		System.out.println(list.size());
-		
+		return list;
 	}
 	
 	public void insertUser(UserVO userVO){
@@ -34,5 +34,16 @@ public class UserDAO{
 		sqlSession.insert("user.insert", userVO);
 	}
 	
+
+	public UserVO getUser(String id){
+		return sqlSession.selectOne("user.getUser", id);
+	}
+	public List<UserVO> getUserList(Map<String, String> map){
+		return sqlSession.selectList("user.getUserList", map);
+	}
 	
+	public void updateLoginYn(UserVO userVO) {
+		
+		sqlSession.update("user.loginyn" , userVO);
+	}
 }

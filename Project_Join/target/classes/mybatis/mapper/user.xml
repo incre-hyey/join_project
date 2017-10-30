@@ -4,18 +4,111 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="user">
-	<select id="totalUser" resultType="map">
-	  select * from EMPLOYEES	
+	<select id="getUserList" resultType="join.vo.UserVO" parameterType="hashmap">
+	  select * from t_user	
+	  <where> 
+	 	 AND 1=1
+	    <if test="id != null">
+	         AND id = #{id}
+	    </if> 
+	    <if test="pwd != null">
+	         AND pwd = #{pwd}
+	    </if>
+	   </where>
 	</select>
+	<select id="getUser" resultType="join.vo.UserVO" parameterType="String">
+	  select * from t_user	
+	 </select>
+	
 	
 	<insert id="insert" parameterType="join.vo.UserVO">
 		insert into t_user (idx, id,	pwd,	name,	nickname,	phone, email,
-							age,	gender,	addr1,	addr2,	blood,	file_name,
-							ori_name,	intro_content,	ip,	status,	reg_date)
+							age,	gender,	addr1,	addr2,	blood,	file_id,	intro_content,	ip,	status,	reg_date, us_viewyn, addr3)
 		values(#{idx}, #{id},	#{pwd},	#{name},	#{nickname},	#{phone} , #{email},
-							#{age},	#{gender},	#{addr1},	#{addr2},	#{blood},	#{file_name},
-							#{ori_name},	#{intro_content},	#{ip},	#{status},	#{reg_date})
+							#{age},	#{gender},	#{addr1},	#{addr2},	#{blood},	#{file_id}
+							,	#{intro_content},	#{ip},	#{status},	#{reg_date}, #{us_viewyn}, #{addr3})
 	</insert>
+	
+	<update id="loginyn" parameterType="join.vo.UserVO">
+		update t_user set loginyn=#{loginyn} , login_date = #{login_date}, ip = #{ip}
+		where id = #{id}
+	</update>
+	
+	
+	
+	
+	<select id="getProfile" parameterType="map" resultMap="profileResult">
+		select usr.*, (select '1' from t_like 
+							where targettype = #{targettype} 
+							AND userid = #{userid}
+							AND targetid = usr.idx ) as likeyn
+		from t_user usr
+		where us_viewyn = 'Y'
+		<if test='userid !=""'>
+			and idx != #{userid}
+		</if>
+		
+<!-- 		and usr.idx = like.userid -->
+		
+			<if test='type == "2"'>
+				AND gender = '2'
+			</if>
+			<if test='type == "3"'>
+				AND gender = '1'
+			</if>
+			<if test='type == "4"'>
+<!-- 			찜목록  -->
+				AND exists (  
+							SELECT 1 from t_like inner
+							WHERE
+							targettype = 'PROFILE' 
+							AND userid = #{userid}
+							AND targetid = usr.idx
+							)					
+
+			</if>
+		
+	</select>
+	
+	
+	
+	
+	<!--  -->
+	<resultMap id="profileResult" type="join.vo.UserVO">
+		<id property="idx" column="idx"/>
+		<result property="name" column="content"/>
+		<result property="nickname" column="content"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="age" column="age"/>
+		<result property="gender" column="gender"/>
+		<result property="addr1" column="addr1"/>
+		<result property="addr2" column="addr2"/>
+		<result property="blood" column="blood"/>
+		<result property="file_id" column="file_id"/>
+		<result property="intro_content" column="intro_content"/>
+		<result property="status" column="status"/>
+		<result property="us_viewyn" column="us_viewyn"/>
+		<result property="loginyn" column="loginyn"/>
+		<result property="addr3" column="addr3" />
+		<result property="likeyn" column="likeyn" />
+   		<collection property="likeList" ofType="join.vo.LikeVO" resultMap="likeListMap"/>
+	</resultMap>
+	<resultMap id="likeListMap" type="join.vo.LikeVO">
+		<id property="idx" column="idx"/>
+		<result property="userid" column="userid"/>
+		<result property="targetid" column="targetid"/>
+		<result property="targettype" column="targettype"/>
+	</resultMap>
+	
+	
+<!-- 	<select id="selectLike" parameterType="map" resultType="join.vo.LikeVO"> -->
+<!-- 		SELECT targetid from t_like inner -->
+<!-- 		WHERE -->
+<!-- 		targettype = 'PROFILE'  -->
+<!-- 		AND userid = #{userid} -->
+<!-- 		AND targetid = usr.idx -->
+<!-- 	</select> -->
 		
 </mapper>  
 
