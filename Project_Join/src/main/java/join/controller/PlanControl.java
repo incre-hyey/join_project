@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -52,20 +53,14 @@ public class PlanControl{
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){		
 		
 		//FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
-		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");		
+		
 		//DAO 로직
-		PlanVO[] ar = planservice.getList();
-/*		PlanVO[] late = planservice.getList()
+		PlanVO[] ar = planservice.getList();		 
+		ModelAndView mv = new ModelAndView();		
 		
-		if(late.length > 0)
-		System.out.println(late.length);*/
-		ModelAndView mv = new ModelAndView();
-		
-		//request.setAttribute("list", ar);
-		mv.addObject("list", ar);
-		//mv.addObject("late", late);
-		mv.addObject("userVO",userVO);
-		
+		mv.addObject("list", ar);		
+		mv.addObject("userVO",userVO);		
 		mv.setViewName("plan/plan");//뷰 지정		
 		
 		return mv;
@@ -91,19 +86,19 @@ public class PlanControl{
 	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO) throws ParseException{	
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면		
 		
-		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");			
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");	
+		System.out.println(userVO.getFile_id());
 		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
-		//System.out.println(fileVO.getFile_name());		
+		
+		//System.out.println(fileVO.getFile_name());	
 		
 		planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴			
 		planVO.setContent(planVO.getContent());
-		planVO.setTitle(planVO.getTitle());
-		//System.out.println(planVO.getTitle());
+		planVO.setTitle(planVO.getTitle());  		
 		planVO.setLocation1(planVO.getLocation1());
 		planVO.setLocation2(planVO.getLocation2());
 		planVO.setWriter(planVO.getWriter());
 		planVO.setIdx(UtilService.makeKey()); //plan_idx키 발생
-		//planVO.setLocation1(request.getRemoteAddr());
 		planVO.setStatus("1");
 		planVO.setLongitude(planVO.getLongitude());
 		planVO.setLatitude(planVO.getLatitude());
@@ -111,7 +106,7 @@ public class PlanControl{
 		planVO.setPlan_kind(planVO.getPlan_kind());
 		planVO.setStart_date(planVO.getStart_date());
 		
-		// 일정 갑 구해서 던지기
+		// '일정' 구하기
 		String stringEnd  = request.getParameter("enddate");		
 		String finaldate = stringEnd+"00";
 		
@@ -125,10 +120,9 @@ public class PlanControl{
 				e.printStackTrace();
 			}
 		String d_date = fmt1.format(date);
-		System.out.println(d_date+"d_date 두번째 String");
+		//System.out.println(d_date+"d_date 두번째 String");
 		
-		planVO.setEnd_date(d_date);
-		//planVO.setEnd_date(enddate);
+		planVO.setEnd_date(d_date);	
 		
 		//DAO 로직
 		planservice.addPlan(planVO);	
@@ -143,11 +137,10 @@ public class PlanControl{
 	@RequestMapping("/plan_view")
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){	
 		
-		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
 		//System.out.println(userVO.getNickname());
 		
-		//DAO 로직
-		
+		//DAO 로직		
 		String idx = request.getParameter("idx");
 		PlanVO pvo = planservice.viewPlan(idx);				
 		
@@ -158,7 +151,25 @@ public class PlanControl{
 		mv.setViewName("plan/plan_view");//뷰 지정			
 		return mv;
 	}
-
+	@RequestMapping("/appPoeple")
+	public ModelAndView appPeople(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
+		
+		Map<String, String> map = new HashMap<String, String>();
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		
+		String u_idx = userVO.getIdx();
+		System.out.println(u_idx+"poepleeeeeeeee");
+		String p_idx = planVO.getIdx();			
+		
+		map.put("u_idx", u_idx);
+		map.put("p_idx", p_idx);
+		map.put("status", "0");		
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("map", map);
+		
+		return mv;
+	}
 	
 }
 

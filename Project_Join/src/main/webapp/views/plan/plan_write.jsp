@@ -145,8 +145,8 @@
 		$('#start_date').val(startdate);
 		$('#enddate').val( enddate+hour+minute);
 		
-		alert(startdate);
-		alert(enddate+"&nbsp;"+hour+":"+minute);
+		//alert(startdate);
+		//alert(enddate+"&nbsp;"+hour+":"+minute);
 	
 	//유효성 검사
 	if(ff.p_pwd == ""){

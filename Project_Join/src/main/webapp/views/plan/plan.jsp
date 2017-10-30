@@ -23,12 +23,7 @@
 				<a href="${pageContext.request.contextPath}/plan_write"
 				action="sendData(this.form)" class="button w3-button">글쓰기</a>
 			</form>  
-			
-			<!-- 현재 날짜 구하기  -->
-			<c:set var="now" value="<%=new java.util.Date()%>" />
-			<c:set var="date"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd hh:mm" /></c:set> 			
-			<c:out value="${date }"></c:out>
-			
+
 			<c:forEach var="vo" items="${list }">
 				<!-- join.plan메뉴에 게시물이 한개 없을때 -->
 				<c:if test="${empty list }">
@@ -56,7 +51,7 @@
 									<li><strong>제목 :</strong>${vo.title }</li>
 									<li><strong>일정 :</strong>
 									<fmt:parseDate value="${vo.start_date }" pattern="yyyy-MM-dd" var="startdate"/>									
-									<fmt:formatDate value="${startdate}" pattern="yyyy-MM-dd"/> ~~
+									<fmt:formatDate value="${startdate}" pattern="yyyy-MM-dd"/> ~
 									<fmt:parseDate value="${vo.end_date }" pattern="yyyy-MM-dd hh:mm:ss" var="enddate"/>									
 									<fmt:formatDate value="${enddate}" pattern="yyyy-MM-dd hh:mm"/></li>
 									<li><strong>장소 :</strong>${vo.location1 }${vo.location2 }</li>
@@ -66,18 +61,16 @@
 					</ul>
 				</div>
 				<div class="list_join">
-				<form action="">
 				
-					<%-- <c:forEach var="late" items="${late }">				
-						<c:if test="${empty list }"> --%>
-							<button class="button w3-button"><i class="fa fa-arrow-circle-up fa-spin" style="font-size: 20px;"></i>&nbsp;참가신청</button>
-							<a href="#" class="like">찜하기&nbsp;<i class="fa fa-gratipay" style="font-size:20px;color:red"></i></a>
-<%-- 						 </c:if>
-						<c:if test="${late.length >0 && list eq late }"></c:if> --%>
-							<!-- <button class="button w3-button"><i class="fa fa-arrow-circle-up fa-spin" style="font-size: 20px;"></i>&nbsp;신청마감</button> -->
-						
-					<%-- </c:forEach>	  --%>
-					</form>
+				<form>													
+					<button type="button" onclick="check()" class="button w3-button">&nbsp;참가신청</button>							
+					<a href="#" class="like">찜하기&nbsp;<i class="fa fa-gratipay" style="font-size:20px;color:red"></i></a>
+				
+					<!-- 현재 날짜 구하기  -->
+					<c:set var="now" value="<%=new java.util.Date()%>" />
+					<c:set var="date"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd hh:mm" /></c:set> 			
+					<fmt:formatDate value="${enddate}" pattern="yyyy-MM-dd hh:mm"/>
+				</form>
 				</div>
 			</div>				
 	</c:forEach>
@@ -85,10 +78,7 @@
 			<!-- 페이징  부분-->
 			<div class="pagination">
 				<a href="#">&laquo;</a> <a href="#">1</a> <a class="active" href="#">2</a>
-				<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="
-				
-				
-				#">6</a>
+				<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a>
 				<a href="#">&raquo;</a>
 			</div>
 		</div>
@@ -97,13 +87,26 @@
 </div>
 
 <script type="text/javascript">
-
 	function sendDate(ff){
 		//console.log(ff.userVO.idx);
 			if(ff.userIdx == null){
-				alert("로그인을 필수 사항 입니다.");
+				alert("로그인은 필수 사항 입니다.");
 			}else{
 				ff.submit();
-			}
+			}			
 	}
+	
+	function check(){
+		var now = new Date();
+		var end = new Date();
+		//yyyy-MM-dd hh:mm
+		
+		var nowdate = now.getYear()+"-"+now.getMonth();
+// 		now = '${now}';
+		end = '${enddate}';
+		
+	alert("now"+nowdate+"end"+end);
+	}
+	
+	
 </script>

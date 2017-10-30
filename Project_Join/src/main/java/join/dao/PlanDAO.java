@@ -1,6 +1,7 @@
 package join.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -27,25 +28,22 @@ public class PlanDAO {
 		}
 		return ar;
 	}
-/*	// plan의 일정이 지난 list 불러오기
-	public PlanVO[] getLatePlan(){				
-	
-		List<PlanVO> list1 = template.selectList("plan.getLatePlan");
-		PlanVO[] ar = null;
-		if(list1 != null && list1.size() >0 ){
-			ar = new PlanVO[list1.size()];
-			list1.toArray(ar);		
-		}
-		return ar;
-	}*/
 	
 	// '글쓰기'창에서 '저장'을 눌렀을때
 	public boolean savePlan(PlanVO pvo){
 		int cnt = template.insert("plan.write_ok", pvo);		
-		if(cnt >0)
+		if(cnt >0)			
 			return true;
 		else
 			return false;		
+	}
+	// '신청하기'를 눌렀을때 
+	public boolean appPoeple(Map<String, String> map){		
+		int cnt = template.insert("plan.setPoeple",map);
+		if(cnt >0)			
+			return true;
+		else
+			return false;
 	}
 	
 	// '글쓰기 상세보기'

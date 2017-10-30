@@ -1,6 +1,7 @@
 package join.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,6 @@ public class PlanService {
 		//System.out.println(planDao.getList());
 		return planDao.getList();		
 	}
-/*	
-	public PlanVO[] getLatePlan(){
-		// plan 일정이 지난 값들 가져오기
-		return planDao.getLatePlan();
-}*/
 	
 	public void addPlan(PlanVO pvo){
 		// '저장'을 눌렀을때
@@ -37,8 +33,10 @@ public class PlanService {
 		//String idx = pvo.getIdx();
 		//System.out.println("planservice");
 		return planDao.getPlan(idx);
-		
-		
+	}
 	
+	public void appPoeple(Map<String, String> map){
+		
+		planDao.appPoeple(map);
 	}
 }
