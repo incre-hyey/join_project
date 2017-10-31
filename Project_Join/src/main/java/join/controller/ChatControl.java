@@ -28,8 +28,12 @@ public class ChatControl{
 	
 	@RequestMapping("/chatList")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response){
+		ModelAndView mv = new ModelAndView();
 		
-		System.out.println(((UserVO)request.getSession().getAttribute("USER")).getJsonStr());
+		if(request.getSession().getAttribute("USER") == null){
+			mv.setViewName("redirect:afterSession");
+		}
+		//System.out.println(((UserVO)request.getSession().getAttribute("USER")).getJsonStr());
 		//DAO 로직
 		int page=1;
 		String category = "0";
@@ -43,7 +47,7 @@ public class ChatControl{
 			search = request.getParameter("search");
 		}
 			
-		ModelAndView mv = new ModelAndView();
+		
 		mv.addObject("page",page);
 		mv.addObject("category",category);
 		mv.addObject("search",search);
@@ -53,6 +57,11 @@ public class ChatControl{
 	}
 	@RequestMapping("/chatHistory")
 	public ModelAndView history(HttpServletRequest request, HttpServletResponse response){
+		
+		ModelAndView mv = new ModelAndView();
+		if(request.getSession().getAttribute("USER") == null){
+			mv.setViewName("redirect:afterSession");
+		}
 		
 		int page=1;
 		String category = "0";
@@ -81,7 +90,7 @@ public class ChatControl{
 			out_end = defaultEndDate;
 		}
 		
-		ModelAndView mv = new ModelAndView();
+		
 		mv.addObject("page",page);
 		mv.addObject("category",category);
 		mv.addObject("search",search);

@@ -59,10 +59,9 @@ public class ProfileControl {
 	public String usLike(HttpServletRequest request, HttpServletResponse response){
 		
 		String userid = request.getParameter("userid");
-//		String type = request.getParameter("type");
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
-		
-		
+		if(userVO == null)
+			return "/afterSession";
 		//DAO 로직
 		//1. T_LIKE에 저장되었는지 확인 
 		String type ="";

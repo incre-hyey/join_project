@@ -74,6 +74,8 @@ a#MOVE_TOP_BTN {
             	   		ic.style.color="lightgray";
             	   else
             		   ic.style.color="red";
+               }else{
+            	   location.href=webContext+data;
                }
             }
         });
@@ -90,7 +92,6 @@ a#MOVE_TOP_BTN {
 		var pop = window.open(webContext + "/messageMain?menu=WRITE&reply="+id , "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	}
 </script>
-<iframe id="hiddenFrm" name="hiddenFrm" style="border:0px; height:1px; width:1px;"></iframe>
 <form name="profileForm" id="profileForm" >
 <input type="hidden" name="type" value="<%=type %>"/>
 <input type="hidden" name="paging" value="<%= paging%>"/>

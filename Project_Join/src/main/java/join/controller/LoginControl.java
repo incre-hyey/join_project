@@ -74,6 +74,20 @@ public class LoginControl{
 		
 		return "index";
 	}
+	/**
+	 * 세션체크후 로그인 페이지 메시지와 함께 이동
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/afterSession")
+	public String afterSession(HttpServletRequest request, HttpServletResponse response){
+		
+		request.getSession().invalidate();
+		request.setAttribute("msgClose", UtilService.getValue((String)request.getParameter("msgClose"), ""));
+		request.setAttribute("viewMsg", "로그인을 해주세요");
+		return "index";
+	}
 
 
 }

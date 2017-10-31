@@ -44,7 +44,9 @@
 							AND targetid = usr.idx ) as likeyn
 		from t_user usr
 		where us_viewyn = 'Y'
+		<if test='userid != ""'>
 		and idx != #{userid}
+		</if>
 <!-- 		and usr.idx = like.userid -->
 		
 			<if test='type == "2"'>
@@ -66,8 +68,6 @@
 			</if>
 		
 	</select>
-	
-	
 	
 	
 	<!--  -->
