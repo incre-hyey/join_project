@@ -9,18 +9,12 @@
 <script type="text/javascript">
  //'참가신청' 
 	function appPeople(){	
-	 
-//  		var userIdx = $('#userIdx').val();
  		var stat = '${vo.userStat}';
  		if(stat == '0' || stat == '1'){
  			alert("이미 신청되었습니다.");
  			return false;
  		}
-//  		var f = document.viewForm;
-//  		f.method="GET";
-//  		f.action = webContext+ "/appPeople";
-//  		f.submit();
- 		//참가신청 submit();
+
  		location.href='${pageContext.request.contextPath}/appPeople?idx=${vo.idx}';
 	}
  

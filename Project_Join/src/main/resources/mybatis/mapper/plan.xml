@@ -32,14 +32,14 @@
 
 	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
 	<insert id="write_ok" parameterType="join.vo.PlanVO">
-		insert into t_plan(idx, p_pwd, title, location1, location2, tnop, content, status, writer, reg_date, start_date, end_date, latitude, longitude, file_id, plan_kind)
-		values(#{idx}, #{title}, #{p_pwd}, #{location1}, #{location2}, #{tnop}, #{content}, #{status}, #{writer}, sysdate, #{start_date}, to_date(#{end_date},'YYYY/MM/DD hh:mi:ss'), #{latitude}, #{longitude},#{file_id}, #{plan_kind})		
+		insert into t_plan(idx, p_pwd, title, location1, location2, tnop, content, status, writer, reg_date, start_date, end_date, latitude, longitude, file_id, plan_kind, writer_idx)
+		values(#{idx}, #{title}, #{p_pwd}, #{location1}, #{location2}, #{tnop}, #{content}, #{status}, #{writer}, sysdate, #{start_date}, to_date(#{end_date},'YYYY/MM/DD hh:mi:ss'), #{latitude}, #{longitude},#{file_id}, #{plan_kind}, #{writer_idx})		
 	</insert>
 	
 	<!--plan 신청하기를 눌렀을 때  status=0:신청상태 1:신청수락 2:신청거절 -->
 	<insert id="setPoeple" parameterType="java.util.Map">
 		insert into t_plan_poeple(idx, plan_idx, status, userid, req_date)
-		values(idx_req_VAL,#{p_idx},'0',#{u_idx},sysdate)
+		values(idx_req_VAL,#{p_idx},#{status},#{u_idx},sysdate)
 	</insert>
 	
 	

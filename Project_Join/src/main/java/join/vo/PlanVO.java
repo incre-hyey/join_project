@@ -29,6 +29,8 @@ public class PlanVO {
 				mod_date;  //수정일자
 			//종료 확인 플래그 추가
 			String exp_yn, userStat;
+			//writer_idx
+			String writer_idx;
 	
 			
 	private MultipartFile upload; //파일첨부 저장할곳
@@ -269,6 +271,15 @@ public class PlanVO {
 	public void setUserStat(String userStat) {
 		this.userStat = userStat;
 	}
+
+	public String getWriter_idx() {
+		return writer_idx;
+	}
+
+	public void setWriter_idx(String writer_idx) {
+		this.writer_idx = writer_idx;
+	}
+	
 	
 }
 	

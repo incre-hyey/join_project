@@ -163,14 +163,14 @@ public class PlanControl{
 		
 		Map<String, String> map = new HashMap<String, String>();
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
-		
 		String u_idx = userVO.getIdx();
 		System.out.println(u_idx+"poepleeeeeeeee");
-//		String p_idx = planVO.getIdx();			
-//		
-//		map.put("u_idx", u_idx);
-//		map.put("p_idx", p_idx);
-//		map.put("status", "0");		
+		String p_idx = request.getParameter("idx");
+		System.out.println(p_idx+"선택된 plan idx 값/////");
+
+		map.put(u_idx, "u_idx");
+		map.put(p_idx, "p_idx");
+		//map.put(, "0");
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("map", map);
