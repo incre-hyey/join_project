@@ -15,7 +15,7 @@ var msgClose = '<%=(String)request.getAttribute("msgClose")%>';
 
 	$(document).ready(function() {
 		if(msgClose !=null && msgClose != ""){
-			if(opener.parent){
+			if(opener){
 				opener.parent.location = webContext+"/afterSession";
 				window.close();
 				return;
