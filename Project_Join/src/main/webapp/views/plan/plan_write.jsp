@@ -68,7 +68,7 @@
 				
 		<div class="plan_btn">
 			<button class="w3-button btn btn-success" type="button" onclick="sendData(this.form)">저장</button>
-			<button class="w3-button btn btn-default" type="button" onckick="cancel()">취소</button>			
+			<button class="w3-button btn btn-default" type="button" onckick="JavaScript:location.href='${pageContext.request.contextPath}/plan'"">취소</button>			
 		</div>
 	</form>			
 		<!-- '저장'을 눌렀을때 작성자의 t_user테이블의 idx함께 보내기 작성자 value값 넣기-->	

@@ -43,10 +43,10 @@
 	}
 	
 	// 파일 업로드
-	function myFunction() {
-	    var x = document.getElementById("myFile").type;
-	    document.getElementById("demo").innerHTML = x;
-	}
+// 	function myFunction() {
+// 	    var x = document.getElementById("myFile").type;
+// 	    document.getElementById("demo").innerHTML = x;
+// 	}
 </script>
 <script type="text/javascript">
 	//nav submenu

@@ -17,10 +17,11 @@ public class PlanDAO {
 	public void setTemplate(SqlSessionTemplate template) {
 		this.template = template;
 	}
+
 	// join.plan을 클릭했을때, list
-	public PlanVO[] getList(){		
+	public PlanVO[] getList(String useridx){		
 		
-		List<PlanVO> list = template.selectList("plan.planList");		
+		List<PlanVO> list = template.selectList("plan.planList",useridx);		
 		PlanVO[] ar = null;
 		if(list != null && list.size() >0 ){
 			ar = new PlanVO[list.size()];
@@ -47,10 +48,10 @@ public class PlanDAO {
 	}
 	
 	// '글쓰기 상세보기'
-	public PlanVO getPlan(String idx){
+	public PlanVO getPlan(Map map){
 		//PlanVO pvo = template.selectOne("plan.getView", idx);	
 		//System.out.println(idx);		
-		return template.selectOne("plan.getView", idx);
+		return template.selectOne("plan.getView", map);
 	}
 }
 

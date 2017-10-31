@@ -14,7 +14,7 @@
 		<div id="plan_m">
 
 			<form name="planForm" class="search">
-				<input type="hidden" name="nowPage" value="${nowPage }" />				
+				<%-- <input type="hidden" name="nowPage" value="${nowPage }" />	 --%>			
 				<input type="text" name="search" placeholder="검색">
 				<input type="hidden" name="useIdx" id="userIdx" value="${userVO.getIdx()}"/>
 				<a href="" class="button w3-button">검색</a>
@@ -24,7 +24,7 @@
 				action="sendData(this.form)" class="button w3-button">글쓰기</a>
 			</form>  
 
-			<c:forEach var="vo" items="${list }">
+			<c:forEach var="vo" items="${list }" varStatus="status" >
 				<!-- join.plan메뉴에 게시물이 한개 없을때 -->
 				<c:if test="${empty list }">
 					<tr>
@@ -57,25 +57,19 @@
 									<li><strong>장소 :</strong>${vo.location1 }${vo.location2 }</li>
 									<li><strong>참여인원 :</strong>${fn:length(vo.u_list)}/${vo.tnop }</li>
 								</ul>
-						</a></li>
+						</a></li>  
 					</ul>
 				</div>
-				<div class="list_join">
-				
-				<form>													
-					<button type="button" onclick="check()" class="button w3-button">&nbsp;참가신청</button>							
+				<div class="list_join">								
+					<p class="button w3-button"><i class="fa fa-arrow-circle-up fa-spin" style="font-size:20px;color=:red"></i><c:out value="${vo.getPeople() }"/></p>							
 					<a href="#" class="like">찜하기&nbsp;<i class="fa fa-gratipay" style="font-size:20px;color:red"></i></a>
-				
-					<!-- 현재 날짜 구하기  -->
-					<c:set var="now" value="<%=new java.util.Date()%>" />
-					<c:set var="date"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd hh:mm" /></c:set> 			
-					<fmt:formatDate value="${enddate}" pattern="yyyy-MM-dd hh:mm"/>
-				</form>
+					
 				</div>
 			</div>				
 	</c:forEach>
-					
-			<!-- 페이징  부분-->
+	
+		<%-- c:forEach var="vo" items="${list }" varStatus="status" > --%>
+			<!-- 페이징  부분-->		
 			<div class="pagination">
 				<a href="#">&laquo;</a> <a href="#">1</a> <a class="active" href="#">2</a>
 				<a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a>
@@ -85,7 +79,9 @@
 	</div>
 	<%@include file="../footer.jsp"%>
 </div>
+<form name="hiddenForm">
 
+</form>
 <script type="text/javascript">
 	function sendDate(ff){
 		//console.log(ff.userVO.idx);
@@ -96,17 +92,31 @@
 			}			
 	}
 	
-	function check(){
-		var now = new Date();
-		var end = new Date();
-		//yyyy-MM-dd hh:mm
-		
-		var nowdate = now.getYear()+"-"+now.getMonth();
-// 		now = '${now}';
-		end = '${enddate}';
-		
-	alert("now"+nowdate+"end"+end);
-	}
-	
+/* 	function check(exp_yn,idx, tnop, ulistLen){
+// 		var ff = document.app_plan;
+// 		alert(ff.exp_yn.value+"일정이 가능한때 Y/N");
+// 		alert(ff.list.value+"신청한사람들 수");
+// 		alert(ff.tnop.value+"모지인원");
+// 		alert(obj.length);
+		alert(ulistLen);
+		if(exp_yn != 'Y'){
+			alert("지남");
+			return false;
+		}
+		if(ulistLen > tnop){
+			alert("꽉참");
+			return false;
+		}
+// 		if(ff.exp_yn == 'Y' && ff.list.length> ff.tnop){			
+// 			$('#app_plan').action="${pageContext.request.contextPath}/addPoeple";
+// 			alert("신청되었습니다");
+// 			//submit();			
+// 			return true;
+// 		}
+// 		else{
+// 			alert("이미 일정이 마감되었습니다");
+// 			return false;
+// 		}
+	}	 */
 	
 </script>

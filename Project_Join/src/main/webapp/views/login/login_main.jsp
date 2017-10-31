@@ -21,7 +21,7 @@ System.out.println(request.getSession().getAttribute("USER") + "!!!!!!!");
 %>
 <script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 <ul id="nav" class="login_nav">
-			<li><a href="${pageContext.request.contextPath}/plan" onclick="w3_close()"
+			<li><a href="${pageContext.request.contextPath}/plan"onclick="w3_close()"
 				class="w3-bar-item w3-button w3-padding "> JOIN.PLAN</a>
 			</li>
 

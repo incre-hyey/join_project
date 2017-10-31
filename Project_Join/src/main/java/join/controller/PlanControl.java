@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import join.dao.PlanDAO;
 import join.dao.UserDAO;
 import join.service.FileService;
+
 import join.service.PlanService;
 import join.service.UserService;
 import join.service.UtilService;
@@ -39,24 +40,28 @@ import join.vo.PlanVO;
 import join.vo.UserVO;
 
 
+
+
 @Controller
 public class PlanControl{
+	
 
 	@Resource(name="planService")
 	PlanService planservice;
 	
 	@Resource(name="fileService")
 	FileService fileService;
+
 	
 	//'join.plan'버튼을 눌렀을 때 게시판에 나열 될 것들
 	@RequestMapping("/plan")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){		
 		
-		//FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
-		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");	
+		// 유저정보 가져오기
 		
 		//DAO 로직
-		PlanVO[] ar = planservice.getList();		 
+		PlanVO[] ar = planservice.getList(userVO.getIdx());		 
 		ModelAndView mv = new ModelAndView();		
 		
 		mv.addObject("list", ar);		
@@ -66,6 +71,7 @@ public class PlanControl{
 		return mv;
 	}
 	
+
 	@RequestMapping(value="/plan_write",method=RequestMethod.GET)
 	public ModelAndView write(HttpServletRequest request, HttpServletResponse response) {	
 		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
@@ -73,7 +79,7 @@ public class PlanControl{
 		//DAO 로직				
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
 		String nickName = userVO.getNickname();	
-		System.out.println(nickName);
+		//System.out.println(nickName);
 	
 		ModelAndView mv = new ModelAndView();	
 		mv.addObject("userVO", userVO);
@@ -87,7 +93,7 @@ public class PlanControl{
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면		
 		
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");	
-		System.out.println(userVO.getFile_id());
+		//System.out.println(userVO.getFile_id());
 		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
 		
 		//System.out.println(fileVO.getFile_name());	
@@ -115,7 +121,7 @@ public class PlanControl{
 		Date date = null;
 			try{
 			date = fmt.parse(finaldate);
-			System.out.println("========>"+date);
+		//	System.out.println("========>"+date);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -142,7 +148,7 @@ public class PlanControl{
 		
 		//DAO 로직		
 		String idx = request.getParameter("idx");
-		PlanVO pvo = planservice.viewPlan(idx);				
+		PlanVO pvo = planservice.viewPlan(idx, userVO.getIdx());				
 		
 		ModelAndView mv = new ModelAndView();	
 		
@@ -151,26 +157,42 @@ public class PlanControl{
 		mv.setViewName("plan/plan_view");//뷰 지정			
 		return mv;
 	}
-	@RequestMapping("/appPoeple")
-	public ModelAndView appPeople(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
+	
+	@RequestMapping(value="/appPeople",method=RequestMethod.GET)
+	public ModelAndView appPeople(HttpServletRequest request, HttpServletResponse response){
 		
 		Map<String, String> map = new HashMap<String, String>();
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
 		
 		String u_idx = userVO.getIdx();
 		System.out.println(u_idx+"poepleeeeeeeee");
-		String p_idx = planVO.getIdx();			
-		
-		map.put("u_idx", u_idx);
-		map.put("p_idx", p_idx);
-		map.put("status", "0");		
+//		String p_idx = planVO.getIdx();			
+//		
+//		map.put("u_idx", u_idx);
+//		map.put("p_idx", p_idx);
+//		map.put("status", "0");		
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("map", map);
+		//mv.getViewName("");
 		
 		return mv;
 	}
 	
+	@RequestMapping("/planEdit")
+	public ModelAndView planEdit(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
+		
+		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		
+		String u_idx = userVO.getIdx();
+
+		
+		ModelAndView mv = new ModelAndView();
+		
+		
+		return mv;
+	}
 }
 
 

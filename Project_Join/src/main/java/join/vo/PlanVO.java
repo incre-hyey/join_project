@@ -26,8 +26,11 @@ public class PlanVO {
 				start_date,// 플랜일정시작							
 				end_date; //플랜일정종료	
 			Date reg_date, //작성일자
-				mod_date;  //수정일자	
+				mod_date;  //수정일자
+			//종료 확인 플래그 추가
+			String exp_yn, userStat;
 	
+			
 	private MultipartFile upload; //파일첨부 저장할곳
 	
 	private int nowPage; //현재페이지
@@ -35,6 +38,23 @@ public class PlanVO {
 	
 	private List<UserVO> u_list;//참여 인원
 	
+	public String getPeople(){
+		if(this.userStat == null)
+			this.userStat = "2";
+		String str= "";
+		switch(this.userStat){
+		case "0":
+			str = "참여요청중";
+			break;
+		case "1":
+			str = "참여중";
+			break;
+		default :
+			str = "참가 가능 ";
+			break;
+		}
+		return str;
+	}
 	
 	public List<UserVO> getU_list() {
 		return u_list;
@@ -233,6 +253,23 @@ public class PlanVO {
 	public void setU_list(List<UserVO> u_list) {
 		this.u_list = u_list;
 	}
+
+	public String getExp_yn() {
+		return exp_yn;
+	}
+
+	public void setExp_yn(String exp_yn) {
+		this.exp_yn = exp_yn;
+	}
+
+	public String getUserStat() {
+		return userStat;
+	}
+
+	public void setUserStat(String userStat) {
+		this.userStat = userStat;
+	}
+	
 }
 	
 	
