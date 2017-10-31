@@ -73,6 +73,7 @@
 	<!--  -->
 	<resultMap id="profileResult" type="join.vo.UserVO">
 		<id property="idx" column="idx"/>
+		<result property="id" column="id"/>
 		<result property="name" column="content"/>
 		<result property="nickname" column="content"/>
 		<result property="phone" column="phone"/>

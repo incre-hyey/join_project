@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basic.css">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -26,37 +25,41 @@
 		<div id="plan_write">
 		
 			<form action="${pageContext.request.contextPath}/plan_write" enctype="multipart/form-data" method="post">
-			
+				
 				<label>작성자 :</label><input type="text" name="writer" value="${userVO.getNickname() }" readonly><br/>
 				<label>비밀번호 :</label><input type="password" name="p_pwd" id="p_pwd"><br/>
+				<label>PLAN 종류 :</label>
+					<select id ="plan_kind" name="plan_kind" class="other_input">
+						<option value="travel">travel</option>
+						<option value="meeting">meeting</option>
+						<option value="meal">meal</option>
+					</select><br/>
 				<label>제목 :</label><input type="text" name="title" id="title"/><br/>
-				<label>참여인원 :</label><input type="number" name="tnop" id="title"/><br/>
+				<label>참여인원 :</label><input type="number" name="tnop" id="tnop" class="other_input"/><br/>	
+
+				
 		<!-- 일정 datepicker -->
 			<div class="startDate">
-				<label>일정 :</label><input type="datetime" name="datepicker" id="datepicker" readonly/>									
-			
-				<select id ="time" name="time">
-					<option value="오전">오전</option>
-					<option value="오후">오후</option>
-				</select>
-				
-				<select id ="minute" name="minute">			
-					<c:forEach begin='1' end ='12' varStatus="status">
+				<label>일정 :</label><input type="text" name="start_date" style="width:25%;" id="start_date" readonly placeholder="시작일자를 입력하세요"/>	
+				<input type="text" name="enddate" id="enddate" style="width:25%;" readonly placeholder="마지막 일자를 입력하세요"/>						
+				<select id ="hour" name="hour" class="other_input">			
+					<c:forEach begin='1' end ='24' varStatus="status">
 						<option value="${status.index }">${status.index } 시</option>
 					</c:forEach>
 				</select>								
-				<select id ="second" name="second">								
+				<select id ="minute" name="minute" class="other_input">								
 					<option value="00">00분</option>
 					<option value="30">30분</option>
 				</select>					
-			</div>			
+			</div><br/>	
 		<!-- 주소 검색 -->		
-		<label>주소 :</label><input type="text" name="location1" id="sample5_address" placeholder="주소" readonly/>
-			<input type="button" style="width:100px;height:30px;"" onclick="execDaumPostcode()" value="주소 검색"><br/>			
+		<label>주소 :</label>
+		<input class="w3-button" type="button" onclick="execDaumPostcode()" value="검색">
+		<input type="text" name="location1" id="sample5_address" class="other_input" placeholder="주소" readonly/><br/>
 		<label>상세주소 :</label><input type="text" name="location2" id="location2"/><br/>
 		
 		<!-- file 이미지  -->			
-		<label>메인이미지 :</label><input type="file" id="upload" name="upload"><br/>
+		<label>메인이미지 :</label><input type="file" id="upload" name="upload" class="other_input"><br/>
 		
 		<!-- summerNote -->
 		<textarea id="content" name="content"></textarea>
@@ -65,8 +68,8 @@
 		<input type="hidden" id="latitude" name="latitude"" value="latitude"/>		
 				
 		<div class="plan_btn">
-			<button type="button" onclick="sendData(this.form)">저장</button>
-			<button type="button" onckick="cancel()">취소</button>			
+			<button class="w3-button btn btn-success" type="button" onclick="sendData(this.form)">저장</button>
+			<button class="w3-button btn btn-default" type="button" onckick="cancel()">취소</button>			
 		</div>
 	</form>			
 		<!-- '저장'을 눌렀을때 작성자의 t_user테이블의 idx함께 보내기 작성자 value값 넣기-->	
@@ -96,9 +99,13 @@
 	    
 	    $('#content').summernote('lineHeight',.5);	    
 		
-	    $( "#datepicker" ).datepicker({
+	    $( "#enddate" ).datepicker({
 	    	 altField: ".selecter",
-		     dateFormat : 'yy년 mm월 dd일'
+		     dateFormat : 'yy-mm-dd'
+	    });	   
+	    $( "#start_date" ).datepicker({
+	    	 altField: ".selecter",
+		     dateFormat : 'yy-mm-dd'
 	    });	   
 	  	 
 	});	
@@ -122,14 +129,27 @@
 	 	        	alert(status + "upload 실패 : " + error);
 	 	        },
 	 	        success: function(data) {
-	 	        	alert(data.src);
+	 	        	//alert(data.src);
 	 				$(editor).summernote(
 	 					'insertImage', data.src);
 	 			}
 	 		});
 		} 
 	 	
-	function sendData(ff){
+	function sendData(ff){		
+
+	// 일정 계산 
+		var startdate = $('#start_date').val()//.replace(/-/g,'/');
+		 var enddate = $('#enddate').val()//.replace(/-/g,'/');
+	 	var hour = $('#hour').val();
+		 var minute = $('#minute').val();
+		 
+		$('#start_date').val(startdate);
+		$('#enddate').val( enddate+hour+minute);
+		
+		alert(startdate);
+		alert(enddate+"&nbsp;"+hour+":"+minute);
+	
 	//유효성 검사
 	if(ff.p_pwd == ""){
 		alert("비밀번호를 입력하세요");
@@ -171,7 +191,7 @@
 
                 // 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("sample5_address").value = fullAddr;
-                alert(fullAddr);
+                //alert(fullAddr);
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function(results, status) {
                     // 정상적으로 검색이 완료됐으면

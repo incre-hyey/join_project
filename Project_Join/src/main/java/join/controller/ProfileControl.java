@@ -31,10 +31,15 @@ public class ProfileControl {
 	@RequestMapping("/profile")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response){
 		
-		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		String useridx = "";
+		if(request.getSession().getAttribute("USER") != null) {
+			UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+			useridx=userVO.getIdx();
+		}
+		
 		//DAO 로직
 		String type = UtilService.getValue((String)request.getParameter("type"), "1");
-		ArrayList<UserVO> list = (ArrayList<UserVO>)profileService.getProfile(userVO.getIdx(),type);
+		ArrayList<UserVO> list = (ArrayList<UserVO>)profileService.getProfile(useridx,type);
 		
 		
 		ModelAndView mv = new ModelAndView();

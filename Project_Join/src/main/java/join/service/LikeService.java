@@ -34,7 +34,7 @@ public class LikeService {
 	}
 	public int deleteProfile(String userId, String target, String type){
 		HashMap<String,String> map = new HashMap<>();
-		map.put("idx", UtilService.makeKey());
+	//map.put("idx", UtilService.makeKey());
 		map.put("userid", userId);
 		map.put("targetid", target);
 		map.put("targettype", type);
