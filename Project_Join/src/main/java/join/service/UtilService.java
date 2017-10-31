@@ -30,7 +30,9 @@ public class UtilService {
 	 */
 	public static String makeKey() {
 		String key="";
-		Long id = new Date().getTime()*(new Random().nextInt(9999)+1);
+		char ch = (char)((Math.random() * 26) + 65);
+		Long id = new Date().getTime()*(new Random().nextInt(123)+ch);
+		
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 			md5.update(id.byteValue());
