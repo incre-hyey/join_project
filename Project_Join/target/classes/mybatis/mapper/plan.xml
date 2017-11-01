@@ -20,7 +20,7 @@
 		order by a.reg_date DESC
 	</select>
 
-	
+
 	<!-- join.view(상세보기)를 클릭했을때 -->
 	<select id="getView" resultMap="planListMap" parameterType="map">
 		<![CDATA[select a.*, case when sysdate  <  end_date then 'Y'

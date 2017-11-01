@@ -10,15 +10,15 @@
  //'참가신청' 
 	function appPeople(){	
  		var stat = '${vo.userStat}';
+ 		// alert("신청되었습니다"); 
  		if(stat == '0' || stat == '1'){
  			alert("이미 신청되었습니다.");
  			return false;
  		}
-
  		location.href='${pageContext.request.contextPath}/appPeople?idx=${vo.idx}';
 	}
  
-	//수정하기
+	//수정하기 버튼을 클릭했을대
  function sendEdit(){
 	 var userPwd = $('#userPwd').val();
 		var p_pwd = $('#p_pwd').val();
@@ -30,6 +30,11 @@
 		}
 		
  }
+	// 삭제하기를 눌렀을때 
+	function delete(){
+		
+		
+	}
 </script>
 	<div class="w3-container w3-padding-16 w3-grey">
 	
@@ -75,7 +80,7 @@
 					<input typw="password" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요"/>
 					<input type="hidden" name="p_pwd" id="p_pwd" value="${vo.p_pwd }"/>
 					<input type="button" name="edit_plan" onclick="sendEdit()" value="수정하기" class="button btn btn-primary"/>
-					<input type="button" name="delete" value="삭제하기" class="button btn btn-default"/>
+					<input type="button" name="delete" onclick="delete()" value="삭제하기" class="button btn btn-default"/>
 				</div>
 			</form>
 		</div>
