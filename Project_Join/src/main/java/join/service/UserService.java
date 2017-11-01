@@ -34,6 +34,9 @@ public class UserService {
 	public void addUser(UserVO userVO){
 		userDAO.insertUser(userVO);
 	}
+	public void modifyUser(UserVO userVO){
+		userDAO.updateUser(userVO);
+	}
 	
 	public UserVO getUser(Map map){
 		UserVO userVO = userDAO.getUser(map);
@@ -57,11 +60,30 @@ public class UserService {
 		
 		return vo;
 	}
-	
+	/**
+	 * myPlan 작성내역
+	 * @param id
+	 * @return
+	 */
 	public List<HashMap> getMyPlan(String id){
 		List<HashMap> planList = userDAO.getMyPlanList(id);
 		return planList;
 	}
+	/**
+	 * myplan 신청현황
+	 * @param id
+	 * @return
+	 */
+	public List<HashMap> getMyReq(String id){
+		List<HashMap> reqList = userDAO.getPlanReq(id);
+		return reqList;
+	}
+	
+	/**
+	 * 사용안함..
+	 * @param id
+	 * @return
+	 */
 	public List<String> getPlanReq(String id){
 		List<HashMap> planList = userDAO.getPlanReq(id);
 		//idx, plan_idx, status, useridx, to_char( req_date ,'YYYY-MM-DD HH24:MI' ) req_date,
@@ -91,6 +113,10 @@ public class UserService {
 		map.put("idx", idx);
 		map.put("status", status);
 		return userDAO.updatePlanReq(map);
+	}
+	
+	public int myReqCancel(String idx){
+		return userDAO.deletePlanReq(idx);
 	}
 
 }

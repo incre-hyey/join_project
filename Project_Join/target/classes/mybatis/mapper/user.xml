@@ -32,7 +32,13 @@
 							#{age},	#{gender},	#{addr1},	#{addr2},	#{blood},	#{file_id}
 							,	#{intro_content},	#{ip},	#{status},	#{reg_date}, #{us_viewyn}, #{addr3})
 	</insert>
-	
+	<update id="updateUser" parameterType="join.vo.UserVO">
+		update t_user set pwd=#{pwd} , nickname = #{nickname}, phone = #{phone},
+					email = #{email}, age = #{age}, gender = #{gender}, addr1 = #{addr1},
+					addr2 = #{addr2}, blood = #{blood}, file_id = #{file_id}, intro_content = #{intro_content},
+					us_viewyn = #{us_viewyn} , addr3 = #{addr3}
+		where idx = #{idx}
+	</update>
 	<update id="loginyn" parameterType="join.vo.UserVO">
 		update t_user set loginyn=#{loginyn} , login_date = #{login_date}, ip = #{ip}
 		where id = #{id}
@@ -109,19 +115,29 @@
 	<!--   /////////////////////MY PLAN /////////////////////////-->
 	<select id="getMyPlanList" parameterType="String" resultMap="myPlanListResult">
 		select idx, title, plan_kind, status,
-			to_char( start_date ,'YYYY-MM-DD HH24:MI' ) start_date,
-			to_char( end_date ,'YYYY-MM-DD HH24:MI' ) end_date
+			to_char( start_date ,'YYYY-MM-DD' ) start_date,
+			to_char( end_date ,'YYYY-MM-DD' ) end_date
 		from t_plan
 		where writer_idx = #{userid} 
 	</select>
 	
 	<select id="getReqList" parameterType="String" resultType="java.util.HashMap">
 		select a.idx, a.status, to_char( a.req_date ,'YYYY-MM-DD HH24:MI' ) req_date, 
-				to_char( a.res_date ,'YYYY-MM-DD HH24:MI' ) res_date,
+				to_char( a.res_date ,'YYYY-MM-DD' ) res_date,
 				b.idx as useridx, b.id as userid, b.nickname, b.age, b.gender
 		from t_plan_people a, t_user b
 		where a.plan_idx = #{idx}
 		and a.useridx = b.idx
+	</select>
+	
+	<select id="getMyReqList" parameterType="String" resultType="java.util.HashMap">
+		select a.idx, a.title, a.location1, a.status, a.writer, a.plan_kind,
+			to_char( a.start_date ,'YYYY-MM-DD' ) start_date,
+			to_char( a.end_date ,'YYYY-MM-DD' ) end_date,
+			b.status p_status , b.idx p_idx
+		from t_plan a, t_plan_people b
+		where a.idx = b.plan_idx
+		and b.useridx = #{userid} 
 	</select>
 	
 	
@@ -147,9 +163,12 @@
 	
 	<update id="updatePlanReq" parameterType="map" >
 		update t_plan_people set status=#{status}
-		where idx = ${idx}
+		where idx = #{idx}
 	</update> 
-	
+	<delete id="deletePlanReq" parameterType="String" >
+		delete from t_plan_people 
+		where idx = #{idx}
+	</delete>
 		
 </mapper>  
 

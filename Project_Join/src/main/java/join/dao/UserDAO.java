@@ -35,7 +35,11 @@ public class UserDAO{
 		sqlSession.insert("user.insert", userVO);
 	}
 	
-
+	public void updateUser(UserVO userVO){
+		
+		sqlSession.update("user.updateUser", userVO);
+	}
+	
 	public UserVO getUser(Map map){
 		return sqlSession.selectOne("user.getUser", map);
 	}
@@ -52,12 +56,14 @@ public class UserDAO{
 		return sqlSession.selectList("user.getMyPlanList", id);
 	}
 	public List<HashMap> getPlanReq(String id){
-		return sqlSession.selectList("user.getPlanReq", id);
+		return sqlSession.selectList("user.getMyReqList", id);
 	}
 	
 	public int updatePlanReq(Map map) {
 		return sqlSession.update("user.updatePlanReq" , map);
 	}
-	
+	public int deletePlanReq(String idx) {
+		return sqlSession.delete("user.deletePlanReq" , idx);
+	}
 	
 }

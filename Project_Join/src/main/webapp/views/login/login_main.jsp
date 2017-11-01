@@ -32,28 +32,28 @@ function myPlanClick(){
 <script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
 <ul id="nav" class="login_nav">
 			<li><a href="${pageContext.request.contextPath}/plan" onclick="w3_close()"
-				class="w3-bar-item w3-button w3-padding "> JOIN.PLAN</a>
+				class="w3-bar-item w3-padding "> JOIN.PLAN</a>
 			</li>
 
 			<li><a href="${pageContext.request.contextPath}/profile" onclick="w3_close()"
-				class="w3-bar-item w3-button w3-padding w3-text-teal"> JOIN.PROFILE</a></li>
+				class="w3-bar-item w3-padding w3-text-teal"> JOIN.PROFILE</a></li>
 				
 <%if(loginyn != null && loginyn.equals("Y")){
 	%>
 			<li><a href="#" onclick="chatBtnClick();"
-				class="w3-bar-item w3-button w3-padding"> JOIN.TALK</a></li>
+				class="w3-bar-item w3-padding"> JOIN.TALK</a></li>
 			<li><a href="#" onclick="w3_close()"
-				class="w3-bar-item w3-button w3-padding"> JOIN.LOG</a>
+				class="w3-bar-item w3-padding"> JOIN.LOG</a>
 				<ul id="sub_nav">
-					<li><a href="#" onclick="myPlanClick()"
-						class="w3-bar-item w3-button w3-padding"> MY PLAN</a></li>
+					<li><a onclick="myPlanClick()"
+						class="w3-bar-item w3-padding"> MY PLAN</a></li>
 					<li><a onclick="msgBtnClick()"
-						class="w3-bar-item w3-button w3-padding"> MY MESSAGE</a></li>
+						class="w3-bar-item w3-padding"> MY MESSAGE</a></li>
 				</ul></li>
 		</ul>
 		</li>
 		</ul>
-		<button class="logout" onclick="window.location='${pageContext.request.contextPath}/logout'">Log out</button>
+		<button class="logout w3-button" onclick="window.location='${pageContext.request.contextPath}/logout'">Log out</button>
 <%} %>
 	</div>
 	<div class="w3-panel w3-large">

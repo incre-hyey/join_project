@@ -24,23 +24,57 @@
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<style>
+.hide{
+	display:none;
+}
+</style>
+<script>
 
+$(function (){
+	userMsgCheck();
+	setInterval(userMsgCheck, 5000);
+});
+	/* 
+		메세지 체크
+	*/
+	function userMsgCheck(){
+        $.ajax({
+            type : "POST",
+            url : ctx+"/userMsgCheckAjax",
+            dataType: "text",
+            //data : obj,
+            async: true,
+//             error : function(request,status,error){
+//                 alert(status + "  " + error);
+//             }, //에러 시 alert창 띄우지 않는다.
+            success : function(data){
+				$("#msgCnt").removeClass('hide');
+				$("#msgCnt").html(data);
+            }
+        });
+	}
+	function msgClick(){
+		$("#msgCnt").addClass('hide');
+		var pop = window.open(webContext + "/messageMain?menu=RCV" , "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	}
+</script>
 
-	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
+	<nav class="w3-sidebar w3-collapse w3-white w3-animate-left w3-card-4 w3-white"
 		style="z-index:3;width:300px;" id="mySidebar"> <br>
 	<div class="w3-container">
 		<a href="#" onclick="w3_close()"
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
-		</a> <br> <br>
+		</a>
 		<h1>
 			<a href="index.jsp">JOIN</a>
 		</h1>
 	</div>
 	<div class="w3-bar-block">
 		<div class="logined">
-			<p class="my_icon"><a href="#"><i class="fa fa-bell"></i></a> 
-			<a href="${pageContext.request.contextPath}/views/user/userInfo.jsp"><i class="fa fa-cog" aria-hidden="true"></i></a></p>
+			<p class="my_icon"><a href="#"><i class="fa fa-bell" onclick="msgClick()"></i><sup id="msgCnt">0</sup></a> 
+			<a href="${pageContext.request.contextPath}/userInfo"><i class="fa fa-cog" aria-hidden="true"></i></a></p>
 			<h4 class="nick">${sessionScope.USER.nickname } 님 환영합니다!</h4>
 		</div>
 		

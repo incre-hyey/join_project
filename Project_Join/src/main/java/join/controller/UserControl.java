@@ -65,18 +65,21 @@ public class UserControl {
 	 * @param response
 	 * @param userVO
 	 * @return
-	 
+	 **/
 	@RequestMapping("/userInfo")
 	public String userInfo(HttpServletRequest request, HttpServletResponse response){
 		//
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		
 		//DAO 로직
-		UserVO vo = userService.getUser(userVO.getId());
+		HashMap map = new HashMap();
+		map.put("idx", userVO.getIdx());
+		UserVO vo = userService.getUser(map);
 		
 		request.setAttribute("vo", vo);
-		return "redirect:index";
+		return "user/userInfo";
 	}
-	*/
+	
 	/**
 	 * user 정보 수정
 	 * @param request
@@ -84,20 +87,25 @@ public class UserControl {
 	 * @param userVO
 	 * @return
 	 */
-	@RequestMapping("/modify")
+	@RequestMapping("/modifyUser")
 	public String modify(HttpServletRequest request, HttpServletResponse response,
 						@ModelAttribute UserVO userVO){
-		
+		String isFileChange = request.getParameter("isFileChange");
 		//userVO 세팅
-		FileVO fileVO = fileService.uploadFile(userVO.getUpload(), "USER");
+		if(isFileChange.equals("Y")){
+			FileVO fileVO = fileService.uploadFile(userVO.getUpload(),"USER");
+			if( fileVO != null )
+				userVO.setFile_id(fileVO.getIdx());
+			else
+				userVO.setFile_id("");
+		}
+		else
+		{
+			userVO.setFile_id(request.getParameter("orifile"));
+		}
 		
-		userVO.setFile_id(fileVO.getIdx());
-		userVO.setIdx(UtilService.makeKey());		
-		userVO.setIp(request.getRemoteAddr());
-		userVO.setStatus("1");
-		userVO.setReg_date(new Date());
 		//DAO 로직
-		userService.addUser(userVO);
+		userService.modifyUser(userVO);
 		
 		
 		return "redirect:index";
@@ -122,8 +130,12 @@ public class UserControl {
 		return "user/myPlan";
 	}
 	
-	
-	
+	/**
+	 * 신청자 수락/거절
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/userReqResAjax")
 	@ResponseBody
 	public String userReqResAjax(HttpServletRequest request, HttpServletResponse response){
@@ -143,7 +155,12 @@ public class UserControl {
 		
 		return str;
 	}
-	
+	/**
+	 * 신청자 정보 상세 보기
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping("/userView")
 	public String userView(HttpServletRequest request, HttpServletResponse response){
 		
@@ -154,6 +171,43 @@ public class UserControl {
 		request.setAttribute("userVO", userVO);
 		
 		return "user/userView";
+	}
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @param userVO
+	 * @return
+	 */
+	@RequestMapping("/myReq")
+	public String myReq(HttpServletRequest request, HttpServletResponse response){
+		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		if(userVO == null)
+			return "/afterSession";
+		//DAO 로직
+		List<HashMap> list = userService.getMyReq(userVO.getIdx());	
+		request.setAttribute("list", list);
+		
+		return "user/myReq";
+	}
+	@RequestMapping("/myReqCancelAjax")
+	@ResponseBody
+	public String myReqCancelAjax(HttpServletRequest request, HttpServletResponse response){
+	
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		if(userVO == null)
+			return "/afterSession";
+		
+		String idx = request.getParameter("idx");
+		//DAO 로직
+		int result = userService.myReqCancel(idx);
+		String str = "";
+		if(result==1){
+			str = "OK";
+		}
+		
+		return str;
 	}
 	
 }
