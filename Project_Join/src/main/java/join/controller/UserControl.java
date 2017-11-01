@@ -116,7 +116,7 @@ public class UserControl {
 		if(userVO == null)
 			return "/afterSession";
 		//DAO 로직
-		List<PlanVO> list = userService.getMyPlan(userVO.getIdx());	
+		List<HashMap> list = userService.getMyPlan(userVO.getIdx());	
 		request.setAttribute("list", list);
 		
 		return "user/myPlan";
@@ -124,27 +124,36 @@ public class UserControl {
 	
 	
 	
-	@RequestMapping("/myPlanViewReq")
+	@RequestMapping("/userReqResAjax")
 	@ResponseBody
-	public String myPlanViewReq(HttpServletRequest request, HttpServletResponse response){
+	public String userReqResAjax(HttpServletRequest request, HttpServletResponse response){
 		
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
 		if(userVO == null)
 			return "/afterSession";
 		
 		String idx = request.getParameter("idx");
+		String status = request.getParameter("status");
 		//DAO 로직
-		List<String> list = userService.getPlanReq(idx);
-		StringBuffer sb = new StringBuffer();
-		sb.append("<table>");
-		if( list.size() > 0){
-			for(String str :list){
-				sb.append("<tr>");
-				sb.append(str).append("</tr>");
-			}
+		int result = userService.planReqUpdate(idx,status);
+		String str = "";
+		if(result==1){
+			str = status;
 		}
-		sb.append("</table>");
-		return sb.toString();
+		
+		return str;
+	}
+	
+	@RequestMapping("/userView")
+	public String userView(HttpServletRequest request, HttpServletResponse response){
+		
+		String idx = request.getParameter("useridx");
+		HashMap map = new HashMap();
+		map.put("idx", idx);
+		UserVO userVO = userService.getUser(map);
+		request.setAttribute("userVO", userVO);
+		
+		return "user/userView";
 	}
 	
 }

@@ -35,8 +35,8 @@ public class UserService {
 		userDAO.insertUser(userVO);
 	}
 	
-	public UserVO getUser(String id){
-		UserVO userVO = userDAO.getUser(id);
+	public UserVO getUser(Map map){
+		UserVO userVO = userDAO.getUser(map);
 		return userVO;
 	}
 	public UserVO loginUser(String id, String pwd, String ip) {
@@ -58,8 +58,8 @@ public class UserService {
 		return vo;
 	}
 	
-	public List<PlanVO> getMyPlan(String id){
-		List<PlanVO> planList = userDAO.getMyPlanList(id);
+	public List<HashMap> getMyPlan(String id){
+		List<HashMap> planList = userDAO.getMyPlanList(id);
 		return planList;
 	}
 	public List<String> getPlanReq(String id){
@@ -84,6 +84,13 @@ public class UserService {
 			}
 		}
 		return tdList;
+	}
+	
+	public int planReqUpdate(String idx, String status){
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("idx", idx);
+		map.put("status", status);
+		return userDAO.updatePlanReq(map);
 	}
 
 }

@@ -16,8 +16,12 @@
 	    </if>
 	   </where>
 	</select>
-	<select id="getUser" resultType="join.vo.UserVO" parameterType="String">
+	<select id="getUser" resultType="join.vo.UserVO" parameterType="hashmap">
 	  select * from t_user	
+	  where 1=1
+	  <if test="idx != null">
+	  and idx = #{idx}
+	  </if>
 	 </select>
 	
 	
@@ -114,7 +118,7 @@
 	<select id="getReqList" parameterType="String" resultType="java.util.HashMap">
 		select a.idx, a.status, to_char( a.req_date ,'YYYY-MM-DD HH24:MI' ) req_date, 
 				to_char( a.res_date ,'YYYY-MM-DD HH24:MI' ) res_date,
-				b.id as userid, b.nickname, b.age, b.gender
+				b.idx as useridx, b.id as userid, b.nickname, b.age, b.gender
 		from t_plan_people a, t_user b
 		where a.plan_idx = #{idx}
 		and a.useridx = b.idx
@@ -141,6 +145,10 @@
 		
 	</resultMap>
 	
+	<update id="updatePlanReq" parameterType="map" >
+		update t_plan_people set status=#{status}
+		where idx = ${idx}
+	</update> 
 	
 		
 </mapper>  
