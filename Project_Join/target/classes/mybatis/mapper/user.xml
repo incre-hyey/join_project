@@ -100,13 +100,48 @@
 	</resultMap>
 	
 	
-<!-- 	<select id="selectLike" parameterType="map" resultType="join.vo.LikeVO"> -->
-<!-- 		SELECT targetid from t_like inner -->
-<!-- 		WHERE -->
-<!-- 		targettype = 'PROFILE'  -->
-<!-- 		AND userid = #{userid} -->
-<!-- 		AND targetid = usr.idx -->
-<!-- 	</select> -->
+	
+	
+	<!--   /////////////////////MY PLAN /////////////////////////-->
+	<select id="getMyPlanList" parameterType="String" resultMap="myPlanListResult">
+		select idx, title, plan_kind, status,
+			to_char( start_date ,'YYYY-MM-DD HH24:MI' ) start_date,
+			to_char( end_date ,'YYYY-MM-DD HH24:MI' ) end_date
+		from t_plan
+		where writer_idx = #{userid} 
+	</select>
+	
+	<select id="getReqList" parameterType="String" resultType="java.util.HashMap">
+		select a.idx, a.status, to_char( a.req_date ,'YYYY-MM-DD HH24:MI' ) req_date, 
+				to_char( a.res_date ,'YYYY-MM-DD HH24:MI' ) res_date,
+				b.id as userid, b.nickname, b.age, b.gender
+		from t_plan_people a, t_user b
+		where a.plan_idx = #{idx}
+		and a.useridx = b.idx
+	</select>
+	
+	
+	<resultMap type="java.util.HashMap" id="myPlanListResult">
+		<id property="idx" column="idx"/>
+		<result property="title" column="title"/>
+		<result property="plan_kind" column="plan_kind"/>
+		<result property="status" column="status"/>
+		<result property="start_date" column="start_date"/>
+		<result property="end_date" column="end_date"/>
+		<collection property="reqUserList" column="idx" ofType="java.util.HashMap" select="getReqList">
+			<id property="p_idx" column="idx"/>
+			<result property="p_status" column="status" />
+			<result property="p_req_date" column="req_date" />
+			<result property="p_res_date" column="res_date" />
+			<result property="p_userid" column="userid" />
+			<result property="p_nickname" column="nickname" />
+			<result property="p_age" column="age" />
+			<result property="p_gender" column="gender" />
+		</collection>
+		
+	</resultMap>
+	
+	
 		
 </mapper>  
 

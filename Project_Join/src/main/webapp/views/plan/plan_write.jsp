@@ -24,7 +24,7 @@
 		<div id="plan_write">
 		
 			<form action="${pageContext.request.contextPath}/plan_write" enctype="multipart/form-data" method="post">
-				
+				<input type="hidden" name="writer_idx" value="${userVO.idx }" />
 				<label>작성자 :</label><input type="text" name="writer" value="${userVO.getNickname() }" readonly><br/>
 				<label>비밀번호 :</label><input type="password" name="p_pwd" id="p_pwd"><br/>
 				<label>PLAN 종류 :</label>

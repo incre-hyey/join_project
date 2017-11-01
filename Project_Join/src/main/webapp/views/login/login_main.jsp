@@ -25,7 +25,7 @@ function msgBtnClick(){
 	var pop = window.open(webContext + "/messageMain?menu=RCV" , "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 }
 function myPlanClick(){
-	location.href = webContext + "/views/user/myPlan.jsp";
+	location.href = webContext + "/myPlan";
 }
 
 </script>

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 
 import join.service.FileService;
 import join.service.UtilService;
+import join.vo.PlanVO;
 import join.vo.UserVO;
 
 
@@ -45,5 +46,12 @@ public class UserDAO{
 	public void updateLoginYn(UserVO userVO) {
 		
 		sqlSession.update("user.loginyn" , userVO);
+	}
+	
+	public List<PlanVO> getMyPlanList(String id){
+		return sqlSession.selectList("user.getMyPlanList", id);
+	}
+	public List<HashMap> getPlanReq(String id){
+		return sqlSession.selectList("user.getPlanReq", id);
 	}
 }

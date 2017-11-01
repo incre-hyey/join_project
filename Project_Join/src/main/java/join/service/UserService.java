@@ -1,5 +1,6 @@
 package join.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import join.dao.UserDAO;
+import join.vo.PlanVO;
 import join.vo.UserVO;
 
 @Transactional
@@ -56,6 +58,32 @@ public class UserService {
 		return vo;
 	}
 	
-	
+	public List<PlanVO> getMyPlan(String id){
+		List<PlanVO> planList = userDAO.getMyPlanList(id);
+		return planList;
+	}
+	public List<String> getPlanReq(String id){
+		List<HashMap> planList = userDAO.getPlanReq(id);
+		//idx, plan_idx, status, useridx, to_char( req_date ,'YYYY-MM-DD HH24:MI' ) req_date,
+		//to_char( res_date ,'YYYY-MM-DD HH24:MI' ) res_date, b.id userid, b.nickname, b.age, b.gender
+		List<String> tdList = new ArrayList<String>();
+		if(planList.size() > 0 ){
+			for( HashMap<String,String> map : planList){
+				String idx = map.get("idx");
+				String plan_idx = map.get("plan_idx");
+				String useridx = map.get("useridx");
+				String status = map.get("status");
+				String userid = map.get("userid");
+				String nickname = map.get("nickname");
+				String gender = map.get("gender");
+				String age = map.get("age");
+				StringBuffer sb = new StringBuffer();
+				sb.append("<td></td><td>").append(userid).append(" (").append(age).append("/").append(gender).append(") ").append("</td>");
+				sb.append("<td>").append("수락/거절").append("</td>");
+				tdList.add(sb.toString());
+			}
+		}
+		return tdList;
+	}
 
 }

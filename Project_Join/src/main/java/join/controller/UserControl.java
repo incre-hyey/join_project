@@ -3,6 +3,7 @@ package join.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import join.service.FileService;
 import join.service.UserService;
 import join.service.UtilService;
 import join.vo.FileVO;
+import join.vo.PlanVO;
 import join.vo.UserVO;
 
 @Controller
@@ -99,6 +101,50 @@ public class UserControl {
 		
 		
 		return "redirect:index";
+	}
+	/**
+	 * MY PLAN
+	 * @param request
+	 * @param response
+	 * @param userVO
+	 * @return
+	 */
+	@RequestMapping("/myPlan")
+	public String myPlan(HttpServletRequest request, HttpServletResponse response){
+		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		if(userVO == null)
+			return "/afterSession";
+		//DAO 로직
+		List<PlanVO> list = userService.getMyPlan(userVO.getIdx());	
+		request.setAttribute("list", list);
+		
+		return "user/myPlan";
+	}
+	
+	
+	
+	@RequestMapping("/myPlanViewReq")
+	@ResponseBody
+	public String myPlanViewReq(HttpServletRequest request, HttpServletResponse response){
+		
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		if(userVO == null)
+			return "/afterSession";
+		
+		String idx = request.getParameter("idx");
+		//DAO 로직
+		List<String> list = userService.getPlanReq(idx);
+		StringBuffer sb = new StringBuffer();
+		sb.append("<table>");
+		if( list.size() > 0){
+			for(String str :list){
+				sb.append("<tr>");
+				sb.append(str).append("</tr>");
+			}
+		}
+		sb.append("</table>");
+		return sb.toString();
 	}
 	
 }
