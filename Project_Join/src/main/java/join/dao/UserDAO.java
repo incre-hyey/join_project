@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 
 import join.service.FileService;
 import join.service.UtilService;
+import join.vo.PlanVO;
 import join.vo.UserVO;
 
 
@@ -35,8 +36,8 @@ public class UserDAO{
 	}
 	
 
-	public UserVO getUser(String id){
-		return sqlSession.selectOne("user.getUser", id);
+	public UserVO getUser(Map map){
+		return sqlSession.selectOne("user.getUser", map);
 	}
 	public List<UserVO> getUserList(Map<String, String> map){
 		return sqlSession.selectList("user.getUserList", map);
@@ -46,4 +47,17 @@ public class UserDAO{
 		
 		sqlSession.update("user.loginyn" , userVO);
 	}
+	
+	public List<HashMap> getMyPlanList(String id){
+		return sqlSession.selectList("user.getMyPlanList", id);
+	}
+	public List<HashMap> getPlanReq(String id){
+		return sqlSession.selectList("user.getPlanReq", id);
+	}
+	
+	public int updatePlanReq(Map map) {
+		return sqlSession.update("user.updatePlanReq" , map);
+	}
+	
+	
 }

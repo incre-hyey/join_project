@@ -24,7 +24,7 @@ h2 {
 	margin-bottom: 50px!important;
 	border-bottom: 2px solid #ccc;
 	box-shadow: 2px 1px #e4dede;
-    width: fit-content;
+    display: inline-block;
     padding-bottom: 3px;
     padding-right: 10px;
 }
@@ -32,7 +32,7 @@ h2 {
 .modal-title {
 	border-bottom: 2px solid #ccc;
 	box-shadow: 2px 1px #e4dede;
-    width: fit-content;
+    display: inline-block;
     padding-bottom: 3px;
     padding-right: 10px;
 }
@@ -334,6 +334,15 @@ button, .button {
 	margin-bottom: 10px;
 }
 
+.my_icon sup {
+	top: -1.5em;
+    background-color: #cc2b2b;
+    color: #fff;
+    border-radius: 8px;
+    left: -0.5em;
+    padding: 2px;
+}
+
 .my_icon a {
 	display: inline-block;
 }
@@ -377,7 +386,7 @@ button, .button {
 	padding:8px 16px; 
 	overflow:hidden; 
 	cursor: pointer;
-	border: 1px solid #000;
+	border: 1px solid #ccc;
 }
 
 /* login */
@@ -404,7 +413,7 @@ input[type=text], input[type=password] {
 }
 
 #roomForm input[type=text] {
-	padding: 7px 20px;
+	padding: 6px 20px;
 }
 
 
@@ -865,6 +874,7 @@ nav button.logout {
     color: #fff;
     font-weight: bold;
     border-right: 1px solid #ccc;
+    background-color: #000;
 }
 
 .tab button:hover {
@@ -873,6 +883,36 @@ nav button.logout {
 
 .tab button.active {
     background-color: #ccc;
+}
+
+.recipient {
+	border-bottom: 1px solid #ccc;
+	padding: 5px 10px;
+}
+
+.rec_wrap {
+	padding: 10px 20px;
+}
+
+.rec_wrap span {
+	font-size: 12px;
+	float: right;
+}
+
+.yet {
+	color: #f00;
+}
+
+.read {
+	color: #0af;
+}
+
+.view_btn {
+	padding-left: 20px;
+}
+
+.view_btn .w3-right {
+   margin-right: 10px;
 }
 
 .msgContent {
@@ -952,7 +992,7 @@ nav button.logout {
 }
 
 .send_btn {
-	width: fit-content;
+	width: 310px;
     margin: 0 auto;
     height: 30px;
     margin-bottom: 10px;
@@ -1075,7 +1115,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-bar .w3-bar-item{padding:8px 16px;float:left;width:auto;border:none;outline:none;display:block}
 .w3-bar .w3-dropdown-hover,.w3-bar .w3-dropdown-click{position:static;float:left}
 .w3-bar .w3-button{white-space:normal}
-.w3-bar-block .w3-bar-item{width:fit-content;display:block;padding:8px 16px;text-align:left;border:none;outline:none;white-space:normal;float:none}
+.w3-bar-block .w3-bar-item{/* width:fit-content; */ display: inline-block; padding:8px 16px;text-align:left;border:none;outline:none;white-space:normal;float:none}
 .w3-bar-block.w3-center .w3-bar-item{text-align:center}.w3-block{display:block;width:100%}
 .w3-responsive{overflow-x:auto}
 .w3-container:after,.w3-container:before,.w3-panel:after,.w3-panel:before,.w3-row:after,.w3-row:before,.w3-row-padding:after,.w3-row-padding:before,
@@ -1158,5 +1198,3 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-text-teal{color:#bd9655!important; font-size: 16px; font-weight: bolder;}
 .w3-red {color: #fff!important; background-color: #d9534f!important; border: 2px solid #fff; border-radius: 4px;}
 .w3-red:hover {background-color:#c9302c!important}
-
-

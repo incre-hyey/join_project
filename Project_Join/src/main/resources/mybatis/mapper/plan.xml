@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="plan">
+	<!-- PlanVo안에 있는 u_list에 값을 넣어주는 select가 바로 getPeople이며, 그것을 수행하기 위해서는 idx의 값을 전달해야 한다. 이때 받는 자료가 join.vo.UserVO다. -->		 
+	
+	<resultMap type="join.vo.PlanVO" id="planListMap">
+		<id property="idx" column="idx"/>		
+		<collection property="u_list" column="idx" ofType="join.vo.UserVO" select="getPeople"/>
+	</resultMap>
+
+	<!-- join.plan을 눌렀을때 게시판 리스트 나열(t_plan_req테이블 status에 1값주기) -->
+	<select id="planList" resultMap="planListMap">
+		select * from t_plan
+		where status = 1
+		order by reg_date DESC 		
+	</select>
+	
+	<!-- join.view(상세보기)를 클릭했을때 -->
+	<select id="getView" resultMap="planListMap" parameterType="String">
+		select * from t_plan
+		where idx = #{idx} and status = 1		
+	</select>
+
+	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
+	<insert id="write_ok" parameterType="join.vo.PlanVO">
+		insert into t_plan(idx, p_pwd, title, location1, location2, tnop, content, status, writer, reg_date, latitude, longitude, file_id)
+		values(#{idx}, #{title}, #{p_pwd}, #{location1}, #{location2}, #{tnop}, #{content}, #{status}, #{writer}, sysdate, #{latitude}, #{longitude},#{file_id})		
+	</insert>
+	<!-- select p t_plan, q t_plan_req from q inner join p on q.plan_idx = p.idx -->
+	
+	
+	<!-- my.plan에서 내가 올린 게시물을 수정하는 update -->
+	<update id="edit_plan" parameterType="join.vo.PlanVO">
+		update t_plan
+		set title = #{title}, location1 =#{location1}, content =#{content}, mod_date=sysdate, 
+					latitude = #{latitude}, longtude=#{longtude}, tnop = #{tnop}			
+	</update>
+	
+	<!-- plan 게시물의 삭제 -->
+	<update id="delete" parameterType="join.vo.PlanVO">
+		update t_plan
+		set status = 0
+		where idx = #{idx} and pwd = #{pwd}
+	</update>
+	
+	<!-- plan의 기본키를 가지고 Plan정보를 선별하는 select -->
+	<select id="getPlan" parameterType="String" resultMap="planListMap">
+		select * from t_plan
+		where status = 1		
+	</select>
+	
+	
+	<!--  plan의 기본키를 가지고 참여자 정보를 선별하는 select -->
+	<select id="getPeople" parameterType="String" resultType="join.vo.UserVO">
+		SELECT * FROM t_user 
+		WHERE id IN(SELECT userid FROM t_plan_people WHERE plan_idx=#{idx} AND status=1)
+	</select>
+
+</mapper>
+

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="msg">
+	
+	<select id="getMsg" resultType="join.vo.MsgVO">
+		SELECT * FROM T_MESSAGE
+	</select>
+	
+	<select id="getRcvList" resultType="join.vo.MsgVO" parameterType="map">
+		select a.idx, a.title, a.sender, a.content, a.send_date, 
+				b.userid, b.status, b.read_date
+		from T_MESSAGE a , T_MESSAGE_RECEIVE b
+		where b.userid = #{userid}
+		and a.idx = b.m_idx
+	</select>
+	<select id="getSendList" resultType="join.vo.MsgVO" parameterType="map">
+		select a.idx, a.title, a.sender, a.content, a.send_date, a.rcv, a.rcv_cnt
+        from t_message a
+        where a.sender = #{userid}
+	</select>
+	
+	<select id="getMsgIdx" resultType="Integer">
+		SELECT NVL(MAX(IDX), '0') + 1 AS IDX
+		 FROM T_MESSAGE
+	</select>
+	
+	<update id="del" parameterType="join.vo.MsgVO">
+	DELETE FROM T_MESSAGE
+	WHERE idx = #{idx} AND title = #{title} AND content = #{content}
+	</update>
+	
+	
+	
+	<insert id="insert" parameterType="map">
+		INSERT INTO T_MESSAGE (
+		    IDX,
+		    TITLE,
+		    CONTENT,
+		    SENDER,
+		    STATUS,
+		    RCV,RCV_CNT
+		    )
+		VALUES (
+			#{idx},
+			#{title},
+			#{content},
+			#{sender},
+			#{status},
+			#{rcv}, #{rcv_cnt}
+		)
+	</insert>
+	<insert id="insertRcv" parameterType="map">
+		<if test="list.size != 0">
+		INSERT ALL
+			<foreach collection="list" item="vo" >
+			INTO T_MESSAGE_RECEIVE (IDX, M_IDX, USERID, SENDER, STATUS)
+			VALUES (#{vo.idx}, #{vo.m_idx}, #{vo.userid}, #{vo.sender}, #{vo.status})
+			</foreach>
+		SELECT * FROM DUAL
+		</if>
+	</insert>
+</mapper>  
+
+
+
+
+

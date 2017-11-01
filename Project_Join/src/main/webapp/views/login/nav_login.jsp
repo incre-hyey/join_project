@@ -39,7 +39,7 @@
 	</div>
 	<div class="w3-bar-block">
 		<div class="logined">
-			<p class="my_icon"><a href="#"><i class="fa fa-bell"></i></a> 
+			<p class="my_icon"><a href="#"><i class="fa fa-bell"></i><sup>10</sup></a> 
 			<a href="${pageContext.request.contextPath}/views/user/userInfo.jsp"><i class="fa fa-cog" aria-hidden="true"></i></a></p>
 			<h4 class="nick">${sessionScope.USER.nickname } 님 환영합니다!</h4>
 		</div>
