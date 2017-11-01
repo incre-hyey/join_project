@@ -98,6 +98,7 @@ public class PlanControl{
 		
 		//System.out.println(fileVO.getFile_name());	
 		
+		planVO.setWriter_idx(planVO.getWriter_idx());
 		planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴			
 		planVO.setContent(planVO.getContent());
 		planVO.setTitle(planVO.getTitle());  		
@@ -164,17 +165,23 @@ public class PlanControl{
 		Map<String, String> map = new HashMap<String, String>();
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
 		String u_idx = userVO.getIdx();
-		System.out.println(u_idx+"poepleeeeeeeee");
-		String p_idx = request.getParameter("idx");
-		System.out.println(p_idx+"선택된 plan idx 값/////");
+				System.out.println(u_idx+"poepleeeeeeeee");
+		String plan_idx = request.getParameter("idx");
+				System.out.println(plan_idx+"선택된 plan idx 값/////");
+		String status = "0";
+		//String idx = UtilService.makeKey();
 
-		map.put(u_idx, "u_idx");
-		map.put(p_idx, "p_idx");
-		//map.put(, "0");
+		map.put("u_idx",u_idx);
+		map.put("plan_idx", plan_idx);
+		map.put("status",status);
+		//map.put(idx, "idx");
+		
+		planservice.appPoeple(map);				
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("map", map);
-		//mv.getViewName("");
+		mv.addObject("userVO", userVO);
+		mv.setViewName("redirect:/plan_view?idx="+plan_idx);	
 		
 		return mv;
 	}
