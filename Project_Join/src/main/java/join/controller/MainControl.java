@@ -35,6 +35,9 @@ public class MainControl{
 	@Resource(name="planService")
 	PlanService planService;
 	
+	@Resource(name="userService")
+	UserService userService;
+	
 	public MainControl() {
 		System.out.println("****MainControl****");
 	}
@@ -51,11 +54,13 @@ public class MainControl{
 		//1. 최신 플랜 리스트 
 		List<HashMap> planList = planService.getMainPlan();
 		
+		//2. 최신 가입자 리스트
+		List<UserVO> userList = userService.getMainUser();
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("mainPlanList", planList);
+		mv.addObject("mainUserList", userList);
 		mv.setViewName("index");
-		
 		
 		return mv;
 	}

@@ -118,5 +118,13 @@ public class UserService {
 	public int myReqCancel(String idx){
 		return userDAO.deletePlanReq(idx);
 	}
+	
+	/**
+	 * 메인 최신 가입자 리스트
+	 * @return
+	 */
+	public List<UserVO> getMainUser(){
+		return userDAO.selectMainUser();
+	}
 
 }

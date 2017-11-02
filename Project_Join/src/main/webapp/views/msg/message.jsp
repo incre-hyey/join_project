@@ -29,7 +29,7 @@
 	function addTO(){
 		var $tab = $("#rcvTab").find("tbody");
 		var $TR = $("<tr></tr>");
-		var $TD = "<td><input type='text' style='width:50%' name='userid'>"+
+		var $TD = "<td><input type='text' style='width:50%' name='userid' placeholder='ID 입력'>"+
 				"&nbsp;<button type='button' class='btn btn-warning' onclick='xClick(this);'>X</button></td>";
 		$TR.append($TD);
 		$tab.append($TR);
@@ -73,7 +73,7 @@
 				<td >
 					<table id="rcvTab" id="send_msg" style="border-collapse: separate;border-spacing:5px;">
 					<tbody>
-					<tr><td><input style="width:50%" type="text" name="userid" value="${userid }">
+					<tr><td><input style="width:50%" type="text" name="userid" placeholder="ID 입력" value="${userid }">
 							<button type="button" class="btn btn-warning" onclick="xClick(this);">X</button>
 						</td></tr>
 					</tbody>

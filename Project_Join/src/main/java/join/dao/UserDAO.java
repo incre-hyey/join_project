@@ -66,4 +66,9 @@ public class UserDAO{
 		return sqlSession.delete("user.deletePlanReq" , idx);
 	}
 	
+	
+	public List<UserVO> selectMainUser(){
+		return sqlSession.selectList("user.getMainUser");
+	}
+	
 }

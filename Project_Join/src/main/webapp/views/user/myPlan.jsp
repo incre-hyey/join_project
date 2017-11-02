@@ -91,7 +91,8 @@ a#MOVE_TOP_BTN {
 
 <div class="w3-main" style="margin-left: 300px">
 	<h2>MY PLAN</h2>
-		<a href="#"></a> <span
+		<a href="#"></a> 
+		<span
 			class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey"
 			onclick="w3_open()"><i class="fa fa-bars"></i></span>
 

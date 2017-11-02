@@ -72,7 +72,7 @@ public class LoginControl{
 //		request.getSession().setAttribute("loginyn", "N");
 //		request.getSession().setAttribute("userVO", null);
 		
-		return "index";
+		return "redirect:index";
 	}
 	/**
 	 * 세션체크후 로그인 페이지 메시지와 함께 이동
@@ -86,7 +86,7 @@ public class LoginControl{
 		request.getSession().invalidate();
 		request.setAttribute("msgClose", UtilService.getValue((String)request.getParameter("msgClose"), ""));
 		request.setAttribute("viewMsg", "로그인을 해주세요");
-		return "index";
+		return "redirect:index";
 	}
 
 

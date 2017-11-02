@@ -173,6 +173,17 @@
 		delete from t_plan_people 
 		where idx = #{idx}
 	</delete>
+	
+	
+	<!-- ///////////////////////MAIN - 최신 가입 유저 /////////////////////// -->
+	<select id="getMainUser" resultType="join.vo.UserVO">
+		<![CDATA[SELECT rownum , main.* FROM (
+		select id, nickname, age, gender, file_id
+		from t_user
+		order by reg_date desc
+		) main
+		where rownum <= 3]]>
+	</select>
 		
 </mapper>  
 
