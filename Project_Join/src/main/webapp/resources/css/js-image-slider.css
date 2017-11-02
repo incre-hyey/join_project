@@ -5,13 +5,13 @@
 }
 #sliderFrame 
 {
-    width:700px;
-    height: 350px;
+    width:100%;
+    height: 506px;
     margin:0 auto; /*center-aligned*/
 }
 
 #slider, #slider .sliderInner {
-    width:700px;height:306px;/* Must be the same size as the slider images */
+    width:100%; height:506px;/* Must be the same size as the slider images */
     border-radius:3px;
 }
 
@@ -20,7 +20,7 @@
     position:relative;
     margin:0 auto; /*center-aligned*/
     transform: translate3d(0,0,0);
-    box-shadow: 0px 1px 5px #999999;
+    /* box-shadow: 0px 1px 5px #999999; */
 }
 
 /* the link style (if an image is wrapped by a link) */
@@ -59,7 +59,7 @@
 
 /* ------ built-in navigation bullets wrapper ------*/
 #slider .navBulletsWrapper  {
-    top:320px;
+    top:420px;
     text-align:center;
     background:none;
     position:relative;
