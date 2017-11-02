@@ -2,6 +2,7 @@ package join.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,9 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import join.service.FileService;
+import join.service.PlanService;
 import join.service.UserService;
 import join.service.UtilService;
 import join.vo.FileVO;
+import join.vo.PlanVO;
 import join.vo.UserVO;
 
 
@@ -28,6 +31,9 @@ public class MainControl{
 	
 	@Resource(name="fileService")
 	FileService fileService;
+	
+	@Resource(name="planService")
+	PlanService planService;
 	
 	public MainControl() {
 		System.out.println("****MainControl****");
@@ -38,11 +44,16 @@ public class MainControl{
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//
 		//페이지 유효성을 위해 TOKEN 생성 추가
+//		String Token = UtilService.makeKey();
+//		request.getSession().setAttribute("TokenKey", Token);
 		
-		String Token = UtilService.makeKey();
-		request.getSession().setAttribute("TokenKey", Token);
+		
+		//1. 최신 플랜 리스트 
+		List<PlanVO> planList = planService.getMainPlan();
+		
 		
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("planList", planList);
 		mv.setViewName("index");
 		
 		

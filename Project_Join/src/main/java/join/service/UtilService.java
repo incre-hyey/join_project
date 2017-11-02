@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -31,7 +32,8 @@ public class UtilService {
 	public static String makeKey() {
 		String key="";
 		char ch = (char)((Math.random() * 26) + 65);
-		Long id = new Date().getTime()*(new Random().nextInt(123)+ch);
+		
+		Long id = System.currentTimeMillis()*(new Random().nextInt(123)+ch);
 		
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");

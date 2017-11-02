@@ -6,11 +6,10 @@
 		<div>
 			<!-- <h3>join</h3> -->
 			<ul id="footer_list">
-				<li><a href="https://www.lwt.co.kr/footer/siteMap.do">회사소개</a></li>
-				<li><a href="https://www.lwt.co.kr/footer/siteMap.do">고객센터</a></li>
-				<li><a href="https://www.lwt.co.kr/footer/siteMap.do">사이트맵</a></li>
-				<li><a href="https://www.lwt.co.kr/footer/privacy.do">개인정보처리방침</a></li>
-				<li><a href="https://www.lwt.co.kr/footer/agreement.do">이용약관</a></li>
+				<li><i class="fa fa-venus-double"></i>JOIN</li>
+				<li><a href="${pageContext.request.contextPath}/views/footer/sitemap.jsp"><i class="fa fa-sitemap"></i>사이트맵</a></li>
+				<li><a href="${pageContext.request.contextPath}/views/footer/privacy.jsp"><i class="fa fa-unlock-alt"></i>개인정보처리방침</a></li>
+				<li><a href="${pageContext.request.contextPath}/views/footer/agreement.jsp"><i class="fa fa-flag-checkered"></i>이용약관</a></li>
 			</ul>
 		</div>
 
@@ -67,11 +66,7 @@
 			});
 	
 		});
-	
-	//달력
-	$( function() {
-	    $( "#datepicker" ).datepicker();
-	  } );
+
 </script>
 <script type="text/javascript">
 	//summernote

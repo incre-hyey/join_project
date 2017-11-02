@@ -14,26 +14,25 @@
 <section id="container">
 	<div class="inner">
 		<div class="main_left">
-			<h3>Recent Plan</h3>
+			<h3>Recent Plan <a href="#" class="more_btn">more</a></h3>
 			<div class="grid_2">
 				<div class="date_section">
 					<div class="month">apr.</div>
 					<div class="day">27</div>
 				</div>
 				<h4>
-					<a href="#">관악산 등반 모임</a>
+					관악산 등반 모임
 					</h4>
-					<a href="#" class="more_btn">more</a>
+					
 			</div>
 			<div class="grid_2">
 				<div class="date_section">
 					<div class="month">apr.</div>
 					<div class="day">27</div>
 				</div>
-				<h4>
-					<a href="#">관악산 등반 모임</a>
-					</h4>
-					<a href="#" class="more_btn">more</a>
+				<h4>TITLE</h4>
+				<h6>WRITER</h6>
+				<h6>LOCATION</h6>
 			</div>
 		</div>
 

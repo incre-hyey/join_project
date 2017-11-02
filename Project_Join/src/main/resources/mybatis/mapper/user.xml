@@ -15,6 +15,10 @@
 	         AND pwd = #{pwd}
 	    </if>
 	   </where>
+	   
+	   <if test="main != null">
+	   	
+	   </if>
 	</select>
 	<select id="getUser" resultType="join.vo.UserVO" parameterType="hashmap">
 	  select * from t_user	

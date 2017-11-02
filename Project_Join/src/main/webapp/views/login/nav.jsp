@@ -33,7 +33,7 @@
 			title="close menu"> <i class="fa fa-remove"></i>
 		</a>
 		<h1>
-			<a href="index.jsp">JOIN</a>
+			<a href="${pageContext.request.contextPath}/index">JOIN</a>
 		</h1>
 	</div>
 	<div class="w3-bar-block">
