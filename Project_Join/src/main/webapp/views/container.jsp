@@ -6,7 +6,7 @@ public String getImgPath(String ctx , String fileid){
 	
 	String path = ctx +"/resources/images/default_user_img.png";
 	if(!fileid.equals(""))
-		path = ctx + "/viewImg?module=USERfileid="+fileid;
+		path = ctx + "/viewImg?module=USER&fileid="+fileid;
 	return path;	
 }
 %>
@@ -59,9 +59,10 @@ public String getImgPath(String ctx , String fileid){
 				</c:if>
 				<c:if test="${mainUserListSize > 1 }">
 					<c:set var="mainUserVo" value="${mainUserList.get(1) }"/>
+					<c:set var="mUserImg" value="${mainUserVo.file_id }" />
 					<div class="product-item w3-card-4 w3-white">
 						<a class="thumb mfp-image" data-lightbox="image"> <img
-							src="${pageContext.request.contextPath}/viewImg?fileid=${mainUserVo.file_id }&module=USER"
+							src="<%=getImgPath(request.getContextPath(),pageContext.getAttribute("mUserImg").toString()) %>"
 							alt="imag_1"> <span class="thumb__overlay"></span></a>
 						<h5>
 							${mainUserVo.id } ( ${mainUserVo.nickname } ) <br/>
@@ -72,9 +73,10 @@ public String getImgPath(String ctx , String fileid){
 				</c:if>
 				<c:if test="${mainUserListSize > 2 }">
 					<c:set var="mainUserVo" value="${mainUserList.get(2) }"/>
+					<c:set var="mUserImg" value="${mainUserVo.file_id }" />
 					<div class="product-item w3-card-4 w3-margin w3-white">
 						<a class="thumb mfp-image" data-lightbox="image"> <img
-							src="${pageContext.request.contextPath}/viewImg?fileid=${mainUserVo.file_id }&module=USER"
+							src="<%=getImgPath(request.getContextPath(),pageContext.getAttribute("mUserImg").toString()) %>"
 							alt="imag_1"> <span class="thumb__overlay"></span></a>
 						<h5>
 							${mainUserVo.id } ( ${mainUserVo.nickname } ) <br/>

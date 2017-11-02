@@ -14,7 +14,12 @@
 <!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<style>
+#upload{
+position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0;
 
+}
+</style>
 <script>
 /*
 $(function() {
@@ -151,7 +156,7 @@ function imgChange(obj){
         window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
         return false;
     }
-	file = $('#file').prop("files")[0];
+	file = $('#upload').prop("files")[0];
     blobURL = window.URL.createObjectURL(file);
     $('#image_preview img').attr('src', blobURL)
 }
@@ -191,6 +196,11 @@ function valiCheck(){
 	return flag;
 	
 }
+function imgCancel(){
+	var attachFile = $('#upload');
+	$(attachFile).replaceWith($(attachFile).clone(true));
+	$('#image_preview img').attr('src', '');
+}
 
 </script>
 <div class="w3-main" style="margin-left: 320px">
@@ -205,9 +215,14 @@ function valiCheck(){
 						<td><input type="text" placeholder="ID" name="id" class="vaildate"></td>
 						
 						<td rowspan="6"><div class="well"><label for="file">이미지</label>
-							<input type="file" id="file" name="upload" onchange="imgChange(this);"/><br/>
+							<input type="file" id="upload" name="upload" onchange="imgChange(this);"/><br/>
 							<div id="image_preview">
-							<img src="" class="img-thumbnail" alt="" width="304" height="236"></div></td>
+							<img src="" class="img-thumbnail" alt="" width="304" height="236"></div>
+							<br/>
+							<button type="button" onclick="javascript:document.getElementById('upload').click();">업로드</button>
+							<button type="button" onclick="imgCancel()">초기화</button>	
+						</td>
+							
 					</tr>
 					<tr>
 						<th>Password</th>
