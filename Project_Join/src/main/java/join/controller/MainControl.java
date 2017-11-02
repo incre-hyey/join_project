@@ -45,7 +45,7 @@ public class MainControl{
 	// /index로 들어올때
 	@RequestMapping("/index")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//
+		
 		//페이지 유효성을 위해 TOKEN 생성 추가
 //		String Token = UtilService.makeKey();
 //		request.getSession().setAttribute("TokenKey", Token);

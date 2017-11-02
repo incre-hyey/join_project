@@ -64,6 +64,7 @@
     background:none;
     position:relative;
     z-index:3;
+    display:none;
 }
 
 /* each bullet */

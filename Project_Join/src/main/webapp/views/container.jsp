@@ -1,13 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%!
+public String getImgPath(String ctx , String fileid){
+	
+	String path = ctx +"/resources/images/default_user_img.png";
+	if(!fileid.equals(""))
+		path = ctx + "/viewImg?module=USERfileid="+fileid;
+	return path;	
+}
+%>
 <section id="sliderFrame">
 	<div id="slider">
-		<img src="http://www.menucool.com/slider/prod/image-slider-1.jpg" />
-		<img src="http://www.menucool.com/slider/prod/image-slider-2.jpg" />
-		<img src="http://www.menucool.com/slider/prod/image-slider-3.jpg" />
-		<img src="http://www.menucool.com/slider/prod/image-slider-4.jpg" />
-		<img src="http://www.menucool.com/slider/prod/image-slider-5.jpg" />
+		<img src="${pageContext.request.contextPath}/resources/images/date1.jpg" />
+		<img src="${pageContext.request.contextPath}/resources/images/date2.jpg" />
+		<img src="${pageContext.request.contextPath}/resources/images/coffee2.jpg" />
+		<img src="${pageContext.request.contextPath}/resources/images/wine.jpg" />
 	</div>
 </section>
 
@@ -37,9 +45,10 @@
 				<c:set var="mainUserListSize" value="${mainUserList.size() }"/>
 				<c:if test="${mainUserListSize > 0 }">
 					<c:set var="mainUserVo" value="${mainUserList.get(0) }"/>
+					<c:set var="mUserImg" value="${mainUserVo.file_id }" />
 					<div class="product-item w3-card-4 w3-margin w3-white">
 						<a class="thumb mfp-image" data-lightbox="image"> <img
-							src="${pageContext.request.contextPath}/viewImg?fileid=${mainUserVo.file_id }&module=USER"
+							src="<%=getImgPath(request.getContextPath(),pageContext.getAttribute("mUserImg").toString()) %>"
 							alt="imag_1"> <span class="thumb__overlay"></span></a>
 						<h5>
 							${mainUserVo.id } ( ${mainUserVo.nickname } ) <br/>
