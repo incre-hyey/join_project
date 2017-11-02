@@ -7,21 +7,7 @@
 <%@include file="/views/common.jsp"%>
 <div class="w3-main" style="margin-left: 300px">
 <%@include file="../header.jsp"%>
-<style type="text/css">
-#del_Win{
-	width: 250px;
-	height: 90px;
-	padding: 20px;
-	border: 1px solid #00baee;
-	border-radius: 10px;
-	background-color: #efefef;
-	text-align: center;
-	position: absolute;
-	top: 150px;
-	left: 250px;
-	display: none;
-}
-</style> 
+
 <script type="text/javascript">
 
 // 실행시 자동으로 설정
@@ -70,36 +56,23 @@ $(".viewForm").ready(function(){
 		}
 		
 	}
-	// 삭제하기를 눌렀을때 
-	function del(ff){
-		//alert("dddddddddddd");
-		 var userPwd = $('#userPwd').val();
-		 var p_pwd = $('#p_pwd').val();	
-		 
-		if(userPwd == p_pwd){
-				$('#p_pwd').val(p_pwd);
-				alert("삭제 !!");
-				
-				
-		}else{
-				alert("비밀번호를 확인하세요");
-				$('#userPwd').val("");
-				$('#userPwd').focus();
-				return false;
-			}			
-		
-		ff.submit();
-		//location.href='${pageContext.request.contextPath}/delete';
-	}
 	
+	// 삭제하기를 눌렀을때 	
 	function del_form(){
 		alert("삭제 폼 발생!");
-		document.getElementById("del_Win").style.display = "block";
+		 var userPwd = $('#userPwd').val();
+		 var p_pwd = $('#p_pwd').val();		
+		 var flag = true;
+		 
+		if(confirm("삭제 하시겠습니까?")){
+			var ff = document.delForm;
+			//비번확인
+			flag = false;
+			ff.submit();
+		}
+		
 	}
-	
-	function del_cancel(){
-		document.getElementById("del_Win").style.display = "none";
-	}
+
 </script>
 	<div class="w3-container w3-padding-16 w3-grey">
 	
@@ -133,11 +106,11 @@ $(".viewForm").ready(function(){
 						<fmt:parseDate value="${vo.end_date }" pattern="yyyy-MM-dd hh:mm:ss" var="enddate"/>									
 						<fmt:formatDate value="${enddate}" pattern="yyyy-MM-dd hh:mm"/> --%>
 				
-				<form class="viewForm">						
+				<form class="viewForm">	
+				<input type="button" name="list" onclick="JavaScript:location.href='${pageContext.request.contextPath}/plan'" value="목록보기" class="btn btn-primary"/>					
 				<!-- 일반사용자들의 상세보기 버튼 -->		
 				<div id="userPlan">
 					<input type="hidden" name="idx" value="${vo.idx }" />
-					<input type="button" name="list" onclick="JavaScript:location.href='${pageContext.request.contextPath}/plan'" value="목록보기" class="btn btn-primary"/>
 					<!-- <input type="button" name="profile" value="프로필보기" class="btn btn-primary"> -->
 					<input type="button" name="talk" value="대화신청" class="btn btn-success"/>
 					<input type="button" name="msg" value="쪽지" class="btn btn-warning"/>
@@ -155,13 +128,9 @@ $(".viewForm").ready(function(){
 		</div>
 <!-- 삭제버튼을 눌렀을때 나타나는 div -->
 <div id="del_Win">
-	<form action="${pageContext.request.contextPath}/delete" method="post">		
+	<form action="${pageContext .request.contextPath}/delete" method="post">		
 		<input type="hidden" id="userIdx" name="userIdx" value="${sessionScope.USER.idx }"/>
-		<input type="hidden" id="idx" name="idx" value="${vo.idx }"/>
-	<%-- 	<input type="hidden" id="writer_idx" name="writer_idx" value="${vo.writer_idx }">	 --%>	
-		<p>정말로 삭제 하시겠습니까?</p>
-		<input type="submit" value="삭제" onclick="del(this.form)"/>
-		<input type="button" id="cancel" value="취소" onclick="del_cancel()"/>		
+		<input type="hidden" id="idx" name="idx" value="${vo.idx }"/>	
 	</form>
 </div>
 	</div>
