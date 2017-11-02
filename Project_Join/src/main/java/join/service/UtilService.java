@@ -32,19 +32,21 @@ public class UtilService {
 	public static String makeKey() {
 		String key="";
 		char ch = (char)((Math.random() * 26) + 65);
+		char ch2 = (char)((Math.random() * 26) + 65);
+		char ch3 = (char)((Math.random() * 26) + 65);
+		Long id = System.currentTimeMillis();
 		
-		Long id = System.currentTimeMillis()*(new Random().nextInt(123)+ch);
-		
-		try {
-			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			md5.update(id.byteValue());
-			
-			key = toHex(md5.digest());
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-			}
-		System.out.println("########## "+key+" ###########");
-		return key;
+//		
+//		try {
+//			MessageDigest md5 = MessageDigest.getInstance("MD5");
+//			md5.update(id.byteValue());
+//			
+//			key = toHex(md5.digest());
+//			} catch (NoSuchAlgorithmException e) {
+//				e.printStackTrace();
+//			}
+//		System.out.println("########## "+key+" ###########");
+		return ch+ch2+ch3+String.valueOf(id);
 	}
 	private static String toHex(byte[] digest) {
 		StringBuffer buf = new StringBuffer();

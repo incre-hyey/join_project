@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <section id="sliderFrame">
 	<div id="slider">
 		<img src="http://www.menucool.com/slider/prod/image-slider-1.jpg" />
@@ -15,25 +15,19 @@
 	<div class="inner">
 		<div class="main_left">
 			<h3>Recent Plan <a href="#" class="more_btn">more</a></h3>
-			<div class="grid_2">
-				<div class="date_section">
-					<div class="month">apr.</div>
-					<div class="day">27</div>
+			<c:forEach items="${mainPlanList}" var="mpvo" varStatus="s">
+				
+				<div class="grid_2">
+					<div class="date_section">
+						<div class="month">${mpvo.MON }</div>
+						<div class="day">${mpvo.DAY }</div>
+					</div>
+					<h4>${mpvo.TITLE }</h4>
+					<h6>${mpvo.WRITER }</h6>
+					<h6>${mpvo.LOCATION1}</h6>
+						
 				</div>
-				<h4>
-					관악산 등반 모임
-					</h4>
-					
-			</div>
-			<div class="grid_2">
-				<div class="date_section">
-					<div class="month">apr.</div>
-					<div class="day">27</div>
-				</div>
-				<h4>TITLE</h4>
-				<h6>WRITER</h6>
-				<h6>LOCATION</h6>
-			</div>
+			</c:forEach>
 		</div>
 
 		<div class="main_right">

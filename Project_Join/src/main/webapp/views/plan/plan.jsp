@@ -49,11 +49,11 @@
 									<li><strong>PLAN 종류 :</strong>${vo.plan_kind }</li>
 									<li><strong>작성자 :</strong>${vo.writer }</li>
 									<li><strong>제목 :</strong>${vo.title }</li>
-									<li><strong>일정 :</strong>
-									<fmt:parseDate value="${vo.start_date }" pattern="yyyy-MM-dd" var="startdate"/>									
+									<li><strong>일정 :</strong>${vo.start_date } ~ ${vo.end_date }</li>									
+									<%-- <fmt:parseDate value="${vo.start_date }" pattern="yyyy-MM-dd" var="startdate"/>									
 									<fmt:formatDate value="${startdate}" pattern="yyyy-MM-dd"/> ~
 									<fmt:parseDate value="${vo.end_date }" pattern="yyyy-MM-dd hh:mm:ss" var="enddate"/>									
-									<fmt:formatDate value="${enddate}" pattern="yyyy-MM-dd hh:mm"/></li>
+									<fmt:formatDate value="${enddate}" pattern="yyyy-MM-dd hh:mm"/> --%>
 									<li><strong>장소 :</strong>${vo.location1 }${vo.location2 }</li>
 									<li><strong>참여인원 :</strong>${fn:length(vo.u_list)}/${vo.tnop }</li>
 								</ul>
@@ -92,31 +92,6 @@
 			}			
 	}
 	
-/* 	function check(exp_yn,idx, tnop, ulistLen){
-// 		var ff = document.app_plan;
-// 		alert(ff.exp_yn.value+"일정이 가능한때 Y/N");
-// 		alert(ff.list.value+"신청한사람들 수");
-// 		alert(ff.tnop.value+"모지인원");
-// 		alert(obj.length);
-		alert(ulistLen);
-		if(exp_yn != 'Y'){
-			alert("지남");
-			return false;
-		}
-		if(ulistLen > tnop){
-			alert("꽉참");
-			return false;
-		}
-// 		if(ff.exp_yn == 'Y' && ff.list.length> ff.tnop){			
-// 			$('#app_plan').action="${pageContext.request.contextPath}/addPoeple";
-// 			alert("신청되었습니다");
-// 			//submit();			
-// 			return true;
-// 		}
-// 		else{
-// 			alert("이미 일정이 마감되었습니다");
-// 			return false;
-// 		}
-	}	 */
+
 	
 </script>

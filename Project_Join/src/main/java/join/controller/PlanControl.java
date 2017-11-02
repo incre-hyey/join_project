@@ -42,6 +42,7 @@ import join.vo.UserVO;
 
 
 
+
 @Controller
 public class PlanControl{
 	
@@ -71,10 +72,10 @@ public class PlanControl{
 		return mv;
 	}
 	
-
+	// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
 	@RequestMapping(value="/plan_write",method=RequestMethod.GET)
 	public ModelAndView write(HttpServletRequest request, HttpServletResponse response) {	
-		// 처음 '글쓰기'버튼을 눌렀을때 오는 곳
+		
 		
 		//DAO 로직				
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
@@ -88,6 +89,7 @@ public class PlanControl{
 		return mv;			
 	}	
 	
+	// '글쓰기' 저장을 눌렀을때 post방식
 	@RequestMapping(value="/plan_write",method=RequestMethod.POST)
 	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO) throws ParseException{	
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면		
@@ -96,40 +98,34 @@ public class PlanControl{
 		//System.out.println(userVO.getFile_id());
 		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
 		
-		//System.out.println(fileVO.getFile_name());	
+		//System.out.println(planVO.getTitle());	
 		
 		planVO.setWriter_idx(planVO.getWriter_idx());
-		planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴			
-		planVO.setContent(planVO.getContent());
-		planVO.setTitle(planVO.getTitle());  		
-		planVO.setLocation1(planVO.getLocation1());
-		planVO.setLocation2(planVO.getLocation2());
-		planVO.setWriter(planVO.getWriter());
+		if(fileVO != null)
+			planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴		
+
 		planVO.setIdx(UtilService.makeKey()); //plan_idx키 발생
 		planVO.setStatus("1");
-		planVO.setLongitude(planVO.getLongitude());
-		planVO.setLatitude(planVO.getLatitude());
-		planVO.setTnop(planVO.getTnop());
-		planVO.setPlan_kind(planVO.getPlan_kind());
-		planVO.setStart_date(planVO.getStart_date());
+		
+		
 		
 		// '일정' 구하기
 		String stringEnd  = request.getParameter("enddate");		
-		String finaldate = stringEnd+"00";
+		//String finaldate = stringEnd;
 		
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-ddhhmmss");
-		SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy/MM/dd");
+		
 		Date date = null;
 			try{
-			date = fmt.parse(finaldate);
-		//	System.out.println("========>"+date);
+			date = fmt.parse(stringEnd);
+		//System.out.println("========>"+date);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		String d_date = fmt1.format(date);
-		//System.out.println(d_date+"d_date 두번째 String");
-		
 		planVO.setEnd_date(d_date);	
+		System.out.println(d_date);
 		
 		//DAO 로직
 		planservice.addPlan(planVO);	
@@ -141,6 +137,7 @@ public class PlanControl{
 		return mv;
 	}
 
+	// plan 상세보기
 	@RequestMapping("/plan_view")
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){	
 		
@@ -159,6 +156,7 @@ public class PlanControl{
 		return mv;
 	}
 	
+	// '참가신청'을 눌렀을때
 	@RequestMapping(value="/appPeople",method=RequestMethod.GET)
 	public ModelAndView appPeople(HttpServletRequest request, HttpServletResponse response){
 		
@@ -186,20 +184,106 @@ public class PlanControl{
 		return mv;
 	}
 	
-	@RequestMapping("/planEdit")
-	public ModelAndView planEdit(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
-		
+	// '수정하기'버튼을 눌렀을때 
+	@RequestMapping(value="/planEdit", method=RequestMethod.GET)
+	public ModelAndView planEdit(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO) throws Exception {
 		
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+		String writer_idx =userVO.getIdx();
+		String idx = request.getParameter("idx");
+		String p_pwd = request.getParameter("p_pwd");
+		System.out.println(p_pwd + "/"+idx+"수정하기를 눌렀을때 들어오는 값");		
 		
-		String u_idx = userVO.getIdx();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("writer_idx", writer_idx);
+		map.put("idx", idx);
+		map.put("p_pwd", p_pwd);
 
+		
+		PlanVO planvo = planservice.editPlan(map);
+		System.out.println(planvo.getTitle());
+		// 파일 이름 꺼내오기
+		String  file_id = planvo.getFile_id();
 		
 		ModelAndView mv = new ModelAndView();
 		
+		mv.addObject("vo", planvo);
+		mv.addObject("file_id", file_id);
+		mv.setViewName("plan/plan_Edit");
 		
 		return mv;
 	}
+	
+	// '수정하기' 저장 버튼을 눌렀을때 
+		@RequestMapping(value="/edit_OK", method=RequestMethod.POST)
+		public ModelAndView edit_OK(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
+			
+			// 파일을 업로드 했는지 확인하기
+			String isFileChg = request.getParameter("isFileChg");
+			System.out.println(planVO.getIdx());
+			if(isFileChg.equals("Y")){				
+				//fileVO
+				FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
+				
+				//planVO 의 file_id에 새로운 file_id담기
+				planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴	
+				
+			}else{
+				String ori_fileid = request.getParameter("ori_fileid");
+				planVO.setFile_id(ori_fileid);
+			}
+			
+			//planvo update
+			planVO.setWriter_idx(planVO.getWriter_idx());
+			planVO.setContent(planVO.getContent());
+			planVO.setStatus("1");
+			
+			// '일정' 구하기
+			String stringEnd  = request.getParameter("end_date");				
+			
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy/MM/dd");
+			
+			Date date = null;
+				try{
+				date = fmt.parse(stringEnd);		
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			String d_date = fmt1.format(date);
+			
+			planVO.setEnd_date(d_date);	
+			
+			int cnt = planservice.editOK(planVO);
+			
+			ModelAndView mv = new ModelAndView();
+			
+			if(cnt == 0)
+				cnt = 1;
+			mv.setViewName("redirect:/plan");
+					
+			return mv;
+		}
+		
+		//삭제하기
+		@RequestMapping(value="/delete", method=RequestMethod.POST)
+		public ModelAndView delete(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
+			
+			
+			System.out.println("어서와~!! 컨트롤로 온걸 환영해");
+			String writer_idx = request.getParameter("userIdx"); 
+			
+			planVO.setWriter_idx(writer_idx);
+			
+			planservice.delete(planVO);			
+			
+			ModelAndView mv = new ModelAndView();
+			
+			mv.setViewName("redirect:/plan");
+			
+			return mv;
+		}	
+		
 }
 
 

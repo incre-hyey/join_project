@@ -14,53 +14,89 @@
 <!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+<script>
+$(function(){
+	//defaultSetting();
+});
+/* $(finction ('#end_date'){
+
+		  var end_date = '${vo.end_date}';
+		  end_date = n.toString();
+
+		  if (n.length < digits) {
+		    for (i = 0; i < digits - n.length; i++)
+		      zero += '0';
+		  }
+		  return zero + n;
+			
+}); */
+
+function imgChange(){
+	$("#isFileChg").val('Y');
+	alert(1);
+}
+
+</script>
+
 
 <div class="w3-main" style="margin-left: 300px">
 
  
 	<div class="w3-container w3-padding-large w3-grey">
-	<h2>PLAN 작성</h2>	
+	<h2>PLAN 수정</h2>	
 		 
 		<div id="plan_write">
-		
-			<form action="${pageContext.request.contextPath}/plan_write" enctype="multipart/form-data" method="post">
-				<input type="hidden" name="writer_idx" value="${userVO.idx }" />
-				<label>작성자 :</label><input type="text" name="writer" value="${userVO.getNickname() }" readonly><br/>
-				<label>비밀번호 :</label><input type="password" name="p_pwd" id="p_pwd"><br/>
+			
+			<form name="editForm" action="${pageContext.request.contextPath}/edit_OK" enctype="multipart/form-data" method="post">	
+			
+				<input type="hidden" name="writer_idx" id="writer_idx" value="${vo.writer_idx }"/>
+				<input type="hidden" id="idx" name="idx" value="${vo.idx }"/>			
+				<input type="hidden" name="ori_fileid" value="${vo.file_id }" />
+				<input type="hidden" name="isFileChg" id="isFileChg" value="N" />
+				
+				<label>작성자 :</label><input type="text" name="writer" value="${vo.writer }" readonly><br/>
+				<label>비밀번호 :</label><input type="password" name="p_pwd" id="p_pwd" value="${vo.p_pwd }"><br/>
 				<label>PLAN 종류 :</label>
 					<select id ="plan_kind" name="plan_kind" class="other_input">
 						<option value="travel">travel</option>
 						<option value="meeting">meeting</option>
 						<option value="meal">meal</option>
 					</select><br/>
-				<label>제목 :</label><input type="text" name="title" id="title"/><br/>
-				<label>참여인원 :</label><input type="number" name="tnop" id="tnop" class="other_input"/><br/>	
+				<label>제목 :</label><input type="text" name="title" id="title" value="${vo.title }"/><br/>
+				<label>참여인원 :</label><input type="number" name="tnop" id="tnop" class="other_input" value="${vo.tnop }"/><br/>	
 
 				
 		<!-- 일정 datepicker -->
 			<div class="startDate">
-				<label>일정 :</label><input type="text" name="start_date" style="width:25%;" id="start_date" readonly placeholder="시작일자를 입력하세요"/>	
-				<input type="text" name="enddate" id="enddate" style="width:25%;" readonly placeholder="마지막 일자를 입력하세요"/>											
+				<label>일정 :</label><input type="text" name="start_date" style="width:25%;" id="start_date" readonly placeholder="${vo.start_date }"/>	
+				<input type="text" name="end_date" id="end_date" style="width:25%;" readonly placeholder="${vo.end_date }"/>						
+
 			</div><br/>	
 		<!-- 주소 검색 -->		
 		<label>주소 :</label>
 		<input class="w3-button" type="button" onclick="execDaumPostcode()" value="검색">
-		<input type="text" name="location1" id="sample5_address" class="other_input" placeholder="주소" readonly/><br/>
-		<label>상세주소 :</label><input type="text" name="location2" id="location2"/><br/>
+		<input type="text" name="location1" id="sample5_address" class="other_input" value="${vo.location1 }" placeholder="주소" readonly/><br/>
+		<label>상세주소 :</label><input type="text" name="location2" id="location2" value="${vo.location2 }"/><br/>
 		
 		<!-- file 이미지  -->			
-		<label>메인이미지 :</label><input type="file" id="upload" name="upload" class="other_input"><br/>
+		<label>메인이미지 :</label>
+		<input type="file" id="upload" name="upload" onchange="imgChange()" class="other_input">
+		
+		<br/>
 		
 		<!-- summerNote -->
-		<textarea id="content" name="content"></textarea>
+		<textarea id="content" name="content">${vo.content }</textarea>
+		
 		<!-- 위도, 경도 보내기  -->
-		<input type="hidden" id="longitude" name="longitude" value="longitude"/>
-		<input type="hidden" id="latitude" name="latitude"" value="latitude"/>		
+		<input type="hidden" id="longitude" name="longitude" value="${vo.longitude }"/>
+		<input type="hidden" id="latitude" name="latitude"" value="${vo.latitude }"/>		
 				
 		<div class="plan_btn">
 			<button class="w3-button btn btn-success" type="button" onclick="sendData(this.form)">저장</button>
 			<button class="w3-button btn btn-default" type="button" onckick="JavaScript:location.href='${pageContext.request.contextPath}/plan'"">취소</button>			
 		</div>
+		
+		
 	</form>			
 		<!-- '저장'을 눌렀을때 작성자의 t_user테이블의 idx함께 보내기 작성자 value값 넣기-->	
 		</div>
@@ -88,7 +124,7 @@
 	    
 	    $('#content').summernote('lineHeight',.5);	    
 		
-	    $( "#enddate" ).datepicker({
+	    $( "#end_date" ).datepicker({
 	    	 altField: ".selecter",
 		     dateFormat : 'yy-mm-dd'
 	    });	   
@@ -130,12 +166,11 @@
 	// 일정 계산 
 		var startdate = $('#start_date').val()//.replace(/-/g,'/');
 		 var enddate = $('#enddate').val()//.replace(/-/g,'/');
-		 alert(enddate);
-/* 	 	var hour = $('#hour').val();
-		 var minute = $('#minute').val(); */
+	 	var hour = $('#hour').val();
+		 var minute = $('#minute').val();
 		 
 		$('#start_date').val(startdate);
-		$('#enddate').val( enddate);
+		$('#enddate').val( enddate+hour+minute);
 		
 		//alert(startdate);
 		//alert(enddate+"&nbsp;"+hour+":"+minute);
@@ -149,6 +184,7 @@
 		
 		ff.submit();
 	}
+	// 파일 업로드를 했는지 안했는지 검사하기
 
 </script>
 

@@ -49,11 +49,11 @@ public class MainControl{
 		
 		
 		//1. 최신 플랜 리스트 
-		List<PlanVO> planList = planService.getMainPlan();
+		List<HashMap> planList = planService.getMainPlan();
 		
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("planList", planList);
+		mv.addObject("mainPlanList", planList);
 		mv.setViewName("index");
 		
 		
