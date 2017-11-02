@@ -44,8 +44,8 @@ public class UserControl {
 						@ModelAttribute UserVO userVO){
 		//userVO 세팅
 		FileVO fileVO = fileService.uploadFile(userVO.getUpload(),"USER");
-		
-		userVO.setFile_id(fileVO.getIdx());
+		if( fileVO != null )
+			userVO.setFile_id(fileVO.getIdx());
 		userVO.setIdx(UtilService.makeKey());	
 		userVO.setIp(request.getRemoteAddr());
 		userVO.setStatus("1");
@@ -67,7 +67,7 @@ public class UserControl {
 	@RequestMapping("/userInfo")
 	public String userInfo(HttpServletRequest request, HttpServletResponse response){
 		//
-		UserVO userVO = (UserVO)request.getSession().getAttribute("userVO");
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
 		//DAO 로직
 		UserVO vo = userService.getUser(userVO.getId());
 		

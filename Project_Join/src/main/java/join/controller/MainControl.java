@@ -1,6 +1,5 @@
 package join.controller;
 
-import java.util.Base64.Encoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +36,7 @@ public class MainControl{
 	// /index로 들어올때
 	@RequestMapping("/index")
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//System.out.println(((UserVO)request.getSession().getAttribute("userVO")).getJsonStr());
+		//
 		//페이지 유효성을 위해 TOKEN 생성 추가
 		
 		String Token = UtilService.makeKey();

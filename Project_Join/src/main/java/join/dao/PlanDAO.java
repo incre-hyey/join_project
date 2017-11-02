@@ -49,9 +49,25 @@ public class PlanDAO {
 	
 	// '글쓰기 상세보기'
 	public PlanVO getPlan(Map map){
-		//PlanVO pvo = template.selectOne("plan.getView", idx);	
-		//System.out.println(idx);		
+		//'상세보기'를 눌렀을때 plan		
 		return template.selectOne("plan.getView", map);
+	}
+	
+	// '수정하기'버튼을 눌렀을때
+	public PlanVO editPlan(Map<String, String> map){
+		return template.selectOne("plan.editPlan", map);
+	}
+	
+	// 수정된 게시글을 '저장'할 때
+	public int editOK(PlanVO pvo){
+		
+		return template.update("plan.editOK", pvo);
+	}
+	
+	// 삭제 dao
+	public int delete(PlanVO pvo){
+		
+		return template.update("plan.delete", pvo);
 	}
 }
 

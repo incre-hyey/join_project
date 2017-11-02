@@ -30,7 +30,9 @@ public class UtilService {
 	 */
 	public static String makeKey() {
 		String key="";
-		Long id = new Date().getTime()*(new Random().nextInt(99)+1);
+		char ch = (char)((Math.random() * 26) + 65);
+		Long id = new Date().getTime()*(new Random().nextInt(123)+ch);
+		
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 			md5.update(id.byteValue());
@@ -39,6 +41,7 @@ public class UtilService {
 			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
+		System.out.println("########## "+key+" ###########");
 		return key;
 	}
 	private static String toHex(byte[] digest) {
@@ -76,7 +79,6 @@ public class UtilService {
 	 */
 	public static String getFormatDate(String format, Date date) {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		
 		return sdf.format(date);
 	}
 	/**
@@ -112,5 +114,55 @@ public class UtilService {
 			str = def;
 		return str;
 	}
+	/**
+	 * 페이징 HTML 만들기
+	 ****리스트 페이지에서 pagingFunc() 구현하기!
+	 * @return
+	 */
+	public static String pagingHTML(int totalSize,int cur, int block , int listPerPage){
+	    //int block = 10; // // 범위 한 칸당 페이지 수 
+	    int totalPage = (int) Math.floor(totalSize/listPerPage); // 한페이지에 게시물 10개씩
+	    if(totalSize % listPerPage >0) // 한페이지에 게시물 10개씩
+	        totalPage += 1;
+	    int start = (int) (Math.floor(cur/block) * block) ; // 0, 10, 20...
+	    if(start==cur)
+	        start = start - block;
+	    int end = start + block; // 10, 20, 30 ,40...
+	    start += 1; //1,11,21...
+	    
+	    String str = "";
+	    if(totalPage <= block){ // 전체 페이지 block 보다 작을때
+	        for(int i=1;i<=totalPage;i++){
+	            str += "<a ";
+	            if(i==cur)
+	                str+="class=active ";
+	            str += "onclick=pagingFunc('"+i+"')>"+i+"</a>";
+	        }	
+	    }
+	    else{
+	        if(start > 1){ // << 가 있음
+	            str += "<a onclick=pagingFunc('"+(start-1)+"')>&laquo;</a>";
+	        }
+	        if(end < totalPage) { // >> 가 있음
+	            for(int i=start;i<(start+block) ;i++){
+	                str += "<a ";
+	                if(i==cur)
+	                    str+="class=active ";
+	                str += "onclick=pagingFunc('"+i+"')>"+i+"</a>";
+	            }
+	            str+= "<a onclick=pagingFunc('"+(start+block)+"')>&raquo;</a>";
+	        }else{
+	            for(int i=start;i<=totalPage ;i++){
+	                str += "<a ";
+	                if(i==cur)
+	                    str+="class=active ";
+	                str += "onclick=pagingFunc('"+i+"')>"+i+"</a>";
+	            }
+	        }
+	    }
+	    
+	    return str;
+	}    
+	    
 
 }

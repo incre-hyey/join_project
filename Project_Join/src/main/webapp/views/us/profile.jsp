@@ -86,6 +86,9 @@ a#MOVE_TOP_BTN {
 		f.action = ctx + "/profile";
 		f.submit();
 	}
+	function sendMsg(id){
+		var pop = window.open(webContext + "/messageMain?menu=WRITE&reply="+id , "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	}
 </script>
 <iframe id="hiddenFrm" name="hiddenFrm" style="border:0px; height:1px; width:1px;"></iframe>
 <form name="profileForm" id="profileForm" >
@@ -136,6 +139,7 @@ a#MOVE_TOP_BTN {
 									<p style="text-align:right;">
 <!-- 										<button class="button">Contact</button> -->
 									<c:if test="${sessionScope.LOGINYN eq 'Y' }">	
+									<i class="fa fa-envelope" style="font-size:48px;color:red" onclick="sendMsg('${userVO.id }')"></i>
 										<c:choose>
 										<c:when test="${userVO.likeyn eq '1' }">
 											<i class="fa fa-gratipay" style="font-size:50px;color:red" onclick="likeAjax('${userVO.idx}', this)"></i>

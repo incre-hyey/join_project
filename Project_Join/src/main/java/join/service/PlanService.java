@@ -31,16 +31,33 @@ public class PlanService {
 	}	
 	
 	public PlanVO viewPlan(String idx, String useridx){		
-		//String idx = pvo.getIdx();
-		//System.out.println("planservice");
-		Map map = new HashMap();
+		//'상세보기'를 눌렀을때 
+		Map map = new HashMap<String, String>();
+		
 		map.put("idx", idx);
 		map.put("useridx", useridx);
 		return planDao.getPlan(map);
 	}
 	
 	public void appPoeple(Map<String, String> map){
+		//'신청하기'를 눌렀을때
 		
 		planDao.appPoeple(map);
 	}
+	// '수정하기'버튼을 눌렀을때
+	public PlanVO editPlan(Map<String, String> map){
+		
+		return planDao.editPlan(map);
+	}
+	
+	public int editOK(PlanVO pvo){
+		
+		return planDao.editOK(pvo);
+	}
+	
+	public int delete(PlanVO pvo){
+		System.out.println("서비쓰~");
+		return planDao.delete(pvo);
+	}
+	
 }

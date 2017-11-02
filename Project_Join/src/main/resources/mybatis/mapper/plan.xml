@@ -23,17 +23,17 @@
 
 	<!-- join.view(상세보기)를 클릭했을때 -->
 	<select id="getView" resultMap="planListMap" parameterType="map">
-		<![CDATA[select a.*, case when sysdate  <  end_date then 'Y'
+		<![CDATA[select a.*, case when sysdate-1  < end_date then 'Y'
 			         else 'N' end 
 			        as exp_yn, (SELECT status FROM t_plan_people WHERE useridx = #{useridx} and plan_idx = a.idx) userStat 
 		from t_plan a
-		where a.idx = #{idx} and a.status = 1]]>	
+		where a.idx = #{idx} and a.status = 1]]>
 	</select>
 
 	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
 	<insert id="write_ok" parameterType="join.vo.PlanVO">
-		insert into t_plan(idx, p_pwd, title, location1, location2, tnop, content, status, writer, reg_date, start_date, end_date, latitude, longitude, file_id, plan_kind, writer_idx)
-		values(#{idx}, #{title}, #{p_pwd}, #{location1}, #{location2}, #{tnop}, #{content}, #{status}, #{writer}, sysdate, #{start_date}, to_date(#{end_date},'YYYY/MM/DD hh:mi:ss'), #{latitude}, #{longitude},#{file_id}, #{plan_kind}, #{writer_idx})		
+		insert into t_plan(idx, p_pwd, title, location1, location2, tnop, content, status, writer, reg_date, start_date, end_date, latitude,longitude, file_id, plan_kind, writer_idx)
+		values(#{idx}, #{p_pwd}, #{title}, #{location1}, #{location2}, #{tnop}, #{content}, #{status}, #{writer}, sysdate, #{start_date}, #{end_date}, #{latitude}, #{longitude},#{file_id}, #{plan_kind}, #{writer_idx})		
 	</insert>
 	
 	<!--plan 신청하기를 눌렀을 때  status=0:신청상태 1:신청수락 2:신청거절 -->
@@ -42,20 +42,28 @@
 		values("idx_seq".NEXTVAL, #{plan_idx}, #{status}, #{u_idx}, sysdate)
 	</insert>
 	
+	<!-- 수정하기'버튼을 눌렀을때  -->
+	<select id="editPlan" parameterType="join.vo.PlanVO" resultType="join.vo.PlanVO">
+		select idx,writer_idx,
+			to_char(start_date,'YYYY-MM-DD') start_date, to_char(end_date,'YYYY-MM-DD') end_date, title,
+			location1, location2, content, writer, file_id, latitude, longitude, tnop, plan_kind		
+		 from t_plan 
+		where idx = #{idx} and writer_idx = #{writer_idx} and p_pwd = #{p_pwd}
+	</select> 
 	
-	<!-- my.plan에서 내가 올린 게시물을 수정하는 update -->
-	<update id="edit_plan" parameterType="join.vo.PlanVO">
+	<!-- 수정된 게시글을 저장할때 -->
+	<update id="editOK" parameterType="join.vo.PlanVO" >
 		update t_plan
-		set title = #{title}, location1 =#{location1}, location2 =#{location2}, content =#{content}, mod_date=sysdate, writer =#{writer}, file_id=#{file_id}, plan_kind =#{plan_kind},
-					latitude = #{latitude}, longtude=#{longtude}, tnop = #{tnop}, mod_date=sysdate
-		where writer_idx = #{writer_idx} and p_pwd = #{p_pwd} and idx = #{idx}					
+		set p_pwd = #{p_pwd},title = #{title}, location1 =#{location1}, location2 =#{location2}, content =#{content}, writer =#{writer}, file_id=#{file_id}, plan_kind =#{plan_kind},
+					latitude = #{latitude}, longitude = #{longitude}, tnop = #{tnop}, mod_date=sysdate
+		where writer_idx = #{writer_idx} and idx = #{idx}					
 	</update>
 	
 	<!-- plan 게시물의 삭제 -->
 	<update id="delete" parameterType="join.vo.PlanVO">
 		update t_plan
 		set status = 0
-		where idx = #{idx} and p_pwd = #{p_pwd}
+		where idx = #{idx} and writer_idx = #{writer_idx}
 	</update>
 	
 	<!-- plan의 기본키를 가지고 Plan정보를 선별하는 select -->

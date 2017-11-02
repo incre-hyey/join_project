@@ -40,8 +40,9 @@ public class FileService {
 	 */
 	public FileVO uploadFile(MultipartFile upload, String module) {
 		String fullPath = null;
-		FileVO fileVO = new FileVO();
+		FileVO fileVO = null;
 		if(upload.getSize() > 0){
+			fileVO = new FileVO();
 			String fileName = upload.getOriginalFilename(); //파일명
 			module = module.toLowerCase();
 			// 경로 : upload/module명/YYYY/MM/dd/

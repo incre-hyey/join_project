@@ -16,6 +16,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 <script>
+/*
 $(function() {
     $('#summernote').summernote({
     	height: 300,
@@ -61,7 +62,7 @@ function sendFile(file, editor){
 	});
 }
 
-
+*/
 
 /**
  * ver1.주소 API
@@ -162,6 +163,33 @@ function register(){
 	f.addr1.value = f.roadAddrPart1.value;
 	f.addr2.value = f.roadAddrPart2.value;
 	f.addr3.value = f.roadAddrPart3.value;
+	if(valiCheck())
+		f.submit();
+}
+function valiCheck(){
+	var flag = true;
+	//1. input text 항목 체크
+	var list = $(".vaildate");
+	$(list).each(function(i, k){
+		if( k.value == '' ){
+			k.focus();
+			flag = false;
+		}
+	});
+	
+	//2. select box 체크 ( default 값이 0 이여야함 )
+	var selList = $("select");
+	$(selList).each(function(i,k){
+		if(k.value == 0) {
+			k.focus();
+			flag = false;
+		}
+	})
+	if(!flag){
+		alert("필수 항목을 확인해 주세요");
+	}
+	return flag;
+	
 }
 
 </script>
@@ -174,7 +202,7 @@ function register(){
 				<table class="table">
 					<tr>
 						<th>ID</th>
-						<td><input type="text" placeholder="ID" name="id"></td>
+						<td><input type="text" placeholder="ID" name="id" class="vaildate"></td>
 						
 						<td rowspan="6"><div class="well"><label for="file">이미지</label>
 							<input type="file" id="file" name="upload" onchange="imgChange(this);"/><br/>
@@ -183,15 +211,15 @@ function register(){
 					</tr>
 					<tr>
 						<th>Password</th>
-						<td><input type="password" placeholder="PASSWORD" name="pwd"></td>
+						<td><input type="password" placeholder="PASSWORD" name="pwd" class="vaildate"></td>
 					</tr>
 					<tr>
 						<th>Name</th>
-						<td><input type="text" placeholder="NAME" name="name"></td>
+						<td><input type="text" placeholder="NAME" name="name" class="vaildate"></td>
 					</tr>
 					<tr>
 						<th>NickName</th>
-						<td><input type="text" placeholder="NickName" name="nickname"></td>
+						<td><input type="text" placeholder="NickName" name="nickname" class="vaildate"></td>
 					</tr>
 					<tr>
 						<th>Age</th>
@@ -235,7 +263,7 @@ function register(){
 					
 					<tr>
 						<th>Gender</th>
-						<td colspan="2"><input type="radio" name="gender" value="1" selected>남
+						<td colspan="2"><input type="radio" name="gender" value="1" checked>남
 							<input type="radio" name="gender" value="2" class="female">여
 						</td>
 					</tr>
@@ -255,18 +283,18 @@ function register(){
 						<th>Introdution</th>
 						<td colspan="2">
 							<textarea class="form-control" rows="5" id="intro_content" name="intro_content"></textarea>
-							<div id="summernote"></div>
+<!-- 							<div id="summernote"></div> -->
 						</td>
 					</tr>
 					<tr>
 						<th>Profile's exposure of assent</th>
-						<td colspan="2"><input type="radio" name="us_viewyn" value="Y" selected>동의
+						<td colspan="2"><input type="radio" name="us_viewyn" value="Y" checked>동의
 							<input type="radio" name="us_viewyn" value="N" class="female">반대
 						</td>
 					</tr>
 					<tr>
 						<th></th>
-						<td align="center" colspan="2"><button class="w3-button w3-black" style="width:30%;" onclick="register();">Register</button>
+						<td align="center" colspan="2"><button type="button" class="w3-button w3-black" style="width:30%;" onclick="register();">Register</button>
 						</td>
 					</tr>
 					

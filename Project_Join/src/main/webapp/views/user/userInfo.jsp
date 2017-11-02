@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../common.jsp"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%> 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/basic.css">
+	
+<style>
+#upload{
+position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip:rect(0,0,0,0); border: 0;
+
+}
+</style>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 $(function(){
@@ -102,26 +110,68 @@ $(function(){
 			window.alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg 만 업로드 가능)');
 			return false;
 		}
-		file = $('#file').prop("files")[0];
+		file = $('#upload').prop("files")[0];
 		blobURL = window.URL.createObjectURL(file);
 		$('#image_preview img').attr('src', blobURL)
 	}
 
 	function modify() {
+		//1. value Setting
 		var f = document.regForm;
 		f.phone.value = f.phone1.value +"-"+ f.phone2.value +"-"+ f.phone3.value;
 		f.email.value = f.email1.value +"@"+ f.email2.value;
 		f.addr1.value = f.roadAddrPart1.value;
 		f.addr2.value = f.roadAddrPart2.value;
 		f.addr3.value = f.roadAddrPart3.value;
+		
+		//2. validation Check
+		valiCheck();
+		//3. submit
 	}
 	
 	function defaultSetting(){
-		var $sel = $("#sel1").val(${sessionScope.userVO.age});
-		$sel.attr("selected","selected");
-		var $sel2 = $("#sel1").val(${sessionScope.userVO.blooad});
-		$sel2.attr("selected","seleted");
-		var pArr = ${sessionScope.userVO.age}
+		var $sel = $("#sel1").val('${sessionScope.USER.age}');
+		$sel.attr("selected","true");
+		var $sel2 = $("#sel1").val('${sessionScope.USER.blood}');
+		$sel2.attr("selected","true");
+		
+		var pArr = '${sessionScope.USER.phone}';
+		pArr = pArr.split('-');
+		$("#phone1").val(pArr[0]);
+		$("#phone2").val(pArr[1]);
+		$("#phone3").val(pArr[2]);
+		
+		var emailArr = '${sessionScope.USER.email}';
+		emailArr = emailArr.split('@');
+		$("#email1").val(emailArr[0]);
+		$("#email2").val(emailArr[1]);
+		
+		$("input:radio[name=gender]:input[value='${sessionScope.USER.gender}']").attr("checked", "true");
+		$("input:radio[name=us_viewyn]:input[value='${sessionScope.USER.us_viewyn}']").attr("checked", "true");
+		
+		
+	}
+	function valiCheck(){
+		
+		//1. input text 항목 체크
+		var list = $(".vaildate");
+		$(list).each(function(i, k){
+			if( k.value == '' ){
+				alert("필수 항목을 확인해 주세요");
+				k.focus();
+				return false;
+			}
+		});
+		
+		//2. select box 체크 ( default 값이 0 이여야함 )
+		var selList = $("select");
+		$(selList).each(function(i,k){
+			if(k.value == 0) {
+				alert("필수 항목을 확인해 주세요");
+				k.focus();
+				return false;
+			}
+		})
 		
 		
 	}
@@ -135,31 +185,47 @@ $(function(){
 				<form name="regForm"
 					action="${pageContext.request.contextPath}/modifyUser"
 					method="post" enctype="multipart/form-data">
+					<input type="hidden" name="orifile" value="${sessionScope.USER.file_id }" />
 					<table class="table">
 						<tr>
 							<th>ID</th>
-							<td>${sessionScope.userVO.id }</td>
+							<td>${sessionScope.USER.id }</td>
 
-							<td rowspan="6"><div class="well">
-									<label for="file">이미지</label> <input type="file" id="file"
-										name="upload" onchange="imgChange(this);" /><br />
+							<td rowspan="6"><div class="well" style="text-align:center;">
+									<label for="file">이미지</label> 
+									<input type="file" id="upload" name="upload" onchange="imgChange(this);" /><br />
 									<div id="image_preview">
-										<img src="" class="img-thumbnail" alt="" width="304"
-											height="236">
-									</div></td>
+									<c:set var="imgTxt" value="" />
+									<c:choose>
+										<c:when test="${sessionScope.USER.file_id !='' }">
+											<c:set var="imgTxt" value="${pageContext.request.contextPath}/viewImg?fileid=${sessionScope.USER.file_id }&module=USER" />
+											
+										</c:when>
+										<c:otherwise>
+											<c:set var="imgTxt" value="${pageContext.request.contextPath}/resources/images/default_user_img.png" />
+										</c:otherwise>
+										
+									</c:choose>
+									<c:out value="${imtTxt }" />
+										<img src="${imgTxt }" class="img-thumbnail" alt="" width="304" height="236" />
+									</div>
+									<br/>
+									<button type="button" onclick="javascript:document.getElementById('upload').click();">업로드</button>
+									<button type="button" >초기화</button>
+									</td>
 						</tr>
 						<tr>
 							<th>Password</th>
-							<td><input type="password" placeholder="PASSWORD" name="pwd"></td>
+							<td><input type="password" placeholder="PASSWORD" name="pwd" class="vaildate"></td>
 						</tr>
 						<tr>
 							<th>Name</th>
-							<td>${sessionScope.userVO.name}</td>
+							<td>${sessionScope.USER.name}</td>
 						</tr>
 						<tr>
 							<th>NickName</th>
 							<td><input type="text" placeholder="NickName"
-								name="nickname" value="${sessionScope.userVO.nickname }"></td>
+								name="nickname" value="${sessionScope.USER.nickname }" class="vaildate"></td>
 						</tr>
 						<tr>
 							<th>Age</th>
@@ -184,24 +250,23 @@ $(function(){
 						</tr>
 						<tr>
 							<th>Phone Number</th>
-							<td colspan="2"><input type="hidden" name="phone" value="${sessionScope.userVO.phone }"/> <input
-								type="text" style="width: 30%;" placeholder="010" name="phone1">
-								- <input type="text" style="width: 30%;" placeholder="0000"
-								name="phone2"> - <input type="text" style="width: 30%;"
-								placeholder="0000" name="phone3"></td>
+							<td colspan="2"><input type="hidden" name="phone" value="${sessionScope.USER.phone }"/> 
+							<input type="text" style="width: 30%;" placeholder="010" name="phone1" id="phone1" />
+								- <input type="text" style="width: 30%;" placeholder="0000"	name="phone2" id="phone2" /> 
+								- <input type="text" style="width: 30%;" placeholder="0000" name="phone3" id="phone3" /></td>
 						</tr>
 						<tr>
 							<th>Email</th>
-							<td colspan="2"><input type="hidden" name="email" value="${sessionScope.userVO.email }"/> <input
-								type="text" style="width: 40%;" placeholder="ID" name="email1">
+							<td colspan="2"><input type="hidden" name="email" value="${sessionScope.USER.email }"/> <input
+								type="text" style="width: 40%;" placeholder="ID" name="email1" id="email1">
 								@ <input type="text" style="width: 40%;" placeholder="ADDRESS"
-								name="email2"></td>
+								name="email2" id="email2"></td>
 						</tr>
 
 						<tr>
 							<th>Gender</th>
 							<td colspan="2"><input type="radio" name="gender" value="1"
-								selected>남 <input type="radio" name="gender" value="2"
+								checked>남 <input type="radio" name="gender" value="2"
 								class="female">여</td>
 						</tr>
 
@@ -209,31 +274,31 @@ $(function(){
 							<th>Address</th>
 							<td colspan="2"><button class="w3-button w3-black search"
 									onclick="goPopup('${pageContext.request.contextPath}');">검색</button>
-								<input type="hidden" name="addr1" value="${sessionScope.userVO.addr1 }"/> 
-								<input type="hidden" name="addr2" value="${sessionScope.userVO.addr2 }"/> 
-								<input type="hidden" name="addr3" value="${sessionScope.userVO.addr3 }"/> 
+								<input type="hidden" name="addr1" value="${sessionScope.USER.addr1 }"/> 
+								<input type="hidden" name="addr2" value="${sessionScope.USER.addr2 }"/> 
+								<input type="hidden" name="addr3" value="${sessionScope.USER.addr3 }"/> 
 								<input type="text" style="width: 50%;" placeholder="우편번호"
-								name="roadAddrPart3" value="${sessionScope.userVO.addr3 }"><br /> 
-								<input type="text" style="width: 55%;" placeholder="주소" name="roadAddrPart1" value="${sessionScope.userVO.addr1 }" />
-								<input type="text" style="width: 35%;" placeholder="상세주소" value="${sessionScope.userVO.addr2 }"
-								name="roadAddrPart2"></td>
+								name="roadAddrPart3" value="${sessionScope.USER.addr3 }" id="roadAddrPart3" ><br /> 
+								<input type="text" style="width: 55%;" placeholder="주소" name="roadAddrPart1" id="roadAddrPart1" value="${sessionScope.USER.addr1 }" />
+								<input type="text" style="width: 35%;" placeholder="상세주소" value="${sessionScope.USER.addr2 }"
+								name="roadAddrPart2" id="roadAddrPart2"></td>
 							</td>
 						</tr>
 						<tr>
 							<th>Introdution</th>
 							<td colspan="2"><textarea class="form-control" rows="5"
-									id="intro_content" name="intro_content">${sessionScope.userVO.intro_content }</textarea></td>
+									id="intro_content" name="intro_content">${sessionScope.USER.intro_content }</textarea></td>
 						</tr>
 						<tr>
 							<th>Profile's exposure of assent</th>
-							<td colspan="2"><input type="radio" name="viewyn" value="Y"
-								selected>동의 <input type="radio" name="viewyn" value="N"
+							<td colspan="2"><input type="radio" name="us_viewyn" value="Y"
+								selected>동의 <input type="radio" name="us_viewyn" value="N"
 								class="female">반대</td>
 						</tr>
 						<tr>
 							<th></th>
 							<td align="center" colspan="2"><button
-									class="w3-button w3-black" style="width: 30%;"
+									class="w3-button w3-black" style="width: 30%;" type="button"
 									onclick="modify();">수 정</button></td>
 						</tr>
 
