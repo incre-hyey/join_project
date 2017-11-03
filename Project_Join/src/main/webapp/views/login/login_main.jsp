@@ -24,6 +24,9 @@ System.out.println(request.getSession().getAttribute("USER") + "!!!!!!!");
 function msgBtnClick(){
 	var pop = window.open(webContext + "/messageMain?menu=RCV" , "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 }
+function myPlanClick(){
+	location.href = webContext + "/myPlan";
+}
 
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/login.js"></script>
@@ -42,7 +45,7 @@ function msgBtnClick(){
 			<li><a href="#" onclick="w3_close()"
 				class="w3-bar-item w3-padding"> JOIN.LOG</a>
 				<ul id="sub_nav">
-					<li><a href="#" onclick="w3_close()"
+					<li><a onclick="myPlanClick()"
 						class="w3-bar-item w3-padding"> MY PLAN</a></li>
 					<li><a onclick="msgBtnClick()"
 						class="w3-bar-item w3-padding"> MY MESSAGE</a></li>

@@ -6,12 +6,37 @@
 <%@include file="/views/common.jsp"%>
 <div class="w3-main" style="margin-left: 300px">
 <%@include file="../header.jsp"%>
+<script type="text/javascript">
+ //'참가신청' 
+	function appPeople(){	
+ 		var stat = '${vo.userStat}';
+ 		if(stat == '0' || stat == '1'){
+ 			alert("이미 신청되었습니다.");
+ 			return false;
+ 		}
+
+ 		location.href='${pageContext.request.contextPath}/appPeople?idx=${vo.idx}';
+	}
+ 
+	//수정하기
+ function sendEdit(){
+	 var userPwd = $('#userPwd').val();
+		var p_pwd = $('#p_pwd').val();
+		//alert(userPwd+"앞뒤비교하기"+p_pwd);
+		if(userPwd == p_pwd){
+			location.href='${pageContext.request.contextPath}/planEdit?idx='+'${vo.idx}';
+		}else{
+			alert("비밀번호를 확인하세요");
+		}
+		
+ }
+</script>
 	<div class="w3-container w3-padding-16 w3-grey">
 	
 		<h2>PLAN 보기</h2> 
 		<div id="plan_view">
 			<div class="plan_img">
-			
+				
 				<c:if test="${vo.file_id == null }">
 					<img src="${pageContext.request.contextPath}/resources/images/default_image.png">					
 				</c:if>
@@ -34,20 +59,23 @@
 					<li><strong>내용 : </strong><p>${vo.content }</p></li>
 				</ul>
 				
-				<form action="senData(this.form)">						
+				<form name="viewForm">						
 				<!-- 일반사용자들의 상세보기 버튼 -->		
 				<div id="user">
-					<input type="hidden" id="">
-					<input type="button" name="profile" value="프로필보기" class="btn btn-primary">
-					<input type="button" name="talk" value="대화신청" class="btn btn-success">
-					<input type="button" name="msg" value="쪽지" class="btn btn-warning">
-					<input type="button" name="" value="참가신청" class="btn btn-info">	
+					<input type="hidden" name="idx" value="${vo.idx }" />
+					<input type="button" name="list" onclick="JavaScript:location.href='${pageContext.request.contextPath}/plan'" value="목록보기" class="btn btn-primary"/>
+					<!-- <input type="button" name="profile" value="프로필보기" class="btn btn-primary"> -->
+					<input type="button" name="talk" value="대화신청" class="btn btn-success"/>
+					<input type="button" name="msg" value="쪽지" class="btn btn-warning"/>
+					<button type="button" onclick="appPeople()" class="btn btn-info">참가신청</button>
 				</div>				
 				<!-- 플랜작성자의 상세보기 버튼 -->
-				<div id="planer" style="display:none;">
-					<input type="button" name="edit_plan" value="수정하기" class="button btn btn-primary"/>
+				<div id="planer" style="display:block;">
+					<input type="hidden" id="userIdx" name="userIdx" value="${sessionScope.USER.idx }"/>
+					<input typw="password" name="userPwd" id="userPwd" class="btn" placeholder="비밀번호를 입력하세요"/>
+					<input type="hidden" name="p_pwd" id="p_pwd" value="${vo.p_pwd }"/>
+					<input type="button" name="edit_plan" onclick="sendEdit()" value="수정하기" class="button btn btn-primary"/>
 					<input type="button" name="delete" value="삭제하기" class="button btn btn-default"/>
-					<input type="button" name="sendCheck" value="신청함보기" class="button btn btn-warning"/>
 				</div>
 			</form>
 		</div>
@@ -65,7 +93,7 @@
 	var latitude  = document.getElementById('latitude').value;
 	var longitude  = document.getElementById('longitude').value;
 	
-	alert(latitude+","+longitude);
+	//alert(latitude+","+longitude);
 
 	
 	console.log(latitude+longitude);
@@ -101,11 +129,4 @@
 //	    marker.setPosition(latlng); 
 
 </script>
-<!-- <script type="text/javascript">
-	function senData(ff){
-//		if(){
-			
-//		}//if
-		
-	}
-</script> -->
+

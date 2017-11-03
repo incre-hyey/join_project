@@ -32,7 +32,7 @@
 		<a href="#" onclick="w3_close()"
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
-		</a> <br> <br>
+		</a>
 		<h1>
 			<a href="index.jsp">JOIN</a>
 		</h1>

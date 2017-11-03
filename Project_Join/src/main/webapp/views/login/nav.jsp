@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basic.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/js-image-slider.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Raleway">
+<link href="https://fonts.googleapis.com/css?family=Fontdiner+Swanky|Raleway" rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
@@ -31,9 +30,9 @@
 		<a href="#" onclick="w3_close()"
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
-		</a> <br> <br>
+		</a>
 		<h1>
-			<a href="index.jsp">JOIN</a>
+			<a href="index.jsp">JOin</a>
 		</h1>
 	</div>
 	<div class="w3-bar-block">

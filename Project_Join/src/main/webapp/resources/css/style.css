@@ -6,18 +6,13 @@
 body {
 	background-color: #f1f1f1!important;
 } 
-.main_logo {
-	margin: 0 auto;
-    font-size: 80px;
-    text-align: center;
-    color: #bd9655;
-    font-family: serif;
-    /* text-shadow: 0px -2px #6d1a1a; */
-    text-shadow:0 0 3px #deeaee, 0 0 5px #b1cbbb;
+
+h1 a {
+	font-family: 'Fontdiner Swanky', cursive !important;
 }
 
 header .w3-button {
-	width: 100px;	
+	display: inline-block;	
 }
 
 h2 {
@@ -27,6 +22,10 @@ h2 {
     display: inline-block;
     padding-bottom: 3px;
     padding-right: 10px;
+}
+
+.w3-bar-block {
+	padding-top: 30px;
 }
 
 .modal-title {
@@ -89,6 +88,13 @@ footer {
 	padding-right: 40px;
 }
 
+@media (max-width:600px) {
+	#footer_list li {
+		clear: both;
+	}
+}
+
+
 #footer_list li:last-child {
 	padding-right: 0px;
 }
@@ -111,12 +117,8 @@ footer .w3-row-padding .w3-third {
 	padding-left: 0;
 }
 
-#sliderFrame {
-	margin-top: 30px!important;
-	padding: 50px 30px 30px;
-}
 
-.w3-container {
+.w3-main .w3-container {
 	width: 980px;
 }
 
@@ -202,10 +204,10 @@ footer .w3-row-padding .w3-third {
 }
 
 #plan_m .button {
-	width: 100px;
     margin: 0;
     border: 2px solid #ccc;
     border-radius: 4px;
+    display: inline-block;
 }
 
 .select_date {
@@ -223,7 +225,7 @@ footer .w3-row-padding .w3-third {
 
 .column {
   float: left;
-  width: 33.3%;
+  width: 320px;
   margin-bottom: 16px;
   padding: 0 8px;
 }
@@ -260,13 +262,12 @@ footer .w3-row-padding .w3-third {
 
 }
 
-.card .user_email {
-	float: left;
-	width: 245px;
-}
-
 .card .btn_like {
 	text-align: right;
+}
+
+.card .btn_like .fa {
+	cursor: pointer;
 }
 
 .profile_more {
@@ -397,13 +398,15 @@ input[type=text], input[type=password] {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    font-size: 16px;
+    line-height: 20px;
 }
 
 #chat_list input[type=text], #historyForm input[type=text], #send_msg input[type=text]{
 	padding: 6px 20px;
 }
 
-#chat_list .w3-black, #historyForm .w3-black {
+#chat_list .w3-black {
 	border: 2px solid #ccc;
     border-radius: 4px;
 }
@@ -413,7 +416,9 @@ input[type=text], input[type=password] {
 }
 
 #roomForm input[type=text] {
-	padding: 6px 20px;
+	padding: 8px 20px;
+	font-size: 14px;
+	line-height: 14px;
 }
 
 
@@ -579,6 +584,16 @@ nav button.logout {
 	
 }
 
+#userPwd {
+	border: 1px solid #ccc;
+    margin-top: 8px;
+    padding: 6px 0;
+}
+
+.my_list {
+	line-height: 35px;
+}
+
 
 #con_header {
 	height: 150px;
@@ -595,6 +610,7 @@ nav button.logout {
     padding: 8px 16px;
     text-decoration: none;
     transition: background-color .3s;
+    cursor: pointer;
 }
 
 .pagination a.active {
@@ -602,7 +618,9 @@ nav button.logout {
 	cursor: text;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+}
 
 .plan_list .thumb {
 	float: left;
@@ -613,7 +631,6 @@ nav button.logout {
 	width: 54%;
 	float: left;
 	margin-right: 20px;
-	padding-top: 20px;
 }
 
 .list_view ul li ul li {
@@ -636,7 +653,7 @@ nav button.logout {
 }
 
 .list_join .like {
-	display: block;
+	display: inline-block;
 	margin-top: 10px;
     text-align: center;
     width: 100px;
@@ -678,6 +695,8 @@ nav button.logout {
     float: left;
     margin-right: 10px;
     margin-top: 0;
+    line-height: 20px;
+    font-size: 17px;
 }
 
 .search input[type=text]:focus {
@@ -756,7 +775,7 @@ nav button.logout {
 
 @media (max-width: 650px) {
   .column {
-    width: 100%;
+    width: 60%;
     display: block;
   }
   
@@ -771,6 +790,12 @@ nav button.logout {
     padding: 20px 20px 26px;
     width: 29%;
     float: left;
+}
+
+@media (max-width: 650px) {
+	.product-item {
+		clear: both;
+	}
 }
 
 .product-item h5 {
@@ -812,10 +837,13 @@ nav button.logout {
 	height: 34px;
     border-radius: 3px;
     margin: 0;
+    font-size: 16px;
+    line-height: 16px;
 }
 
 .register input[type="radio"], .register input[type="checkbox"]{
     margin-right: 10px;
+    margin-top: 0;
     line-height: 18px;
     height: 18px;
     vertical-align: inherit;
@@ -963,12 +991,13 @@ nav button.logout {
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 2px;
-    font-size: 16px;
     background-color: white;
     background-image: url(https://www.w3schools.com/howto/searchicon.png);
     background-position: 10px 7px;
     background-repeat: no-repeat;
     padding: 6px 20px 6px 40px;
+    font-size: 16px;
+    line-height: 16px;
 }
 
 
@@ -1141,8 +1170,11 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 @media (max-width:768px){.w3-modal-content{width:500px}.w3-modal{padding-top:50px}}
 @media (min-width:993px){.w3-modal-content{width:900px}.w3-hide-large{display:none!important}.w3-sidebar.w3-collapse{display:block!important}}
 @media (max-width:992px) and (min-width:601px){.w3-hide-medium{display:none!important}}
-@media (max-width:992px){.w3-sidebar.w3-collapse{display:none}.w3-main{margin-left:0!important;margin-right:0!important}}
+@media (max-width:992px){.w3-sidebar.w3-collapse{display:none}.w3-main{margin-left:0!important;margin-right:0!important; padding-left: 0;}}
 @media (max-width: 992px){nav{background-color: #fff;}}
+
+@media (max-width:600px) {
+	.w3-main .w3-container {width: 600px;}#plan_m .plan_list {height: 300px;}.list_join {clear: both; width: 100%;}#plan_m .button{float: left;}}
 
 .w3-top,.w3-bottom{position:fixed;width:100%;z-index:1}.w3-top{top:0}.w3-bottom{bottom:0}
 .w3-overlay{position:fixed;display:none;width:100%;height:100%;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,0.5);z-index:2}

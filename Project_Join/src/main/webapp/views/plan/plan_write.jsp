@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/basic.css">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
@@ -20,13 +19,12 @@
 
  
 	<div class="w3-container w3-padding-large w3-grey">
-	
-		<h2>PLAN 작성</h2>	
+	<h2>PLAN 작성</h2>	
 		 
 		<div id="plan_write">
 		
 			<form action="${pageContext.request.contextPath}/plan_write" enctype="multipart/form-data" method="post">
-				
+				<input type="hidden" name="writer_idx" value="${userVO.idx }" />
 				<label>작성자 :</label><input type="text" name="writer" value="${userVO.getNickname() }" readonly><br/>
 				<label>비밀번호 :</label><input type="password" name="p_pwd" id="p_pwd"><br/>
 				<label>PLAN 종류 :</label>
@@ -70,12 +68,11 @@
 				
 		<div class="plan_btn">
 			<button class="w3-button btn btn-success" type="button" onclick="sendData(this.form)">저장</button>
-			<button class="w3-button btn btn-default" type="button" onckick="cancel()">취소</button>			
+			<button class="w3-button btn btn-default" type="button" onckick="JavaScript:location.href='${pageContext.request.contextPath}/plan'"">취소</button>			
 		</div>
 	</form>			
 		<!-- '저장'을 눌렀을때 작성자의 t_user테이블의 idx함께 보내기 작성자 value값 넣기-->	
 		</div>
-
 
 </div>
 	<%@include file="../footer.jsp"%>
@@ -148,8 +145,8 @@
 		$('#start_date').val(startdate);
 		$('#enddate').val( enddate+hour+minute);
 		
-		alert(startdate);
-		alert(enddate+"&nbsp;"+hour+":"+minute);
+		//alert(startdate);
+		//alert(enddate+"&nbsp;"+hour+":"+minute);
 	
 	//유효성 검사
 	if(ff.p_pwd == ""){

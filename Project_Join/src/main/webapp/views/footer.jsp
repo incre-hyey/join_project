@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
-<footer class="w3-container w3-padding-32 w3-dark-grey">
+<footer class="w3-padding-32 w3-dark-grey">
 	<div class="w3-row-padding">
 		<div>
 			<!-- <h3>join</h3> -->

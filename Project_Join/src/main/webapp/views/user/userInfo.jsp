@@ -210,8 +210,8 @@ $(function(){
 										<img src="${imgTxt }" class="img-thumbnail" alt="" width="304" height="236" />
 									</div>
 									<br/>
-									<button type="button" onclick="javascript:document.getElementById('upload').click();">업로드</button>
-									<button type="button" >초기화</button>
+									<button type="button" class="btn btn-primary" onclick="javascript:document.getElementById('upload').click();">업로드</button>
+									<button type="button" class="btn btn-default">초기화</button>
 									</td>
 						</tr>
 						<tr>
@@ -272,7 +272,7 @@ $(function(){
 
 						<tr>
 							<th>Address</th>
-							<td colspan="2"><button class="w3-button w3-black search"
+							<td colspan="2"><button class="w3-button w3-black"
 									onclick="goPopup('${pageContext.request.contextPath}');">검색</button>
 								<input type="hidden" name="addr1" value="${sessionScope.USER.addr1 }"/> 
 								<input type="hidden" name="addr2" value="${sessionScope.USER.addr2 }"/> 

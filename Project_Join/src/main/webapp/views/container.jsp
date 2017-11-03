@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<p class="main_logo">~ Enjoy JOIN ~</p>
 
-<section id="sliderFrame" class="w3-card-4 w3-white">
+<section id="sliderFrame" class="w3-white">
 	<div id="slider">
 		<img src="http://www.menucool.com/slider/prod/image-slider-1.jpg" />
 		<img src="http://www.menucool.com/slider/prod/image-slider-2.jpg" />
