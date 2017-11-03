@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@include file="/views/common.jsp"%>
 <link rel="stylesheet"
@@ -21,7 +23,25 @@
 		}
 
 		return result;
-	}%>
+	}
+	public boolean compareDate(String dateStr){
+		//오늘 날짜보다 큰가 ( 오늘이 dateStr 이전이다 : false, 오늘이 dateStr 이후이다 : true)
+		Date now = new Date();
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try{
+			date = fmt.parse(dateStr);
+			long oneday = 1000*60*60*24;
+			date.setTime(date.getTime()+oneday);
+		}catch(Exception e){}
+		return now.getTime() > date.getTime();
+	}
+%>
+	
+	
+<%
+	
+%>
 <style>
 a#MOVE_TOP_BTN {
 	position: fixed;
@@ -120,12 +140,25 @@ a#MOVE_TOP_BTN {
 			<tbody>
 				<c:forEach items="${list}" var="vo" varStatus="s">
 					<%-- 	    		<c:set var="reqUserList" value="${vo.reqUserList }"/> --%>
+					<c:set var="startD" value="${vo.start_date }"/> 
+					<c:set var="dateComp" value='<%=compareDate(pageContext.getAttribute("startD").toString())%>' />
+					
 					<tr>
 						<td class='text-center'>${s.index + 1 }</td>
 						<td class='text-center'><a href="#" onclick="reqView(this)"><b>${vo.title }</b></a></td>
 						<td class='text-center'>${vo.start_date }~ ${vo.end_date }</td>
 						<td class='text-center'>${vo.plan_kind }</td>
-						<td class='text-center'>${vo.status }</td>
+						<td class='text-center'>
+							<c:choose>
+								<c:when test="${dateComp eq true }">
+									일정 마감
+								</c:when>
+								<c:otherwise>
+								<c:if test="${vo.status == '0'}"> 삭제됨 </c:if>
+								<c:if test="${vo.status == '1'}"> 모집중 </c:if>
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td class='text-center'></td>
 					</tr>
 					<tr class="hide">
