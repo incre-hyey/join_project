@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="msg">
+	
+<!-- 	<select id="getMsg" resultType="join.vo.MsgVO"> -->
+<!-- 		SELECT * FROM T_MESSAGE -->
+<!-- 	</select> -->
+	<select id="totalRcvList" resultType="int" parameterType="map">
+		select count(1)
+		from T_MESSAGE a , T_MESSAGE_RECEIVE b
+		where b.userid = #{userid}
+		and a.idx = b.m_idx
+		and b.status != '2'
+		<if test="search != ''">
+		and (a.title like  '%' ||#{search}|| '%'  OR 
+			a.content like  '%' ||#{search}|| '%'	 OR
+			a.sender like  '%' ||#{search}|| '%'	 OR
+			b.userid like  '%' ||#{search}|| '%'
+		)
+		</if>
+	</select>
+
+	
+	<select id="getRcvList" resultType="join.vo.MsgVO" parameterType="map">
+	SELECT * FROM (
+    SELECT rownum as rnum, main.* FROM (
+		select a.idx, a.title, a.sender, a.content, a.send_date, to_char( a.send_date ,'YYYY-MM-DD HH24:MI:SS' ) send_date_str,
+				b.userid, b.status, b.read_date, to_char( b.read_date ,'YYYY-MM-DD HH24:MI:SS' ) read_date_str
+		from T_MESSAGE a , T_MESSAGE_RECEIVE b
+		where b.userid = #{userid}
+		and a.idx = b.m_idx
+		and b.status != '2'
+		<if test="search != ''">
+		and (a.title like  '%' ||#{search}|| '%'  OR 
+			a.content like  '%' ||#{search}|| '%'	 OR
+			a.sender like  '%' ||#{search}|| '%'	 OR
+			b.userid like  '%' ||#{search}|| '%'
+		)
+		</if>
+		order by a.send_date desc
+		) main
+		) WHERE rnum BETWEEN #{begin} AND #{end}
+	</select>
+	
+	
+	<select id="totalSendList" resultType="int" parameterType="map">
+		select count(1)
+	        from t_message a
+	        where a.sender = #{userid}
+	        <if test="search != ''">
+			and (a.title like  '%' ||#{search}|| '%'  OR 
+				a.content like  '%' ||#{search}|| '%'	 OR
+				a.sender like  '%' ||#{search}|| '%'
+			)
+			</if>
+	</select>
+	<select id="getSendList" resultType="join.vo.MsgVO" parameterType="map">
+	SELECT * FROM (
+    SELECT rownum as rnum, main.* FROM (
+		select a.idx, a.title, a.sender, a.content, a.send_date, a.rcv, a.rcv_cnt, to_char( a.send_date ,'YYYY-MM-DD HH24:MI:SS' ) send_date_str
+        from t_message a
+        where a.sender = #{userid}
+        <if test="search != ''">
+		and (a.title like  '%' ||#{search}|| '%'  OR 
+			a.content like  '%' ||#{search}|| '%'	 OR
+			a.sender like  '%' ||#{search}|| '%'
+		)
+		</if>
+		order by a.send_date desc
+		) main
+		) WHERE rnum BETWEEN #{begin} AND #{end}
+	</select>
+	<select id="getMsg" resultType="join.vo.MsgVO" parameterType="map">
+		select a.idx, a.title, a.sender, a.content, a.send_date, to_char( a.send_date ,'YYYY-MM-DD HH24:MI:SS' ) send_date_str,
+				b.userid, b.status, b.read_date, to_char( b.read_date ,'YYYY-MM-DD HH24:MI:SS' ) read_date_str
+		from T_MESSAGE a , T_MESSAGE_RECEIVE b
+		where a.idx = #{idx}
+		<if test="type == 'RCV'">
+		and b.userid = #{userid}
+		</if>
+		<if test="type == 'SEND'">
+		and a.sender = #{userid}
+		</if>
+		and a.idx = b.m_idx
+	</select>
+	
+	<update id="sendDateUpdate" parameterType="map" >
+		update t_message_receive set read_date = sysdate
+		where m_idx = #{idx}
+		and userid = #{userid}
+		and read_date is null
+	</update>
+		
+	<delete id="deleteRcv" parameterType="map">
+		update t_message_receive set status='2' 
+		where m_idx = #{idx}
+		and userid = #{userid}
+	</delete>
+	
+	<insert id="insert" parameterType="map">
+		INSERT INTO T_MESSAGE (
+		    IDX,
+		    TITLE,
+		    CONTENT,
+		    SENDER,
+		    STATUS,
+		    SEND_DATE,
+		    RCV,RCV_CNT
+		    )
+		VALUES (
+			#{idx},
+			#{title},
+			#{content},
+			#{sender},
+			#{status},
+			sysdate,
+			#{rcv}, #{rcv_cnt}
+		)
+	</insert>
+	<insert id="insertRcv" parameterType="map">
+		<if test="list.size != 0">
+		INSERT ALL
+			<foreach collection="list" item="vo" >
+			INTO T_MESSAGE_RECEIVE (IDX, M_IDX, USERID, SENDER, STATUS)
+			VALUES (#{vo.idx}, #{vo.m_idx}, #{vo.userid}, #{vo.sender}, #{vo.status})
+			</foreach>
+		SELECT * FROM DUAL
+		</if>
+	</insert>
+	<select id="getRcvMsgCount" parameterType="String" resultType="int">
+		select count(1) 
+		from t_message_receive
+		where userid = #{userid}
+		and read_date is null
+	</select>
+
+</mapper>  
+
+
+
+
+

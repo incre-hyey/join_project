@@ -1,3 +1,5 @@
+
+
 package join.service;
 
 import java.util.HashMap;
@@ -19,14 +21,20 @@ public class PlanService {
 	@Autowired
 	PlanDAO planDao;	
 	
-	public PlanVO[] getList(String useridx){	// join.plan을 눌렀을때 		
-		//System.out.println(planDao.getList());
-		return planDao.getList(useridx);		
+	public PlanVO[] getList(String useridx, int paging, int listPerPage, String search ){	// join.plan을 눌렀을때 	
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();	
+		
+		map.put("useridx", useridx);
+		map.put("begin", (paging-1) * listPerPage +1);
+		map.put("end", paging * listPerPage);	
+		map.put("search", search);
+		
+		return planDao.getList(map);		
 	}
 	
 	public void addPlan(PlanVO pvo){
-		// '저장'을 눌렀을때
-		//System.out.println(pvo.getTitle());
+		// '저장'을 눌렀을때		
 		planDao.savePlan(pvo);			
 	}	
 	
@@ -49,15 +57,21 @@ public class PlanService {
 		
 		return planDao.editPlan(map);
 	}
-	
+	//수정
 	public int editOK(PlanVO pvo){
 		
 		return planDao.editOK(pvo);
 	}
-	
+	// 삭제
 	public int delete(PlanVO pvo){
-		System.out.println("서비쓰~");
+		
 		return planDao.delete(pvo);
 	}
-	
+	//검색
+	public int getTotalPlan(String search){
+		Map map = new HashMap<String, String>();
+		
+		map.put("search", search);
+		return planDao.getTotalPlan(map);
+	}
 }

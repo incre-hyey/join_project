@@ -1,5 +1,6 @@
 package join.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import join.vo.PlanVO;
 
 public class PlanDAO {
 
+	
 	@Autowired
 	private SqlSessionTemplate template;
 	
@@ -19,9 +21,9 @@ public class PlanDAO {
 	}
 
 	// join.plan을 클릭했을때, list
-	public PlanVO[] getList(String useridx){		
+	public PlanVO[] getList(Map map){		
 		
-		List<PlanVO> list = template.selectList("plan.planList",useridx);		
+		List<PlanVO> list = template.selectList("plan.planList",map);		
 		PlanVO[] ar = null;
 		if(list != null && list.size() >0 ){
 			ar = new PlanVO[list.size()];
@@ -68,6 +70,11 @@ public class PlanDAO {
 	public int delete(PlanVO pvo){
 		
 		return template.update("plan.delete", pvo);
+	}
+	
+	// 검색
+	public int getTotalPlan(Map map){
+		return template.selectOne("plan.getTotalPlan", map);
 	}
 }
 

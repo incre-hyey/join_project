@@ -41,8 +41,10 @@ public class PlanVO {
 	private List<UserVO> u_list;//참여 인원
 	
 	public String getPeople(){
+		
 		if(this.userStat == null)
 			this.userStat = "2";
+		
 		String str= "";
 		switch(this.userStat){
 		case "0":

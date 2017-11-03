@@ -25,6 +25,7 @@
 		
 			<form action="${pageContext.request.contextPath}/plan_write" enctype="multipart/form-data" method="post">
 				<input type="hidden" name="writer_idx" value="${userVO.idx }" />
+				<input type="hidden" name="paging" value="${paging }" />
 				<label>작성자 :</label><input type="text" name="writer" value="${userVO.getNickname() }" readonly><br/>
 				<label>비밀번호 :</label><input type="password" name="p_pwd" id="p_pwd"><br/>
 				<label>PLAN 종류 :</label>
@@ -155,6 +156,9 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=98dcf6562abb2a0c21f2baa8d0666439&libraries=services"></script>
 <script>
+	$(function(){
+		$("#pageDIV").html("${pagingHtml }");
+	});
 
     function execDaumPostcode() {
         new daum.Postcode({

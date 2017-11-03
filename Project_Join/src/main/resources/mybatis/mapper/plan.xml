@@ -10,24 +10,56 @@
 		<id property="idx" column="idx"/>		
 		<collection property="u_list" column="idx" ofType="join.vo.UserVO" select="getPeople"/>
 	</resultMap>
+	
+	<!-- 총 게시물의 수 -->
+	<select id="getTotalPlan" resultType="int" parameterType="map">
+			select count(1)
+			from t_plan a
+			where a.status = '1'
+			<if test="search != ''">
+				and (writer like  '%' ||#{search}|| '%'  OR
+					title like  '%' ||#{search}|| '%'  OR 
+					content like  '%' ||#{search}|| '%'	 OR
+					location1 like  '%' ||#{search}|| '%'	 OR
+					location2 like  '%' ||#{search}|| '%'
+				)
+			</if>			
+	</select>
 
 
 	<!-- join.plan을 눌렀을때 게시판 리스트 나열(t_plan_req테이블 status에 1값주기) -->
-	<select id="planList" resultMap="planListMap" parameterType="String">
-		select a.*, (SELECT status FROM t_plan_people WHERE useridx = #{useridx} and plan_idx = a.idx) userStat
-		from t_plan a
-		where a.status = 1
-		order by a.reg_date DESC
+	<select id="planList" resultMap="planListMap" parameterType="map">
+		SELECT * from (
+   	    SELECT rownum as rnum, main.* FROM (
+			select idx,writer_idx,
+			to_char(start_date,'YYYY-MM-DD') start_date, to_char(end_date,'YYYY-MM-DD') end_date, title,
+			location1, location2, content, writer, file_id, latitude, longitude, tnop, plan_kind, reg_date, (SELECT status FROM t_plan_people WHERE useridx = #{useridx} and plan_idx = a.idx) userStat
+			from t_plan a
+			where a.status = '1'
+			<if test="search != ''">
+				and (writer like  '%' ||#{search}|| '%'  OR
+					title like  '%' ||#{search}|| '%'  OR 
+					content like  '%' ||#{search}|| '%'	 OR
+					location1 like  '%' ||#{search}|| '%'	 OR
+					location2 like  '%' ||#{search}|| '%'
+				)
+			</if>		
+			order by a.reg_date DESC			
+		) main
+		) WHERE rnum BETWEEN #{begin} AND #{end}
 	</select>
 
 
 	<!-- join.view(상세보기)를 클릭했을때 -->
 	<select id="getView" resultMap="planListMap" parameterType="map">
-		<![CDATA[select a.*, case when sysdate-1  < end_date then 'Y'
-			         else 'N' end 
-			        as exp_yn, (SELECT status FROM t_plan_people WHERE useridx = #{useridx} and plan_idx = a.idx) userStat 
-		from t_plan a
-		where a.idx = #{idx} and a.status = 1]]>
+		select idx,writer_idx,
+						to_char(start_date,'YYYY-MM-DD') start_date, to_char(end_date,'YYYY-MM-DD') end_date, title,
+						location1, location2, content, writer, file_id, latitude, longitude, tnop, plan_kind, reg_date,
+				 case when sysdate-1 <![CDATA[<]]> end_date then 'Y'
+			        	 else 'N' end 
+			        as exp_yn, (SELECT status FROM t_plan_people WHERE useridx = #{useridx} and plan_idx = #{idx}) userStat 
+				from t_plan 
+				where idx = #{idx} and status = 1 
 	</select>
 
 	<!-- join.plan_write에서 plan쓰기를 저장 했을때 -->
@@ -46,7 +78,7 @@
 	<select id="editPlan" parameterType="join.vo.PlanVO" resultType="join.vo.PlanVO">
 		select idx,writer_idx,
 			to_char(start_date,'YYYY-MM-DD') start_date, to_char(end_date,'YYYY-MM-DD') end_date, title,
-			location1, location2, content, writer, file_id, latitude, longitude, tnop, plan_kind		
+			location1, location2, content, writer, file_id, latitude, longitude, tnop, plan_kind, reg_date	
 		 from t_plan 
 		where idx = #{idx} and writer_idx = #{writer_idx} and p_pwd = #{p_pwd}
 	</select> 
