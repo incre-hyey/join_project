@@ -66,6 +66,9 @@ a#MOVE_TOP_BTN {
 	function myPlanMenu(menu){
 		location.href= webContext+menu
 	}
+	function reqView(idx){
+		location.href= webContext+"/plan_view?idx="+idx+"&paging=1";
+	}
 </script>
 <form name="viewForm">
 	<input type="hidden" name="idx" />
@@ -105,7 +108,7 @@ a#MOVE_TOP_BTN {
 					<c:set var="p_status" value="${vo.P_STATUS }" />
 					<tr>
 						<td class='text-center'>${s.index + 1 }</td>
-						<td class='text-center'><a href="#" onclick="reqView(this)"><b>${vo.TITLE }</b></a></td>
+						<td class='text-center'><a href="#" onclick="reqView('${vo.IDX}')"><b>${vo.TITLE }</b></a></td>
 						<td class='text-center'>${vo.START_DATE }~ ${vo.END_DATE }</td>
 						<td class='text-center'>${vo.PLAN_KIND }</td>
 <%-- 						<td class='text-center'>${vo.STATUS }</td> --%>

@@ -2,6 +2,7 @@ package join.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.sql.Timestamp;
@@ -36,6 +37,7 @@ import join.service.PlanService;
 import join.service.UserService;
 import join.service.UtilService;
 import join.vo.FileVO;
+import join.vo.MsgVO;
 import join.vo.PlanVO;
 import join.vo.UserVO;
 
@@ -58,16 +60,29 @@ public class PlanControl{
 	@RequestMapping("/plan")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){		
 		
-		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");	
-		// 유저정보 가져오기
+		String useridx = "";
+		if(request.getSession().getAttribute("USER") != null) {
+			UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+			useridx = userVO.getIdx();
+		}
+		String search = UtilService.getValue(request.getParameter("search"), "");
+		String paging = UtilService.getValue(request.getParameter("paging"), "1"); 	
+		String pagingHtml = "";
 		
-		//DAO 로직
-		PlanVO[] ar = planservice.getList(userVO.getIdx());		 
+		int total = planservice.getTotalPlan(search);
+		
+		PlanVO[] ar = planservice.getList(useridx, Integer.parseInt(paging), 5, search);		
+		if(paging != "")
+			pagingHtml = UtilService.pagingHTML(total, Integer.parseInt(paging), 10, 5);
+		
 		ModelAndView mv = new ModelAndView();		
 		
 		mv.addObject("list", ar);		
-		mv.addObject("userVO",userVO);		
-		mv.setViewName("plan/plan");//뷰 지정		
+		mv.addObject("search", search);
+		mv.addObject("userVO",useridx);		
+		mv.setViewName("plan/plan");//뷰 지정
+		mv.addObject("pagingHtml" , pagingHtml);
+		mv.addObject("paging" , paging);
 		
 		return mv;
 	}
@@ -80,7 +95,7 @@ public class PlanControl{
 		//DAO 로직				
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
 		String nickName = userVO.getNickname();	
-		//System.out.println(nickName);
+		
 	
 		ModelAndView mv = new ModelAndView();	
 		mv.addObject("userVO", userVO);
@@ -94,24 +109,19 @@ public class PlanControl{
 	public ModelAndView write_ok(HttpServletRequest request, @ModelAttribute PlanVO planVO) throws ParseException{	
 		//'글쓰기'화면에서 '저장'을 눌렀을때 오는 화면		
 		
-		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");	
-		//System.out.println(userVO.getFile_id());
-		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
-		
-		//System.out.println(planVO.getTitle());	
+		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");		
+		FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");		
+
 		
 		planVO.setWriter_idx(planVO.getWriter_idx());
 		if(fileVO != null)
 			planVO.setFile_id(fileVO.getIdx());	// 파일의 id가져옴		
 
 		planVO.setIdx(UtilService.makeKey()); //plan_idx키 발생
-		planVO.setStatus("1");
-		
-		
+		planVO.setStatus("1");		
 		
 		// '일정' 구하기
-		String stringEnd  = request.getParameter("enddate");		
-		//String finaldate = stringEnd;
+		String stringEnd  = request.getParameter("enddate");	
 		
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat fmt1 = new SimpleDateFormat("yyyy/MM/dd");
@@ -119,13 +129,13 @@ public class PlanControl{
 		Date date = null;
 			try{
 			date = fmt.parse(stringEnd);
-		//System.out.println("========>"+date);
+	
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		String d_date = fmt1.format(date);
 		planVO.setEnd_date(d_date);	
-		System.out.println(d_date);
+	
 		
 		//DAO 로직
 		planservice.addPlan(planVO);	
@@ -141,18 +151,23 @@ public class PlanControl{
 	@RequestMapping("/plan_view")
 	public ModelAndView view(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){	
 		
-		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
-		//System.out.println(userVO.getNickname());
+		String useridx = "";
+		if(request.getSession().getAttribute("USER") != null) {
+			UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
+			useridx = userVO.getIdx();
+		}
 		
-		//DAO 로직		
+		String paging = request.getParameter("paging");		
 		String idx = request.getParameter("idx");
-		PlanVO pvo = planservice.viewPlan(idx, userVO.getIdx());				
+		PlanVO pvo = planservice.viewPlan(idx, useridx);				
 		
-		ModelAndView mv = new ModelAndView();	
+		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("vo", pvo);
-		mv.addObject("userVO", userVO );		
-		mv.setViewName("plan/plan_view");//뷰 지정			
+		mv.addObject("paging", paging);
+		mv.addObject("userVO", useridx );		
+		mv.setViewName("plan/plan_view");//뷰 지정		
+		
 		return mv;
 	}
 	
@@ -162,23 +177,22 @@ public class PlanControl{
 		
 		Map<String, String> map = new HashMap<String, String>();
 		UserVO userVO = (UserVO)request.getSession().getAttribute("USER");
-		String u_idx = userVO.getIdx();
-				System.out.println(u_idx+"poepleeeeeeeee");
-		String plan_idx = request.getParameter("idx");
-				System.out.println(plan_idx+"선택된 plan idx 값/////");
+		
+		String u_idx = userVO.getIdx();				
+		String plan_idx = request.getParameter("idx");				
 		String status = "0";
-		//String idx = UtilService.makeKey();
+		String paging = request.getParameter("paging");		
 
 		map.put("u_idx",u_idx);
 		map.put("plan_idx", plan_idx);
-		map.put("status",status);
-		//map.put(idx, "idx");
+		map.put("status",status);		
 		
 		planservice.appPoeple(map);				
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("map", map);
 		mv.addObject("userVO", userVO);
+		mv.addObject("paging", paging);
 		mv.setViewName("redirect:/plan_view?idx="+plan_idx);	
 		
 		return mv;
@@ -192,22 +206,23 @@ public class PlanControl{
 		String writer_idx =userVO.getIdx();
 		String idx = request.getParameter("idx");
 		String p_pwd = request.getParameter("p_pwd");
-		System.out.println(p_pwd + "/"+idx+"수정하기를 눌렀을때 들어오는 값");		
+		String paging = request.getParameter("paging");			
 		
 		Map<String, String> map = new HashMap<String, String>();
+		
 		map.put("writer_idx", writer_idx);
 		map.put("idx", idx);
 		map.put("p_pwd", p_pwd);
 
 		
-		PlanVO planvo = planservice.editPlan(map);
-		System.out.println(planvo.getTitle());
-		// 파일 이름 꺼내오기
-		String  file_id = planvo.getFile_id();
-		
+		PlanVO planvo = planservice.editPlan(map);		
+		String  file_id = "";
+		if(planvo.getFile_id() != null)
+			file_id = planvo.getFile_id();		
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("vo", planvo);
+		mv.addObject("paging", paging);
 		mv.addObject("file_id", file_id);
 		mv.setViewName("plan/plan_Edit");
 		
@@ -220,7 +235,7 @@ public class PlanControl{
 			
 			// 파일을 업로드 했는지 확인하기
 			String isFileChg = request.getParameter("isFileChg");
-			System.out.println(planVO.getIdx());
+			String paging = request.getParameter("paging");		
 			if(isFileChg.equals("Y")){				
 				//fileVO
 				FileVO fileVO = fileService.uploadFile(planVO.getUpload(),"PLAN");
@@ -260,7 +275,8 @@ public class PlanControl{
 			
 			if(cnt == 0)
 				cnt = 1;
-			mv.setViewName("redirect:/plan");
+			mv.addObject("paging", paging);
+			mv.setViewName("redirect:/plan");			
 					
 			return mv;
 		}
@@ -269,16 +285,12 @@ public class PlanControl{
 		@RequestMapping(value="/delete", method=RequestMethod.POST)
 		public ModelAndView delete(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
 			
-			
-			System.out.println("어서와~!! 컨트롤로 온걸 환영해");
-			String writer_idx = request.getParameter("userIdx"); 
-			
-			planVO.setWriter_idx(writer_idx);
-			
+			String paging = request.getParameter("paging");			
 			planservice.delete(planVO);			
 			
 			ModelAndView mv = new ModelAndView();
 			
+			mv.addObject("paging", paging);
 			mv.setViewName("redirect:/plan");
 			
 			return mv;

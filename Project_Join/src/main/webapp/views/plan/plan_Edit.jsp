@@ -33,7 +33,6 @@ $(function(){
 
 function imgChange(){
 	$("#isFileChg").val('Y');
-	alert(1);
 }
 
 </script>
@@ -68,8 +67,8 @@ function imgChange(){
 				
 		<!-- 일정 datepicker -->
 			<div class="startDate">
-				<label>일정 :</label><input type="text" name="start_date" style="width:25%;" id="start_date" readonly placeholder="${vo.start_date }"/>	
-				<input type="text" name="end_date" id="end_date" style="width:25%;" readonly placeholder="${vo.end_date }"/>						
+				<label>일정 :</label><input type="text" name="start_date" style="width:25%;" id="start_date" readonly value="${vo.start_date }"/>	
+				<input type="text" name="end_date" id="end_date" style="width:25%;" readonly value="${vo.end_date }"/>						
 
 			</div><br/>	
 		<!-- 주소 검색 -->		

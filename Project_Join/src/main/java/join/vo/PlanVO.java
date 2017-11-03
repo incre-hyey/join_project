@@ -31,6 +31,9 @@ public class PlanVO {
 			String exp_yn, userStat;
 			//writer_idx
 			String writer_idx;
+			
+			//user 로그인 ID 추가 hycho ,11-03
+			String user_id;
 	
 			
 	private MultipartFile upload; //파일첨부 저장할곳
@@ -41,8 +44,10 @@ public class PlanVO {
 	private List<UserVO> u_list;//참여 인원
 	
 	public String getPeople(){
+		
 		if(this.userStat == null)
 			this.userStat = "2";
+		
 		String str= "";
 		switch(this.userStat){
 		case "0":
@@ -58,6 +63,14 @@ public class PlanVO {
 		return str;
 	}
 	
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+
 	public List<UserVO> getU_list() {
 		return u_list;
 	}

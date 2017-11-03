@@ -7,47 +7,39 @@
 <%@include file="/views/common.jsp"%>
 <div class="w3-main" style="margin-left: 300px">
 <%@include file="../header.jsp"%>
-<style type="text/css">
-#del_Win{
-	width: 250px;
-	height: 90px;
-	padding: 20px;
-	border: 1px solid #00baee;
-	border-radius: 10px;
-	background-color: #efefef;
-	text-align: center;
-	position: absolute;
-	top: 150px;
-	left: 250px;
-	display: none;
-}
-</style> 
+
 <script type="text/javascript">
+$(function(){
+	$("#pageDIV").html("${pagingHtml }");
+});
+
 
 // 실행시 자동으로 설정
-$(".viewForm").ready(function(){
+ $(".viewForm").ready(function(){
 	var userIdx = "${sessionScope.USER.idx }";
 	var writeridx = "${vo.writer_idx}";
-	// alert(userIdx);
+	
 	 if(userIdx === writeridx){
-		// alert("aaaaaaaaaaaaa");
+		
 		 document.getElementById("planner").style.display = "block";		
 		 document.getElementById("userPlan").style.display = "none"; 
 	 }else{
 		 document.getElementById("planner").style.display = "none";
 		 document.getElementById("userPlan").style.display = "block";
 	 }
-});
+}); 
 
  //'참가신청' 
 	function appPeople(){	
  		var stat = '${vo.userStat}';
- 		// alert("신청되었습니다"); 
+ 				 
  		if(stat == '0' || stat == '1'){
  			alert("이미 신청되었습니다.");
+
  			return false;
  		} 		
- 		location.href='${pageContext.request.contextPath}/appPeople?idx=${userPwd}';
+ 		alert("신청되었습니다"); 
+ 		location.href='${pageContext.request.contextPath}/appPeople?idx=${vo.idx}';
 	}
 
 //수정하기 버튼을 클릭했을때  비밀번호 검사	
@@ -56,12 +48,12 @@ $(".viewForm").ready(function(){
 	 var userPwd = $('#userPwd').val();
 	 var p_pwd = $('#p_pwd').val();	
 	 var idx =" ${vo.idx}";
-		//alert(p_pwd);
 		
-	if(userPwd == p_pwd){
+		
+	if(userPwd != "" && userPwd == p_pwd){
 			$('#p_pwd').val(p_pwd);
 			location.href='${pageContext.request.contextPath}/planEdit?idx=${vo.idx}&p_pwd='+p_pwd;
-			alert("수정컨트롤러로 이동!");
+			
 	}else{
 			alert("비밀번호를 확인하세요");
 			$('#userPwd').val("");
@@ -70,53 +62,54 @@ $(".viewForm").ready(function(){
 		}
 		
 	}
-	// 삭제하기를 눌렀을때 
-	function del(ff){
-		//alert("dddddddddddd");
-		 var userPwd = $('#userPwd').val();
-		 var p_pwd = $('#p_pwd').val();	
-		 
-		if(userPwd == p_pwd){
-				$('#p_pwd').val(p_pwd);
-				alert("삭제 !!");
-				
-				
-		}else{
-				alert("비밀번호를 확인하세요");
-				$('#userPwd').val("");
-				$('#userPwd').focus();
-				return false;
-			}			
-		
-		ff.submit();
-		//location.href='${pageContext.request.contextPath}/delete';
-	}
 	
+	// 삭제하기를 눌렀을때 	
 	function del_form(){
-		alert("삭제 폼 발생!");
-		document.getElementById("del_Win").style.display = "block";
+		
+		
+		 var userPwd = $('#userPwd').val();
+		 var p_pwd = $('#p_pwd').val();
+		 
+		 var flag = true;
+		 
+		 if(userPwd != "" && userPwd !== p_pwd){//비번 확인) 
+			alert("비밀번호를 확인하세요");  
+		 	flag = false;		 
+		 }
+		  if(flag && confirm("삭제 하시겠습니까?")){			
+			var ff = document.forms.del_Win;
+			
+			ff.submit();
+		}
+			
 	}
-	
-	function del_cancel(){
-		document.getElementById("del_Win").style.display = "none";
+	function sendMsg(id){
+		var pop = window.open(webContext + "/messageMain?menu=WRITE&reply="+id , "pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
 	}
+
 </script>
 	<div class="w3-container w3-padding-16 w3-grey">
 	
 		<h2>PLAN 보기</h2> 
 		<div id="plan_view">
 			<div class="plan_img">
-				
-				<c:if test="${vo.file_id == null }">
+			
+				<c:set var="file_id" value="${vo.file_id}"/>		
+						
+				<c:if test="${file_id eq null}">
 					<img src="${pageContext.request.contextPath}/resources/images/default_image.png">					
 				</c:if>
-				<c:if test="${vo.file_id != null }">
+				<c:choose>
+				<c:when test="${file_id ne null }">
 					<img src="${pageContext.request.contextPath}/viewImg?fileid=${vo.file_id }&module=PLAN"  class="w3-round">
-				</c:if>
+				</c:when>
+				</c:choose>
+				
 				<div class="map" id="map"style="width:400px;height:100%;">						
 				</div>
 				<input type="hidden" id="latitude" name="latitude" value="${vo.latitude }"/>	
 				<input type="hidden" id="longitude" name="longitude" value="${vo.longitude }"/>	
+				
 			</div>
 		
 			<div class="plan_list">
@@ -128,20 +121,21 @@ $(".viewForm").ready(function(){
 					<li><strong>참여인원 : </strong>${fn:length(vo.u_list)+1}/${vo.tnop }</li>
 					<li><strong>내용 : </strong><p>${vo.content }</p></li>
 				</ul>
-					<%-- <fmt:parseDate value="${vo.start_date }" pattern="yyyy-MM-dd" var="startdate"/>									
-						<fmt:formatDate value="${startdate}" pattern="yyyy-MM-dd"/> ~
-						<fmt:parseDate value="${vo.end_date }" pattern="yyyy-MM-dd hh:mm:ss" var="enddate"/>									
-						<fmt:formatDate value="${enddate}" pattern="yyyy-MM-dd hh:mm"/> --%>
+
 				
-				<form class="viewForm">						
+				<form class="viewForm">	
+				<input type="button" name="list" onclick="JavaScript:location.href='${pageContext.request.contextPath}/plan?paging=${paging}'" value="목록보기" class="btn btn-primary"/>					
+				<input type="hidden" name="paging" value="${paging }" />
 				<!-- 일반사용자들의 상세보기 버튼 -->		
 				<div id="userPlan">
 					<input type="hidden" name="idx" value="${vo.idx }" />
-					<input type="button" name="list" onclick="JavaScript:location.href='${pageContext.request.contextPath}/plan'" value="목록보기" class="btn btn-primary"/>
-					<!-- <input type="button" name="profile" value="프로필보기" class="btn btn-primary"> -->
-					<input type="button" name="talk" value="대화신청" class="btn btn-success"/>
-					<input type="button" name="msg" value="쪽지" class="btn btn-warning"/>
-					<input type="button" onclick="appPeople()" class="btn btn-info" value="참가신청"/>
+
+					<input type="button" name="msg" value="쪽지" class="btn btn-warning" onclick="sendMsg('${vo.user_id }')"/>
+				
+					<c:if test="${sessionScope.USER != null }">
+						<input type="button" onclick="appPeople()" class="btn btn-info" value="참가신청"/>
+					</c:if>
+					
 				</div>				
 				<!-- 플랜작성자의 상세보기 버튼 -->
 				<div id="planner">
@@ -154,14 +148,11 @@ $(".viewForm").ready(function(){
 			</form>
 		</div>
 <!-- 삭제버튼을 눌렀을때 나타나는 div -->
-<div id="del_Win">
-	<form action="${pageContext.request.contextPath}/delete" method="post">		
-		<input type="hidden" id="userIdx" name="userIdx" value="${sessionScope.USER.idx }"/>
-		<input type="hidden" id="idx" name="idx" value="${vo.idx }"/>
-	<%-- 	<input type="hidden" id="writer_idx" name="writer_idx" value="${vo.writer_idx }">	 --%>	
-		<p>정말로 삭제 하시겠습니까?</p>
-		<input type="submit" value="삭제" onclick="del(this.form)"/>
-		<input type="button" id="cancel" value="취소" onclick="del_cancel()"/>		
+<div >
+	<form id="del_Win" action="${pageContext .request.contextPath}/delete" method="post">	
+		
+		<input type="hidden" id="writer_idx" name="writer_idx" value="${sessionScope.USER.idx }"/>
+		<input type="hidden" id="idx" name="idx" value="${vo.idx }"/>	
 	</form>
 </div>
 	</div>
@@ -177,16 +168,10 @@ $(".viewForm").ready(function(){
 <script>
 	var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 	var latitude  = document.getElementById('latitude').value;
-	var longitude  = document.getElementById('longitude').value;
-	
-	//alert(latitude+","+longitude);
-
+	var longitude  = document.getElementById('longitude').value;	
 	
 	console.log(latitude+longitude);
-	// 숫자로 변환
-/* 	 longitude = Number(longitude);
-	 latitude = Number(latitude); */
-	
+		
 	var mapOption = { 
 	        center: new daum.maps.LatLng(latitude, longitude), // 지도의 중심좌표
 	        level: 3 // 지도의 확대 레벨
@@ -215,4 +200,3 @@ $(".viewForm").ready(function(){
 //	    marker.setPosition(latlng); 
 
 </script>
-
