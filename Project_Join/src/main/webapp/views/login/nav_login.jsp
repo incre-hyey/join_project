@@ -69,6 +69,7 @@ $(function (){
 		</a>
 		<h1>
 			<a href="${pageContext.request.contextPath}/index">JOIN</a>
+<%-- 			<img src="${pageContext.request.contextPath}/resources/images/join_logo.jpg"/> --%>
 		</h1>
 	</div>
 	<div class="w3-bar-block">

@@ -4,10 +4,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%> 
 <%
-	String paging = (String)request.getAttribute("paging");
+// 	String paging = (String)request.getAttribute("paging");
+	String paging = "1";
 	String type = (String)request.getAttribute("type"); // filter값 : 1-All, 2-Woman, 3-Man , 4-Like
 	String scroll = (String)request.getAttribute("scroll");
-	//int endPage = Integer.parseInt(paging) * 9;
+// 	int endPage = Integer.parseInt(paging) * 9;
 %>
 <%@include file="/views/common.jsp"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
@@ -44,7 +45,7 @@ a#MOVE_TOP_BTN {
 	      var page = Number(f.paging.value); // 맨처음 : 1
 	      var row = $("#profileDIV > div");
 	      var obj = null;
-	      for(var i = 1;i<4;i++){
+	      for(var i = 0;i<3;i++){
 	    	obj = $(row[(3*page)+i]);
 	      	//obj = $(row[(3*page)+i]).children();
 	      	obj.children().css("display","");
@@ -159,8 +160,8 @@ a#MOVE_TOP_BTN {
 					</div>
 				</c:if>
 				<c:if test="${s.index eq (endPage-1) && endPage < list.size() }">
-				<c:set var="divView" value="display:none" />
-				<button type="button" onclick="moreView(this)">more</button>
+					<c:set var="divView" value="display:none" />
+					<button type="button" onclick="moreView(this)">more</button>
 				</c:if>
 				<a id="MOVE_TOP_BTN" href="#"><button type="button" style="background-color: pink">TOP</button></a>
 			</c:forEach>
