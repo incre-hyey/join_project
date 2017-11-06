@@ -51,6 +51,7 @@ public class ChatControl{
 		mv.addObject("page",page);
 		mv.addObject("category",category);
 		mv.addObject("search",search);
+		mv.addObject("m_m","TALK");
 		mv.setViewName("chat/chatList");//뷰 지정
 
 		return mv;
@@ -98,6 +99,7 @@ public class ChatControl{
 		mv.addObject("in_end",in_end);
 		mv.addObject("out_start",out_start);
 		mv.addObject("out_end",out_end);
+		mv.addObject("m_m","TALK");
 		mv.setViewName("chat/chatHistory");//뷰 지정
 
 		return mv;

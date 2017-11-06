@@ -74,6 +74,7 @@ public class MsgControl{
 		}
 		mv.setViewName("msg/messageBtn");
 		mv.addObject("menu", menu);
+		mv.addObject("m_m","LOG");
 		return mv;
 	}
 	

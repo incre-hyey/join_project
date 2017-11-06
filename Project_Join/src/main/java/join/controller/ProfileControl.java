@@ -48,7 +48,7 @@ public class ProfileControl {
 		mv.addObject("MENU" , "US");
 		mv.addObject("paging", UtilService.getValue((String)request.getParameter("paging"),"1"));
 		mv.addObject("type", type);
-		
+		mv.addObject("m_m","PROFILE");
 		return mv;
 	}
 	

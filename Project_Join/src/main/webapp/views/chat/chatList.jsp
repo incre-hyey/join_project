@@ -9,7 +9,7 @@
 		<h2>DIALOG</h2>
 		<div id="plan_m">
 			
-			<c:import url="http://localhost:3000/room/roomList" charEncoding="utf-8">
+			<c:import url="http://192.168.0.27:3000/room/roomList" charEncoding="utf-8">
 				<c:param name="userVO">${sessionScope.USER.getJsonStr() }</c:param>
 				<c:param name="userid">${sessionScope.USER.id }</c:param>
 				<c:param name="page">${page }</c:param>

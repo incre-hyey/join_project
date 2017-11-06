@@ -72,7 +72,7 @@
 	<li>
 						<p class="title">
 						<strong>${vo.title }</strong></p>
-						<p class="content">
+						<p class="">
 							<a onclick="view('${vo.idx}');">${vo.content }</a>
 						</p>
 	</li>

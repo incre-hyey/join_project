@@ -126,7 +126,7 @@ public class UserControl {
 		//DAO 로직
 		List<HashMap> list = userService.getMyPlan(userVO.getIdx());	
 		request.setAttribute("list", list);
-		
+		request.setAttribute("m_m","LOG");		
 		return "user/myPlan";
 	}
 	
@@ -169,7 +169,7 @@ public class UserControl {
 		map.put("idx", idx);
 		UserVO userVO = userService.getUser(map);
 		request.setAttribute("userVO", userVO);
-		
+		request.setAttribute("m_m","LOG");
 		return "user/userView";
 	}
 	/**
@@ -188,7 +188,7 @@ public class UserControl {
 		//DAO 로직
 		List<HashMap> list = userService.getMyReq(userVO.getIdx());	
 		request.setAttribute("list", list);
-		
+		request.setAttribute("m_m","LOG");
 		return "user/myReq";
 	}
 	@RequestMapping("/myReqCancelAjax")

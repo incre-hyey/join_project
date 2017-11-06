@@ -10,7 +10,7 @@
 		<div id="plan_m">
 <%-- 			<jsp:include page="/roomList" flush="false" /> --%>
 
-			<c:import url="http://localhost:3000/chat/history" charEncoding="utf-8">
+			<c:import url="http://192.168.0.27:3000/chat/history" charEncoding="utf-8">
 <%-- 				<c:param name="useridx">${sessionScope.userVO.idx }</c:param> --%>
 				<c:param name="userVO">${sessionScope.USER.getJsonStr() }</c:param>
 				<c:param name="userid">${sessionScope.USER.id }</c:param>

@@ -84,6 +84,7 @@ public class PlanControl{
 		mv.addObject("pagingHtml" , pagingHtml);
 		mv.addObject("paging" , paging);
 		
+		mv.addObject("m_m","PLAN");
 		return mv;
 	}
 	
@@ -99,6 +100,7 @@ public class PlanControl{
 	
 		ModelAndView mv = new ModelAndView();	
 		mv.addObject("userVO", userVO);
+		mv.addObject("m_m","PLAN");
 		mv.setViewName("plan/plan_write");//뷰 지정
 		
 		return mv;			
@@ -141,7 +143,8 @@ public class PlanControl{
 		planservice.addPlan(planVO);	
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("userVO", userVO);		
+		mv.addObject("userVO", userVO);	
+		mv.addObject("m_m","PLAN");
 		mv.setViewName("redirect:/plan");//뷰 지정	
 		 
 		return mv;
@@ -165,7 +168,8 @@ public class PlanControl{
 		
 		mv.addObject("vo", pvo);
 		mv.addObject("paging", paging);
-		mv.addObject("userVO", useridx );		
+		mv.addObject("userVO", useridx );
+		mv.addObject("m_m","PLAN");
 		mv.setViewName("plan/plan_view");//뷰 지정		
 		
 		return mv;
@@ -193,6 +197,7 @@ public class PlanControl{
 		mv.addObject("map", map);
 		mv.addObject("userVO", userVO);
 		mv.addObject("paging", paging);
+		mv.addObject("m_m","PLAN");
 		mv.setViewName("redirect:/plan_view?idx="+plan_idx);	
 		
 		return mv;
@@ -224,14 +229,15 @@ public class PlanControl{
 		mv.addObject("vo", planvo);
 		mv.addObject("paging", paging);
 		mv.addObject("file_id", file_id);
+		mv.addObject("m_m","PLAN");
 		mv.setViewName("plan/plan_Edit");
 		
 		return mv;
 	}
 	
 	// '수정하기' 저장 버튼을 눌렀을때 
-		@RequestMapping(value="/edit_OK", method=RequestMethod.POST)
-		public ModelAndView edit_OK(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
+	@RequestMapping(value="/edit_OK", method=RequestMethod.POST)
+	public ModelAndView edit_OK(HttpServletRequest request, HttpServletResponse response, @ModelAttribute PlanVO planVO){
 			
 			// 파일을 업로드 했는지 확인하기
 			String isFileChg = request.getParameter("isFileChg");
@@ -276,6 +282,7 @@ public class PlanControl{
 			if(cnt == 0)
 				cnt = 1;
 			mv.addObject("paging", paging);
+			mv.addObject("m_m","PLAN");
 			mv.setViewName("redirect:/plan");			
 					
 			return mv;
@@ -291,6 +298,7 @@ public class PlanControl{
 			ModelAndView mv = new ModelAndView();
 			
 			mv.addObject("paging", paging);
+			mv.addObject("m_m","PLAN");
 			mv.setViewName("redirect:/plan");
 			
 			return mv;
